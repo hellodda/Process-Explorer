@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Process-Explorer.GUI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Process-Explorer.GUI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
