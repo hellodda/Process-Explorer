@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using Process_Explorer.BLL;
 
 namespace Process_Explorer.GUI
 {
@@ -7,6 +8,7 @@ namespace Process_Explorer.GUI
         public MainWindow()
         {
             InitializeComponent();
+            Tester.GetInfo();
         }
     }
 }

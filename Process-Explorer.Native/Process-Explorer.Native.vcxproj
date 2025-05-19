@@ -125,6 +125,7 @@
     <ClInclude Include="Handle.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Process.h" />
+    <ClInclude Include="ProcessInformation.h" />
     <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
@@ -138,6 +139,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Process.cpp" />
+    <ClCompile Include="ProcessInformation.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
   </ItemGroup>
   <ItemGroup>

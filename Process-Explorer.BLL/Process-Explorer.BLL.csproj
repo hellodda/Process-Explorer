@@ -11,4 +11,8 @@
     <ProjectReference Include="..\Process-Explorer.Native\Process-Explorer.Native.vcxproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Core\" />
+  </ItemGroup>
+
 </Project>
