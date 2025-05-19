@@ -13,7 +13,7 @@ namespace Native
 		Handle();
 		Handle(HANDLE handle);
 		Handle(Handle^ other);
-		Handle(Handle%% other);
+		Handle(Handle^% other);
 
 		Handle^ operator=(Handle^ other);
 		Handle^ operator=(Handle^% other);

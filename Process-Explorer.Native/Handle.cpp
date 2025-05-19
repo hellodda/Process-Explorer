@@ -4,7 +4,7 @@
 Native::Handle::Handle() : m_handle(INVALID_HANDLE_VALUE) {}
 Native::Handle::Handle(HANDLE handle) : m_handle(handle) {}
 Native::Handle::Handle(Handle^ other) : m_handle(other->Duplicate()) {}
-Native::Handle::Handle(Handle%% other) : m_handle(other.Detach()) {}
+Native::Handle::Handle(Handle^% other) : m_handle(other->Detach()) {}
 
 Native::Handle^ Native::Handle::operator=(Handle^ other)
 {
