@@ -5,7 +5,9 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:uap18="http://schemas.microsoft.com/appx/manifest/uap/windows10/18"
+  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
+  IgnorableNamespaces="uap rescap uap18 iot">
 
   <Identity
     Name="b300651a-eadd-45f7-b752-42c42e5ee504"
@@ -15,8 +17,8 @@
   <mp:PhoneIdentity PhoneProductId="b300651a-eadd-45f7-b752-42c42e5ee504" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>Process-Explorer.GUI</DisplayName>
-    <PublisherDisplayName>user</PublisherDisplayName>
+    <DisplayName>Process Explorer</DisplayName>
+    <PublisherDisplayName>Helloda</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,20 +34,24 @@
   <Applications>
     <Application Id="App"
       Executable="$targetnametoken$.exe"
-      EntryPoint="$targetentrypoint$">
+      EntryPoint="$targetentrypoint$" uap18:RuntimeBehavior="win32App">
       <uap:VisualElements
-        DisplayName="Process-Explorer.GUI"
-        Description="Process-Explorer.GUI"
+        DisplayName="Process Explorer"
+        Description="shows information about processes"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"  Square71x71Logo="Assets\Square71x71Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
 
   <Capabilities>
     <rescap:Capability Name="runFullTrust" />
+    <iot:Capability Name="systemManagement"/>
+    <DeviceCapability Name="lowLevel"/>
   </Capabilities>
 </Package>
