@@ -7,7 +7,6 @@ using namespace System::Collections::Generic;
 
 IEnumerable<Native::Process^>^ Native::ProcessManager::GetActiveProcesses()  
 {  
-   
    auto processes = gcnew List<Native::Process^>();  
 
    DWORD PIDs[1024], needed;  

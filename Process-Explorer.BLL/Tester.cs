@@ -1,25 +1,29 @@
-﻿namespace Process_Explorer.BLL
+﻿using AutoMapper;
+using Process_Explorer.BLL.Core.Models;
+
+namespace Process_Explorer.BLL
 {
-    public static class Tester
+    public class Tester
     {
-       public static void GetInfo()
-       {
+       private readonly IMapper _mapper;
+
+        public Tester(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
+        public IEnumerable<ProcessInformationDTO> GetInfo()
+        {
             var list = Native.ProcessManager.GetActiveProcesses().ToList();
+            var pilist = new List<ProcessInformationDTO>();
 
             foreach (var process in list) {
 
                 var info = process?.GetProcessInformation()!;
-
-                if (info.PID != 0)
-                {
-                    Console.WriteLine($"Process ID: {info.PID}");
-                    Console.WriteLine($"Process Name: {info.Name}");
-                    Console.WriteLine($"Working Set: {info.WorkingSet}");
-                    Console.WriteLine($"Private Bytes: {info.PrivateBytes}");
-                    Console.WriteLine($"Company: {info.Company}");
-                    Console.WriteLine($"Description: {info.Description}");
-                }
+           
+                pilist.Add(_mapper.Map<ProcessInformationDTO>(info));
             }
+            return pilist;
         }
     }
 }
