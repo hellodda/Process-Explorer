@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Process_Explorer.BLL.Core.Profiles;
 using Process_Explorer.BLL;
-using Process_Explorer.BLL.Core.Services;
 using Process_Explorer.GUI.ViewModels;
+using Process_Explorer.BLL.Services;
+using Process_Explorer.BLL.Profiles;
 
 namespace Process_Explorer.GUI.Extensions
 {

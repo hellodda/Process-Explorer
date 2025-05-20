@@ -1,4 +1,4 @@
-﻿namespace Process_Explorer.BLL.Core.Models
+﻿namespace Process_Explorer.BLL.Models
 {
     public class ProcessInformationDTO
     {

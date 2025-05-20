@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using Process_Explorer.GUI.Extensions;
 
@@ -19,7 +20,13 @@ namespace Process_Explorer.GUI
         { 
             var services = new ServiceCollection();
 
-            services.AddLogging();
+            services.AddLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();   
+                logging.SetMinimumLevel(LogLevel.Debug); 
+            });
+
             services.ConfigureServices();
 
             _services = services.BuildServiceProvider();

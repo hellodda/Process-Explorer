@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Native;
-using Process_Explorer.BLL.Core.Models;
+using Process_Explorer.BLL.Models;
 
-namespace Process_Explorer.BLL.Core.Profiles
+namespace Process_Explorer.BLL.Profiles
 {
     public class ProcessInforamtionProfile : Profile
     {

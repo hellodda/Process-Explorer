@@ -21,7 +21,7 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
     DWORD pid = GetProcessId(m_handle);
     info->PID = pid;
 
-    WCHAR exeName[MAX_PATH] = { 0 };
+    WCHAR exeName[MAX_PATH]{ 0 };
     if (GetProcessImageFileName(m_handle, exeName, MAX_PATH))
     {
         info->Name = gcnew System::String(PathFindFileNameW(exeName));
@@ -34,7 +34,7 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
         info->PrivateBytes = (DWORD)memCounters.PrivateUsage;
     }
 
-    WCHAR fullPath[MAX_PATH] = { 0 };
+    WCHAR fullPath[MAX_PATH]{ 0 };
     if (GetModuleFileNameEx(m_handle, nullptr, fullPath, MAX_PATH))
     {
         DWORD dummy;

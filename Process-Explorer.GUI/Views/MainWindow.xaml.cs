@@ -1,6 +1,6 @@
 using Microsoft.UI.Xaml;
 using Process_Explorer.BLL;
-using Process_Explorer.BLL.Core.Models;
+using Process_Explorer.BLL.Models;
 using Process_Explorer.GUI.ViewModels;
 using System;
 using System.Collections.ObjectModel;

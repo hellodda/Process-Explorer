@@ -1,5 +1,5 @@
-﻿using Process_Explorer.BLL.Core.Models;
-using Process_Explorer.BLL.Core.Services;
+﻿using Process_Explorer.BLL.Models;
+using Process_Explorer.BLL.Services;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;

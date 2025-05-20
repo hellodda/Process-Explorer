@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Process_Explorer.BLL.Core.Models;
+using Process_Explorer.BLL.Models;
 
 namespace Process_Explorer.BLL
 {
