@@ -10,7 +10,7 @@
     xmlns:models="using:Process_Explorer.BLL.Core.Models"
     xmlns:tv="using:WinUI.TableView"
     mc:Ignorable="d"
-    Title="Process-Explorer.GUI">
+    Title="Process Explorer 1.0.0">
 
     <Window.SystemBackdrop>
         <MicaBackdrop/>
