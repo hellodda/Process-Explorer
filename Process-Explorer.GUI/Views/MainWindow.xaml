@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="Process_Explorer.GUI.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Process_Explorer.GUI"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Process_Explorer.GUI.ViewModels"
+    xmlns:models="using:Process_Explorer.BLL.Core.Models"
+    xmlns:tv="using:WinUI.TableView"
+    mc:Ignorable="d"
+    Title="Process-Explorer.GUI">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop/>
+    </Window.SystemBackdrop>
+    
+    <Grid>
+        <tv:TableView x:Name="MyTableView"
+              ItemsSource="{x:Bind ProcessList}"
+              AutoGenerateColumns="False">
+            <tv:TableView.Columns>
+                <tv:TableViewTextColumn IsReadOnly="True" Header="PID" Binding="{Binding PID}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="PrivateUsage" Binding="{Binding PrivateUsage}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="WorkingSet" Binding="{Binding WorkingSet}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Company" Binding="{Binding Company}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Description" Binding="{Binding Description}" />
+            </tv:TableView.Columns>
+        </tv:TableView>
+    </Grid>
+</Window>

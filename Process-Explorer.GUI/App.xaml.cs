@@ -19,6 +19,7 @@ namespace Process_Explorer.GUI
         { 
             var services = new ServiceCollection();
 
+            services.AddLogging();
             services.ConfigureServices();
 
             _services = services.BuildServiceProvider();
