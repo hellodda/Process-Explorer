@@ -3,6 +3,7 @@ using Process_Explorer.BLL;
 using Process_Explorer.GUI.ViewModels;
 using Process_Explorer.BLL.Services;
 using Process_Explorer.BLL.Profiles;
+using Process_Explorer.GUI.Views;
 
 namespace Process_Explorer.GUI.Extensions
 {
@@ -12,9 +13,11 @@ namespace Process_Explorer.GUI.Extensions
         {
             services!.AddTransient<IProcessService, ProcessService>();
             services!.AddTransient<ProcessListViewModel>();
+            services!.AddTransient<MetricsViewModel>();
             services!.AddAutoMapper(typeof(ProcessInforamtionProfile));
             services!.AddTransient<Tester>();
             services!.AddSingleton<MainWindow>();
+            services!.AddSingleton<MetricsPage>();
         }
     }
 }

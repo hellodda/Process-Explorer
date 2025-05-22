@@ -21,6 +21,8 @@
     <None Remove="Assets\Square71x71Logo.scale-125.png" />
     <None Remove="Assets\Square71x71Logo.scale-150.png" />
     <None Remove="Assets\Square71x71Logo.scale-200.png" />
+    <None Remove="Views\ActionsPage.xaml" />
+    <None Remove="Views\MetricsPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +48,7 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="CSharpMarkup.WinUI.LiveChartsCore.SkiaSharpView" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.5" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.5" />
@@ -59,7 +62,14 @@
     <ProjectReference Include="..\Process-Explorer.BLL\Process-Explorer.BLL.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
+    <Page Update="Views\ActionsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\MetricsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--
