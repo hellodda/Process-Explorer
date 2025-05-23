@@ -15,19 +15,42 @@
         <TextBlock Text="Metrics" FontSize="25"/>
         <Border>
             <StackPanel Orientation="Horizontal" Spacing="20" Padding="25" HorizontalAlignment="Center">
-                <charts:CartesianChart 
+                <StackPanel Orientation="Vertical" Spacing="5">
+                    <charts:CartesianChart 
                     x:Name="Chart"
                     Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
                     XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
                     YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
                     Width="600"
                     Height="300"/>
-                <charts:CartesianChart
+                    <TextBlock Text="Private Bytes" HorizontalAlignment="Center"/>
+
+                    <ComboBox
+                        Width="100"
+                        HorizontalAlignment="Center"
+                        ItemsSource="{Binding MemoryVarsPrivateBytes}"
+                        SelectedValue="{Binding SelectedMemVarPrivateBytes.Value, Mode=TwoWay}"
+                        SelectedValuePath="Value"
+                        DisplayMemberPath="Name" />
+
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Spacing="5">
+                    <charts:CartesianChart
                     Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
                     XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
                     YAxes="{Binding WorkingSetYAxes, Mode=OneWay}" 
                     Width="600"
-                    Height="300"/>  
+                    Height="300"/>
+                    <TextBlock Text="Working Set" HorizontalAlignment="Center"/>
+
+                    <ComboBox
+                        Width="100"
+                        HorizontalAlignment="Center"
+                        ItemsSource="{Binding MemoryVarsWorkingSet}"
+                        SelectedValue="{Binding SelectedMemVarWorkingSet.Value, Mode=TwoWay}"
+                        SelectedValuePath="Value"
+                        DisplayMemberPath="Name" /> 
+                </StackPanel>
             </StackPanel>
         </Border>
     </Grid>
