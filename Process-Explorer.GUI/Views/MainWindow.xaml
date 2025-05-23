@@ -22,7 +22,14 @@
 
         <!--VPANEL-->
 
-        <NavigationView PaneDisplayMode="Top" Grid.Row="0" IsSettingsVisible="False" IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}" ItemInvoked="NavigationView_ItemInvoked" BackRequested="NavigationView_BackRequested">
+        <NavigationView
+            PaneDisplayMode="Top"
+            Grid.Row="0"
+            IsSettingsVisible="False"
+            IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
+            ItemInvoked="NavigationView_ItemInvoked"
+            BackRequested="NavigationView_BackRequested">
+
             <NavigationView.MenuItems>
                 <NavigationViewItem Content="Metrics" Tag="metrics"/>
                 <NavigationViewItem Content="Actions" Tag="actions"/>
@@ -30,6 +37,7 @@
 
             <Frame x:Name="ContentFrame"/>
         </NavigationView>
+
 
         <!--SPISOK-->
 
