@@ -107,7 +107,7 @@ public class MetricsViewModel : INotifyPropertyChanged
         return new LineSeries<double>
         {
             Values = values,
-            Stroke = new SolidColorPaint(color) { StrokeThickness = 2 },
+            Stroke = new SolidColorPaint(color) { StrokeThickness = 2},
             Fill = new SolidColorPaint(new SKColor(color.Red, color.Green, color.Blue, alpha)),
             GeometrySize = 0
         };

@@ -18,13 +18,8 @@ namespace Process_Explorer.GUI
         {
             InitializeComponent();
 
-            //----------
-            
             _viewModel = viewModel;
             _provider = provider;
-
-
-            //----------
 
             Setup();  
         }
@@ -46,8 +41,7 @@ namespace Process_Explorer.GUI
                         ContentFrame.Navigate(typeof(ActionsPage));
                         break;
                     case "metrics":
-                        var model = _provider.GetRequiredService<MetricsViewModel>();
-                        ContentFrame.Navigate(typeof(MetricsPage), model);
+                        ContentFrame.Navigate(typeof(MetricsPage), _provider.GetRequiredService<MetricsViewModel>());
                         break;
                     default:
                         break;
