@@ -43,21 +43,6 @@ namespace Process_Explorer.BLL.Services
             }
         }
 
-        public Task<int> GetActiveProcessesCountAsync()
-        {
-            _logger.LogDebug("GetActiveProcessesCountAsync called");
-            try
-            {
-                var processes = Native.ProcessManager.GetActiveProcesses().ToList();
-                var count = processes.Count(p => p?.GetProcessInformation().PID != 0);
-                _logger.LogDebug($"Count of active processes: {count}");
-                return Task.FromResult(count);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error while getting active processes count");
-                throw;
-            }
-        }
+     
     }
 }

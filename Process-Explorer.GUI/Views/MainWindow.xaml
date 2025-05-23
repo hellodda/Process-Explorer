@@ -38,7 +38,7 @@
               AutoGenerateColumns="False" Grid.Row="1">
 
             <tv:TableView.AlternateRowBackground>
-                <AcrylicBrush FallbackColor="Red" TintColor="Red" Opacity="0.2" TintOpacity="0.2"/>
+                <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.2" TintOpacity="0.2"/>
             </tv:TableView.AlternateRowBackground>
             
             <tv:TableView.Columns>

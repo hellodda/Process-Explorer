@@ -6,6 +6,11 @@ using LiveChartsCore.SkiaSharpView;
 using SkiaSharp;
 using System.ComponentModel;
 using Process_Explorer.BLL.Services;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Collections.Generic;
+
+
 
 namespace Process_Explorer.GUI.ViewModels
 {
@@ -14,18 +19,38 @@ namespace Process_Explorer.GUI.ViewModels
         private readonly IProcessService _service;
 
 
-        public ObservableCollection<ISeries> ChartSeries { get; set; }
-        public ObservableCollection<ICartesianAxis> XAxes { get; set; }
-        public ObservableCollection<ICartesianAxis> YAxes { get; set; }
+        public ObservableCollection<ISeries> PrivateBytesChartSeries { get; set; } = default!;
+        public ObservableCollection<ICartesianAxis> PrivateBytesXAxes { get; set; } = default!;
+        public ObservableCollection<ICartesianAxis> PrivateBytesYAxes { get; set; } = default!;
+
+        public ObservableCollection<ISeries> WorkingSetChartSeries { get; set; } = default!;
+        public ObservableCollection<ICartesianAxis> WorkingSetXAxes { get; set; } = default!;
+        public ObservableCollection<ICartesianAxis> WorkingSetYAxes { get; set; } = default!;
 
         public MetricsViewModel(IProcessService service)
         {
             _service = service;
-            ChartSeries = new ObservableCollection<ISeries>
+            LoadData().Wait(); 
+        }
+
+        private async Task LoadData()
+        {
+            var processes = (await _service.GetActiveProcessesAsync()).ToList();
+
+            List<double> privateUsages = new List<double>();
+            List<double> workingSets = new List<double>();
+
+            foreach (var process in processes)
+            {
+                privateUsages.Add(process.PrivateBytes / 1048576);
+                workingSets.Add(process.WorkingSet / 1048576);
+            }
+
+            PrivateBytesChartSeries = new ObservableCollection<ISeries>
             {
                 new LineSeries<double>
                 {
-                    Values = new double[] { 10, 20, 30, 40, 35 },
+                    Values = privateUsages,
                     Stroke = new SolidColorPaint(SKColors.Red) { StrokeThickness = 2 },
                     Fill = null,
                     GeometrySize = 0,
@@ -34,16 +59,39 @@ namespace Process_Explorer.GUI.ViewModels
                 }
             };
 
-            XAxes = new ObservableCollection<ICartesianAxis>
+            PrivateBytesXAxes = new ObservableCollection<ICartesianAxis>
             {
                 new Axis { }
             };
 
-            YAxes = new ObservableCollection<ICartesianAxis>
+            PrivateBytesYAxes = new ObservableCollection<ICartesianAxis>
             {
-                new Axis { MinLimit = 0, MaxLimit = 100 }
+                new Axis { }
             };
 
+
+            WorkingSetChartSeries = new ObservableCollection<ISeries>
+            {
+                new LineSeries<double>
+                {
+                    Values = workingSets,
+                    Stroke = new SolidColorPaint(SKColors.Yellow) { StrokeThickness = 2 },
+                    Fill = null,
+                    GeometrySize = 0,
+                    GeometryFill = null,
+                    GeometryStroke = null
+                }
+            };
+
+            WorkingSetXAxes = new ObservableCollection<ICartesianAxis>
+            {
+                new Axis { }
+            };
+
+            WorkingSetYAxes = new ObservableCollection<ICartesianAxis>
+            {
+                new Axis { }
+            };
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

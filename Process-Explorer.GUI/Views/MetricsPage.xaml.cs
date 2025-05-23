@@ -6,10 +6,9 @@ namespace Process_Explorer.GUI.Views
 {
     public sealed partial class MetricsPage : Page
     {
-        public MetricsPage(MetricsViewModel model)
+        public MetricsPage()
         {
             this.InitializeComponent();
-            this.DataContext = model;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

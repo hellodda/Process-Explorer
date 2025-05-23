@@ -17,15 +17,15 @@
             <StackPanel Orientation="Horizontal" Spacing="20" Padding="25" HorizontalAlignment="Center">
                 <charts:CartesianChart 
                     x:Name="Chart"
-                    Series="{Binding ChartSeries, Mode=OneWay}"
-                    XAxes="{Binding XAxes, Mode=OneWay}"
-                    YAxes="{Binding YAxes, Mode=OneWay}"
+                    Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
+                    XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
+                    YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
                     Width="600"
                     Height="300"/>
                 <charts:CartesianChart
-                    Series="{Binding ChartSeries, Mode=OneWay}"
-                    XAxes="{Binding XAxes, Mode=OneWay}"
-                    YAxes="{Binding YAxes, Mode=OneWay}" 
+                    Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
+                    XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
+                    YAxes="{Binding WorkingSetYAxes, Mode=OneWay}" 
                     Width="600"
                     Height="300"/>  
             </StackPanel>
