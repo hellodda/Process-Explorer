@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-    
+    <Grid Padding="15">
+        <TextBlock Text="Actions" FontSize="25"/>
     </Grid>
 </Page>

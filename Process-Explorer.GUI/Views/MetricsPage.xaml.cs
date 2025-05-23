@@ -9,6 +9,7 @@ namespace Process_Explorer.GUI.Views
         public MetricsPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

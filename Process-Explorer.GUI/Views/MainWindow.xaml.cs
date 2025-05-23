@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Controls;
 using Process_Explorer.GUI.ViewModels;
 using Process_Explorer.GUI.Views;
 using System;
+using Windows.Media.Audio;
 
 
 namespace Process_Explorer.GUI
@@ -53,6 +54,11 @@ namespace Process_Explorer.GUI
                 }
 
             }
+        }
+
+        private void NavigationView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            if (ContentFrame.CanGoBack) ContentFrame.GoBack();
         }
     }
 }

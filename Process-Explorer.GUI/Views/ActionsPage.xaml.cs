@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace Process_Explorer.GUI.Views
 {
@@ -7,6 +8,7 @@ namespace Process_Explorer.GUI.Views
         public ActionsPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
     }
 }
