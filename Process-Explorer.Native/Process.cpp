@@ -2,7 +2,7 @@
 #include "Process.h"
 #include "Handle.h"
 #include "ProcessInformation.h"
-
+#include "CriticalSection.h"
 
 struct LANGANDCODEPAGE {
     WORD wLanguage;
@@ -12,10 +12,13 @@ struct LANGANDCODEPAGE {
 Native::Process::Process(DWORD pid)
 {
 	m_handle = gcnew Native::Handle(OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid));
+	m_cs = gcnew Native::CriticalSection();
 }
-Native::Process::Process(Handle^ handle) : m_handle(handle) {}
+Native::Process::Process(Handle^ handle) : m_handle(handle), m_cs(gcnew Native::CriticalSection()) {}
 Native::ProcessInformation^ Native::Process::GetProcessInformation()
 {
+    m_cs->Lock();
+
     auto info = gcnew ProcessInformation();
 
     DWORD pid = GetProcessId(m_handle);
@@ -67,6 +70,9 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
 			}
         }
     }
+
+    m_cs->Unlock();
+
     return info;
 }
 
