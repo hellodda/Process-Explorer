@@ -23,7 +23,7 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
 {
     m_cs->Lock();
 
-    if (!m_handle) throw gcnew System::NullReferenceException("Process handle is null.");
+    if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
     auto info = gcnew ProcessInformation();
 
@@ -44,7 +44,7 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
 
 System::String^ Native::Process::GetProcessName()
 {
-    if (!m_handle) throw gcnew System::NullReferenceException("Process handle is null.");
+    if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
     WCHAR exeName[MAX_PATH]{ 0 };
     if (GetProcessImageFileName(m_handle, exeName, MAX_PATH))
@@ -55,7 +55,7 @@ System::String^ Native::Process::GetProcessName()
 
 System::String^ Native::Process::GetProcessDescription()
 {
-    if (!m_handle) throw gcnew System::NullReferenceException("Process handle is null.");
+    if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
     WCHAR fullPath[MAX_PATH]{ 0 };
     if (GetModuleFileNameEx(m_handle, nullptr, fullPath, MAX_PATH))
@@ -91,7 +91,7 @@ System::String^ Native::Process::GetProcessDescription()
 
 System::String^ Native::Process::GetProcessCompany()
 {
-	if (!m_handle) throw gcnew System::NullReferenceException("Process handle is null.");
+	if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
     WCHAR fullPath[MAX_PATH]{ 0 };
     if (GetModuleFileNameEx(m_handle, nullptr, fullPath, MAX_PATH))
@@ -127,7 +127,7 @@ System::String^ Native::Process::GetProcessCompany()
 
 double Native::Process::GetProcessCPUUsage()
 {
-    if (!m_handle) throw gcnew System::NullReferenceException("Process handle is null.");
+    if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
     FILETIME ftSysIdleStart, ftSysKernelStart, ftSysUserStart;
     FILETIME ftProcCreationStart, ftProcExitStart, ftProcKernelStart, ftProcUserStart;
@@ -170,7 +170,7 @@ double Native::Process::GetProcessCPUUsage()
 
 PROCESS_MEMORY_COUNTERS_EX Native::Process::GetProcessMemoryCounters()
 {
-    if (!m_handle) throw gcnew System::NullReferenceException("Process handle is null.");
+    if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
     PROCESS_MEMORY_COUNTERS_EX memCounters = {};
     if (GetProcessMemoryInfo(m_handle, (PROCESS_MEMORY_COUNTERS*)&memCounters, sizeof(memCounters)))
