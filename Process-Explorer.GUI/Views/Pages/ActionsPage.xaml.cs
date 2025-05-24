@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using System.Diagnostics;
+using Process_Explorer.GUI.ViewModels;
 
 namespace Process_Explorer.GUI.Views
 {
@@ -10,6 +10,12 @@ namespace Process_Explorer.GUI.Views
         {
             this.InitializeComponent();
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            DataContext = e.Parameter as ActionsViewModel;
         }
     }
 }

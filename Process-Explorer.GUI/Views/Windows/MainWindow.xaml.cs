@@ -36,7 +36,7 @@ namespace Process_Explorer.GUI
                 switch (tag)
                 {
                     case "actions":
-                        ContentFrame.Navigate(typeof(ActionsPage));
+                        ContentFrame.Navigate(typeof(ActionsPage), _provider.GetRequiredService<ActionsViewModel>());
                         break;
                     case "metrics":
                         ContentFrame.Navigate(typeof(MetricsPage), _provider.GetRequiredService<MetricsViewModel>());
@@ -44,7 +44,6 @@ namespace Process_Explorer.GUI
                     default:
                         break;
                 }
-
             }
         }
 

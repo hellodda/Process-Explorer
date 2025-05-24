@@ -18,6 +18,11 @@ namespace Native
 
 		ProcessInformation^ GetProcessInformation();
 
+		System::String^ GetProcessName();
+		System::String^ GetProcessDescription();
+		System::String^ GetProcessCompany();
+
+		PROCESS_MEMORY_COUNTERS_EX GetProcessMemoryCounters();
 
 		~Process();
 	};

@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:charts="using:LiveChartsCore.SkiaSharpView.WinUI"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -19,14 +20,16 @@
                         <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
                     </Border.Background>
 
-                    <Grid Padding="10" RowSpacing="5">
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBox PlaceholderText="enter process id..."/>
-                    </Grid>
+                    <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
+                        <StackPanel Orientation="Vertical" >
+                            <TextBox PlaceholderText="enter process id..."/>
+                            <muxc:ProgressBar IsIndeterminate="True" Margin="0,12"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
+                            <TextBlock Text="Process Descriptor Value -"/>
+                            <TextBlock Foreground="LightGray" Text="08x0003902482348230840"/>
+                        </StackPanel>
+                    </StackPanel>
                 </Border>
                 <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch">
                     <Grid>
@@ -87,6 +90,9 @@
                     <charts:CartesianChart 
                       x:Name="Chart"
                       Width="550"
+                      Series="{Binding CpuChartSeries, Mode=OneWay}"
+                      XAxes="{Binding CpuXAxes, Mode=OneWay}"
+                      YAxes="{Binding CpuYAxes, Mode=OneWay}"
                       Height="280"/>
                 </StackPanel>
             </Border>

@@ -15,10 +15,12 @@ namespace Process_Explorer.GUI.Extensions
             services!.AddTransient<IProcessService, ProcessService>();
             services!.AddTransient<ProcessListViewModel>();
             services!.AddTransient<MetricsViewModel>();
+            services!.AddTransient<ActionsViewModel>();
             services!.AddAutoMapper(typeof(ProcessInforamtionProfile));
             services!.AddTransient<Tester>();
             services!.AddTransient<MainWindow>();
             services!.AddTransient<MetricsPage>();
+            services!.AddTransient<ActionsPage>();
             services!.AddSingleton<ProcessMetricsHostedService>();
             services!.AddHostedService(provider => provider.GetRequiredService<ProcessMetricsHostedService>());
         }
