@@ -28,8 +28,8 @@
                     <ComboBox
                         Width="100"
                         HorizontalAlignment="Center"
-                        ItemsSource="{Binding MemoryVarsPrivateBytes}"
-                        SelectedValue="{Binding SelectedMemVarPrivateBytes.Value, Mode=TwoWay}"
+                        ItemsSource="{Binding MemorySizes}"
+                        SelectedItem="{Binding SelectedMemVarPrivateBytes, Mode=TwoWay}"
                         SelectedValuePath="Value"
                         DisplayMemberPath="Name" />
 
@@ -46,8 +46,8 @@
                     <ComboBox
                         Width="100"
                         HorizontalAlignment="Center"
-                        ItemsSource="{Binding MemoryVarsWorkingSet}"
-                        SelectedValue="{Binding SelectedMemVarWorkingSet.Value, Mode=TwoWay}"
+                        ItemsSource="{Binding MemorySizes}"
+                        SelectedItem="{Binding SelectedMemVarWorkingSet, Mode=TwoWay}"
                         SelectedValuePath="Value"
                         DisplayMemberPath="Name" /> 
                 </StackPanel>
