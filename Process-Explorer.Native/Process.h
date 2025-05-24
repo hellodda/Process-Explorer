@@ -24,6 +24,8 @@ namespace Native
 
 		double GetProcessCPUUsage();
 
+		Handle^ GetHandle();
+
 		PROCESS_MEMORY_COUNTERS_EX GetProcessMemoryCounters();
 
 		~Process();

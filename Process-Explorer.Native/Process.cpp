@@ -167,6 +167,13 @@ double Native::Process::GetProcessCPUUsage()
     return (double)(100.0 * procTotal) / sysTotal;
 }
 
+Native::Handle^ Native::Process::GetHandle()
+{
+	if (m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
+
+	return m_handle;
+}
+
 
 PROCESS_MEMORY_COUNTERS_EX Native::Process::GetProcessMemoryCounters()
 {
