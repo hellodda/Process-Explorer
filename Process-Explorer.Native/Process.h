@@ -22,6 +22,8 @@ namespace Native
 		System::String^ GetProcessDescription();
 		System::String^ GetProcessCompany();
 
+		double GetProcessCPUUsage();
+
 		PROCESS_MEMORY_COUNTERS_EX GetProcessMemoryCounters();
 
 		~Process();
