@@ -1,12 +1,20 @@
 #include "pch.h"  
 #include "ProcessManager.h"  
 #include "Process.h"  
+#include "CriticalSection.h"
 
 using namespace System::Collections::Generic;
 
 
-IEnumerable<Native::Process^>^ Native::ProcessManager::GetActiveProcesses()  
+Native::ProcessManager::ProcessManager()
+{
+	m_cs = gcnew Native::CriticalSection();
+}
+
+IEnumerable<Native::Process^>^ Native::ProcessManager::GetActiveProcesses()
 {  
+   m_cs->Lock();
+
    auto processes = gcnew List<Native::Process^>();  
 
    DWORD PIDs[1024], needed;  
@@ -18,5 +26,8 @@ IEnumerable<Native::Process^>^ Native::ProcessManager::GetActiveProcesses()
        }  
    }  
 
+   m_cs->Unlock();
+
    return processes;  
 }
+

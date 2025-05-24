@@ -43,6 +43,24 @@ namespace Process_Explorer.BLL.Services
             }
         }
 
-     
+        public Task<ProcessInformationDTO?> GetProcessByIdAsync(int pid)
+        {
+            _logger.LogDebug($"GetProcessByIdAsync called for PID: {pid}");
+            try
+            {
+                var processes = Native.ProcessManager.GetActiveProcesses().ToList();
+                var process = processes.FirstOrDefault(p => p?.GetProcessInformation().PID == pid);
+                if (process is null)
+                {
+                    _logger.LogError($"not found process for PID: {pid}");
+                }
+                return Task.FromResult<ProcessInformationDTO?>(_mapper.Map<ProcessInformationDTO>(process.GetProcessInformation()));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error while getting active processes");
+                throw;
+            }
+        }
     }
 }

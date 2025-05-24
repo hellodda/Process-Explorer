@@ -174,7 +174,6 @@ Native::Handle^ Native::Process::GetHandle()
 	return m_handle;
 }
 
-
 PROCESS_MEMORY_COUNTERS_EX Native::Process::GetProcessMemoryCounters()
 {
     if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
