@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.WinUI;
 using Microsoft.UI.Dispatching;
-using Process_Explorer.BLL.Services;
+using Process_Explorer.BLL.HostedServices;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -13,24 +13,24 @@ namespace Process_Explorer.GUI.ViewModels
 {
     public class ProcessListViewModel : INotifyPropertyChanged, IDisposable
     {
-        private readonly IProcessService _service;
+        private readonly ProcessMetricsHostedService _service;
         private readonly DispatcherQueue _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
         private readonly Timer _timer;
 
         public ObservableCollection<ProcessInformationViewModel> ProcessList { get; } = new();
 
-        public ProcessListViewModel(IProcessService service)
+        public ProcessListViewModel(ProcessMetricsHostedService service)
         {
             _service = service;
             _timer = new Timer(OnTimerTick, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
-            _ = LoadProcessesAsync();
+            LoadProcesses();
         }
 
         private async void OnTimerTick(object? state) => await UpdateProcessesAsync();
 
-        public async Task LoadProcessesAsync()
+        public void LoadProcesses()
         {
-            var processes = await _service.GetActiveProcessesAsync();
+            var processes = _service.processes;
             _dispatcherQueue.TryEnqueue(() =>
             {
                 ProcessList.Clear();
@@ -44,7 +44,7 @@ namespace Process_Explorer.GUI.ViewModels
 
         public async Task UpdateProcessesAsync()
         {
-            var newProcesses = (await _service.GetActiveProcessesAsync()).ToList();
+            var newProcesses = _service.processes;
             await _dispatcherQueue.EnqueueAsync(() =>
             {
                 var existingByPid = ProcessList.ToDictionary(vm => vm.PID);

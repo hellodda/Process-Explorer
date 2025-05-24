@@ -12,7 +12,9 @@
     <Grid Padding="15">
         <TextBlock Text="Actions" FontSize="25"/>
         <Border Height="360">
-            <TextBlock Text="ops...)" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                <TextBlock Text="ops...)" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </StackPanel>
         </Border>
     </Grid>
 </Page>

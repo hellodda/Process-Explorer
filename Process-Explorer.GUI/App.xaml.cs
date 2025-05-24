@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
+using Process_Explorer.BLL.HostedServices;
 using Process_Explorer.GUI.Extensions;
 
 namespace Process_Explorer.GUI
@@ -36,6 +38,9 @@ namespace Process_Explorer.GUI
         {
             m_window = _services.GetRequiredService<MainWindow>();
             m_window.Activate();
+
+            var hostedService = _services.GetRequiredService<ProcessMetricsHostedService>();
+            hostedService.StartAsync(CancellationToken.None);
         }
 
         private Window? m_window;

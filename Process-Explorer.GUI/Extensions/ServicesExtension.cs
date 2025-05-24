@@ -4,6 +4,7 @@ using Process_Explorer.GUI.ViewModels;
 using Process_Explorer.BLL.Services;
 using Process_Explorer.BLL.Profiles;
 using Process_Explorer.GUI.Views;
+using Process_Explorer.BLL.HostedServices;
 
 namespace Process_Explorer.GUI.Extensions
 {
@@ -16,8 +17,10 @@ namespace Process_Explorer.GUI.Extensions
             services!.AddTransient<MetricsViewModel>();
             services!.AddAutoMapper(typeof(ProcessInforamtionProfile));
             services!.AddTransient<Tester>();
-            services!.AddSingleton<MainWindow>();
-            services!.AddSingleton<MetricsPage>();
+            services!.AddTransient<MainWindow>();
+            services!.AddTransient<MetricsPage>();
+            services!.AddSingleton<ProcessMetricsHostedService>();
+            services!.AddHostedService(provider => provider.GetRequiredService<ProcessMetricsHostedService>());
         }
     }
 }

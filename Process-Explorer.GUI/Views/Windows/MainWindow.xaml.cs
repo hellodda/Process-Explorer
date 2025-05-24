@@ -4,8 +4,6 @@ using Microsoft.UI.Xaml.Controls;
 using Process_Explorer.GUI.ViewModels;
 using Process_Explorer.GUI.Views;
 using System;
-using Windows.Media.Audio;
-
 
 namespace Process_Explorer.GUI
 {

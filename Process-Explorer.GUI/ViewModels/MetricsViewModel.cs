@@ -6,27 +6,29 @@ using SkiaSharp;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Linq;
-using Process_Explorer.BLL.Services;
 using Process_Explorer.GUI.Models;
+using Process_Explorer.BLL.HostedServices;
+using System.Threading;
+using System;
 
 namespace Process_Explorer.GUI.ViewModels;
 
-public class MetricsViewModel : INotifyPropertyChanged
+public class MetricsViewModel : INotifyPropertyChanged, IDisposable
 {
-    private readonly IProcessService _service;
+    private readonly ProcessMetricsHostedService _service;
+    private Timer _timer = default!;
 
     private readonly ObservableCollection<double> _privateBytesValues = new();
     private readonly ObservableCollection<double> _workingSetValues = new();
 
-    public ObservableCollection<ISeries> PrivateBytesChartSeries { get; private set; }
-    public ObservableCollection<ICartesianAxis> PrivateBytesXAxes { get; private set; }
-    public ObservableCollection<ICartesianAxis> PrivateBytesYAxes { get; private set; }
+    public ObservableCollection<ISeries> PrivateBytesChartSeries { get; private set; } = default!;
+    public ObservableCollection<ICartesianAxis> PrivateBytesXAxes { get; private set; } = default!;
+    public ObservableCollection<ICartesianAxis> PrivateBytesYAxes { get; private set; } = default!;
 
-    public ObservableCollection<ISeries> WorkingSetChartSeries { get; private set; }
-    public ObservableCollection<ICartesianAxis> WorkingSetXAxes { get; private set; }
-    public ObservableCollection<ICartesianAxis> WorkingSetYAxes { get; private set; }
+    public ObservableCollection<ISeries> WorkingSetChartSeries { get; private set; } = default!;
+    public ObservableCollection<ICartesianAxis> WorkingSetXAxes { get; private set; } = default!;
+    public ObservableCollection<ICartesianAxis> WorkingSetYAxes { get; private set; } = default!;
 
     public ObservableCollection<MemorySize> MemoryVarsWorkingSet { get; } = InitializeSizes();
     public ObservableCollection<MemorySize> MemoryVarsPrivateBytes { get; } = InitializeSizes();
@@ -61,7 +63,7 @@ public class MetricsViewModel : INotifyPropertyChanged
         }
     }
 
-    public MetricsViewModel(IProcessService service)
+    public MetricsViewModel(ProcessMetricsHostedService service)
     {
         _service = service;
         _selectedMemVarWorkingSet = MemoryVarsWorkingSet.Last(); 
@@ -69,7 +71,7 @@ public class MetricsViewModel : INotifyPropertyChanged
       
         InitializeSeriesAndAxes();
 
-        _ = UpdateLoopAsync();
+        _timer = new Timer(UpdateMetrics, service, TimeSpan.Zero, TimeSpan.FromSeconds(1));
     }
 
     private void InitializeSeriesAndAxes()
@@ -127,24 +129,20 @@ public class MetricsViewModel : INotifyPropertyChanged
         InitializeSeriesAndAxes();
     }
 
-    private async Task UpdateLoopAsync()
+    private void UpdateMetrics(object? state)
     {
-        while (true)
+        var processes = _service.processes;
+
+        if (processes.Any())
         {
-            var processes = (await _service.GetActiveProcessesAsync()).ToList();
-            if (processes.Any())
-            {
-                var sumPrivate = processes.Sum(p => p.PrivateBytes) / SelectedMemVarPrivateBytes.Value;
-                var sumWorking = processes.Sum(p => p.WorkingSet) / SelectedMemVarWorkingSet.Value;
+            var sumPrivate = processes.Sum(p => p.PrivateBytes) / SelectedMemVarPrivateBytes.Value;
+            var sumWorking = processes.Sum(p => p.WorkingSet) / SelectedMemVarWorkingSet.Value;
 
-                _privateBytesValues.Add(sumPrivate);
-                _workingSetValues.Add(sumWorking);
+            _privateBytesValues.Add(sumPrivate);
+            _workingSetValues.Add(sumWorking);
 
-                if (_privateBytesValues.Count > 50) _privateBytesValues.RemoveAt(0);
-                if (_workingSetValues.Count > 50) _workingSetValues.RemoveAt(0);
-            }
-
-            await Task.Delay(1000);
+            if (_privateBytesValues.Count > 50) _privateBytesValues.RemoveAt(0);
+            if (_workingSetValues.Count > 50) _workingSetValues.RemoveAt(0);
         }
     }
 
@@ -152,4 +150,9 @@ public class MetricsViewModel : INotifyPropertyChanged
 
     protected void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
 }
