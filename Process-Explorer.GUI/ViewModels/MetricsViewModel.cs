@@ -70,8 +70,8 @@ namespace Process_Explorer.GUI.ViewModels
             _privateValues.Add(sumP);
             _workingValues.Add(sumW);
 
-            if (_privateValues.Count > 50) _privateValues.RemoveAt(0);
-            if (_workingValues.Count > 50) _workingValues.RemoveAt(0);
+            if (_privateValues.Count > 100) _privateValues.RemoveAt(0);
+            if (_workingValues.Count > 100) _workingValues.RemoveAt(0);
         }
 
         partial void OnSelectedMemVarPrivateBytesChanged(MemorySize oldVal, MemorySize newVal)

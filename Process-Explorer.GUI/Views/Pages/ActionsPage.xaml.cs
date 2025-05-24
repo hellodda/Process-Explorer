@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Process_Explorer.GUI.Views.Windows;
+using System.Diagnostics;
 
 namespace Process_Explorer.GUI.Views
 {

@@ -6,15 +6,90 @@
     xmlns:local="using:Process_Explorer.GUI.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:charts="using:LiveChartsCore.SkiaSharpView.WinUI"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid Padding="15">
         <TextBlock Text="Actions" FontSize="25"/>
-        <Border Height="360">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
-                <TextBlock Text="ops...)" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="10" Height="360">
+            <StackPanel Orientation="Vertical" Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border Width="600" Height="150" CornerRadius="10 10 0 0">
+                    <Border.Background>
+                        <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                    </Border.Background>
+
+                    <Grid Padding="10" RowSpacing="5">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBox PlaceholderText="enter process id..."/>
+                    </Grid>
+                </Border>
+                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon  Glyph="&#xECC8;"  Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
+
+                        <TextBlock Grid.Column="1" Text="Run New Process"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        FontSize="16"
+                        Margin="12,0"/>
+                    </Grid>
+                </Button>
+                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Glyph="&#xE74D;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
+
+                        <TextBlock Grid.Column="1" Text="Kill Process"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       FontSize="16"
+                       Margin="12,0"/>
+                    </Grid>
+                </Button>
+
+                <Button Width="600" Height="50" CornerRadius="0,0,10,10" HorizontalContentAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <FontIcon Glyph="&#xE946;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
+
+                        <TextBlock Grid.Column="1" Text="Show Detail Information Of Process"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       FontSize="16"
+                       Margin="12,0"/>
+                    </Grid>
+                </Button>
             </StackPanel>
-        </Border>
+            <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
+                <Border.Background>
+                    <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                </Border.Background>
+
+                <StackPanel>
+                    <charts:CartesianChart 
+                      x:Name="Chart"
+                      Width="550"
+                      Height="280"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Page>
