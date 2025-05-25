@@ -15,41 +15,59 @@
         <TextBlock Text="Metrics" FontSize="25"/>
         <Border>
             <StackPanel Orientation="Horizontal" Spacing="20" Padding="25" HorizontalAlignment="Center">
-                <StackPanel Orientation="Vertical" Spacing="5">
-                    <charts:CartesianChart 
-                    x:Name="Chart"
-                    Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
-                    XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
-                    YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
-                    Width="600"
-                    Height="300"/>
-                    <TextBlock Text="Private Bytes" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Vertical" Spacing="2">
+                    <Border Height="320" CornerRadius="10 10 0 0">
+
+                        <Border.Background>
+                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                        </Border.Background>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Margin="10 10 0 0" Text="Private Bytes"/>
+                            <charts:CartesianChart 
+                            Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
+                            XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
+                            YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
+                            Width="600"
+                            Height="300"/>
+                        </StackPanel>
+                    </Border>
 
                     <ComboBox
-                        Width="100"
+                        Width="600"
                         HorizontalAlignment="Center"
                         ItemsSource="{Binding MemorySizes}"
                         SelectedItem="{Binding SelectedMemVarPrivateBytes, Mode=TwoWay}"
                         SelectedValuePath="Value"
-                        DisplayMemberPath="Name" />
-
+                        DisplayMemberPath="Name" 
+                        CornerRadius="0 0 10 10"/>
                 </StackPanel>
-                <StackPanel Orientation="Vertical" Spacing="5">
-                    <charts:CartesianChart
-                    Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
-                    XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
-                    YAxes="{Binding WorkingSetYAxes, Mode=OneWay}" 
-                    Width="600"
-                    Height="300"/>
-                    <TextBlock Text="Working Set" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Vertical" Spacing="2">
+                    <Border Height="320" CornerRadius="10 10 0 0">
+
+                        <Border.Background>
+                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                        </Border.Background>
+
+                        <StackPanel Spacing="2">
+                            <TextBlock Margin="10 10 0 0" Text="Working Set"/>
+                            <charts:CartesianChart 
+                            Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
+                            XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
+                            YAxes="{Binding WorkingSetYAxes, Mode=OneWay}"
+                            Width="600"
+                            Height="300"/>
+                        </StackPanel>
+                    </Border>
 
                     <ComboBox
-                        Width="100"
-                        HorizontalAlignment="Center"
-                        ItemsSource="{Binding MemorySizes}"
-                        SelectedItem="{Binding SelectedMemVarWorkingSet, Mode=TwoWay}"
-                        SelectedValuePath="Value"
-                        DisplayMemberPath="Name" /> 
+                     Width="600"
+                     HorizontalAlignment="Center"
+                     ItemsSource="{Binding MemorySizes}"
+                     SelectedItem="{Binding SelectedMemVarWorkingSet, Mode=TwoWay}"
+                     SelectedValuePath="Value"
+                     DisplayMemberPath="Name" 
+                     CornerRadius="0 0 10 10"/>
                 </StackPanel>
             </StackPanel>
         </Border>
