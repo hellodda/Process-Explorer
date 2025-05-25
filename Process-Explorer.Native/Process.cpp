@@ -143,10 +143,10 @@ void Native::Process::UpdateProcessCPUUsage()
     FILETIME ftProcCreation, ftProcExit, ftProcKernel, ftProcUser;
 
     if (!GetSystemTimes(&ftSysIdle, &ftSysKernel, &ftSysUser))
-        throw gcnew System::Exception("Canot get system times.");
+        return;
 
     if (!GetProcessTimes(m_handle, &ftProcCreation, &ftProcExit, &ftProcKernel, &ftProcUser))
-        throw gcnew System::Exception("Canot get process times.");
+        return;
 
     if (!m_firstTimeMeasured)
     {
