@@ -67,6 +67,17 @@ namespace Process_Explorer.GUI.Helpers
             InitializeSeries();
         }
 
+        public void Reinitialize()
+        {
+            for (int i = 0; i < _values.Count; ++i)
+            {
+                _values[i] = 0;
+            }
+
+            InitializeAxes();
+            InitializeSeries();
+        }
+
         private void InitializeAxes()
         {
             XAxes = new ObservableCollection<ICartesianAxis> { new Axis() };

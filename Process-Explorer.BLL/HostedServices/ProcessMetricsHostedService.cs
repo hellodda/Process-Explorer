@@ -11,8 +11,7 @@ namespace Process_Explorer.BLL.HostedServices
         private readonly IProcessService _service = default!;
         private Timer _timer = default!;
 
-        public List<ProcessInformationDTO> processes { get; private set; } = new();
-
+        public List<ProcessInformationDTO> Processes { get; private set; } = new();
 
         public ProcessMetricsHostedService(IProcessService service, ILogger<ProcessMetricsHostedService> logger)
         {
@@ -24,7 +23,8 @@ namespace Process_Explorer.BLL.HostedServices
         {
             try
             {
-                processes = (await _service.GetActiveProcessesAsync()).ToList();
+                Processes = (await _service.GetProcessesInformation()).ToList();
+
                 _logger.LogInformation("Process list updated successfully.");
             }
             catch (Exception ex)

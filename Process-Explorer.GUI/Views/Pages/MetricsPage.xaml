@@ -13,63 +13,80 @@
 
     <Grid Padding="15">
         <TextBlock Text="Metrics" FontSize="25"/>
-        <Border>
-            <StackPanel Orientation="Horizontal" Spacing="20" Padding="25" HorizontalAlignment="Center">
-                <StackPanel Orientation="Vertical" Spacing="2">
-                    <Border Height="320" CornerRadius="10 10 0 0">
-
-                        <Border.Background>
-                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                        </Border.Background>
-
-                        <StackPanel Spacing="2">
-                            <TextBlock Margin="10 10 0 0" Text="Private Bytes"/>
-                            <charts:CartesianChart 
-                            Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
-                            XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
-                            YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
+        <ScrollViewer x:Name="MetricsScrollViewer"
+            HorizontalScrollMode="Enabled"
+            VerticalScrollMode="Disabled"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Disabled">
+            <Border Padding="10">
+                <StackPanel Orientation="Horizontal" Spacing="20" Padding="25">
+                  <!--1-->
+                    <StackPanel Orientation="Vertical" Spacing="2">
+                        <Border Height="320" CornerRadius="10 10 0 0">
+                            <Border.Background>
+                                <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                            </Border.Background>
+                            <StackPanel Spacing="2">
+                                <TextBlock Margin="10 10 0 0" Text="Private Bytes"/>
+                                <charts:CartesianChart 
+                                    Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
+                                    XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
+                                    YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
+                                    Width="600"
+                                    Height="300"/>
+                            </StackPanel>
+                        </Border>
+                        <ComboBox
                             Width="600"
-                            Height="300"/>
-                        </StackPanel>
-                    </Border>
-
-                    <ComboBox
-                        Width="600"
-                        HorizontalAlignment="Center"
-                        ItemsSource="{Binding MemorySizes}"
-                        SelectedItem="{Binding SelectedMemVarPrivateBytes, Mode=TwoWay}"
-                        SelectedValuePath="Value"
-                        DisplayMemberPath="Name" 
-                        CornerRadius="0 0 10 10"/>
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Spacing="2">
-                    <Border Height="320" CornerRadius="10 10 0 0">
-
-                        <Border.Background>
-                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                        </Border.Background>
-
-                        <StackPanel Spacing="2">
-                            <TextBlock Margin="10 10 0 0" Text="Working Set"/>
-                            <charts:CartesianChart 
-                            Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
-                            XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
-                            YAxes="{Binding WorkingSetYAxes, Mode=OneWay}"
+                            ItemsSource="{Binding MemorySizes}"
+                            SelectedItem="{Binding SelectedMemVarPrivateBytes, Mode=TwoWay}"
+                            SelectedValuePath="Value"
+                            DisplayMemberPath="Name" 
+                            CornerRadius="0 0 10 10"/>
+                    </StackPanel>
+                    <!--2-->
+                    <StackPanel Orientation="Vertical" Spacing="2">
+                        <Border Height="320" CornerRadius="10 10 0 0">
+                            <Border.Background>
+                                <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                            </Border.Background>
+                            <StackPanel Spacing="2">
+                                <TextBlock Margin="10 10 0 0" Text="Working Set"/>
+                                <charts:CartesianChart 
+                                    Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
+                                    XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
+                                    YAxes="{Binding WorkingSetYAxes, Mode=OneWay}"
+                                    Width="600"
+                                    Height="300"/>
+                            </StackPanel>
+                        </Border>
+                        <ComboBox
                             Width="600"
-                            Height="300"/>
-                        </StackPanel>
-                    </Border>
-
-                    <ComboBox
-                     Width="600"
-                     HorizontalAlignment="Center"
-                     ItemsSource="{Binding MemorySizes}"
-                     SelectedItem="{Binding SelectedMemVarWorkingSet, Mode=TwoWay}"
-                     SelectedValuePath="Value"
-                     DisplayMemberPath="Name" 
-                     CornerRadius="0 0 10 10"/>
+                            ItemsSource="{Binding MemorySizes}"
+                            SelectedItem="{Binding SelectedMemVarWorkingSet, Mode=TwoWay}"
+                            SelectedValuePath="Value"
+                            DisplayMemberPath="Name" 
+                            CornerRadius="0 0 10 10"/>
+                    </StackPanel>
+                    <!--3-->
+                    <StackPanel Orientation="Vertical" Spacing="2">
+                        <Border Height="353" CornerRadius="10 10 10 10">
+                            <Border.Background>
+                                <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                            </Border.Background>
+                            <StackPanel Spacing="2">
+                                <TextBlock Margin="10 10 0 0" Text="Cpu Usage"/>
+                                <charts:CartesianChart 
+                                    Series="{Binding CpuChartSeries, Mode=OneWay}"
+                                    XAxes="{Binding CpuXAxes, Mode=OneWay}"
+                                    YAxes="{Binding CpuYAxes, Mode=OneWay}"
+                                    Width="600"
+                                    Height="300"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
                 </StackPanel>
-            </StackPanel>
-        </Border>
+            </Border>
+        </ScrollViewer>
     </Grid>
 </Page>

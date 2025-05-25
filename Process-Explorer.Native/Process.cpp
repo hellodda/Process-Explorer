@@ -9,37 +9,46 @@ struct LANGANDCODEPAGE {
     WORD wCodePage;
 };
 
-ULONGLONG FileTimeToULL (FILETIME ft){
-    return (((ULONGLONG)ft.dwHighDateTime) << 32) | ft.dwLowDateTime;
+ULONGLONG FileTimeToULL (FILETIME* ft){
+    if (!ft) throw gcnew System::NullReferenceException("FILETIME is null!");
+
+    return (((ULONGLONG)ft->dwHighDateTime) << 32) | ft->dwLowDateTime;
 };
 
-Native::Process::Process(DWORD pid)
+Native::Process::Process(DWORD pid) : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid))), m_cs(gcnew Native::CriticalSection()), m_info(gcnew Native::ProcessInformation()), m_firstTimeMeasured(false)
 {
-	m_handle = gcnew Native::Handle(OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid));
-	m_cs = gcnew Native::CriticalSection();
+    if (GetProcessId(m_handle) != 0)
+        InitializeProcessTimes();
 }
-Native::Process::Process(Handle^ handle) : m_handle(handle), m_cs(gcnew Native::CriticalSection()) {}
+Native::Process::Process(Handle^ handle) : m_handle(handle), m_info(gcnew Native::ProcessInformation), m_cs(gcnew Native::CriticalSection()), m_firstTimeMeasured(false)
+{
+    if (GetProcessId(m_handle) != 0)
+        InitializeProcessTimes();
+}
 Native::ProcessInformation^ Native::Process::GetProcessInformation()
 {
     m_cs->Lock();
 
     if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
-    auto info = gcnew ProcessInformation();
-
-    info->PID = GetProcessId(m_handle);
-	info->Name = GetProcessName();
+    m_info->PID = GetProcessId(m_handle);
+	m_info->Name = GetProcessName();
     
 	auto memCounters = GetProcessMemoryCounters();
-	info->WorkingSet = memCounters.WorkingSetSize;
-	info->PrivateBytes = memCounters.PrivateUsage;
 
-	info->Description = GetProcessDescription();
-	info->Company = GetProcessCompany();
+	m_info->WorkingSet = memCounters.WorkingSetSize;
+	m_info->PrivateBytes = memCounters.PrivateUsage;
+
+	m_info->Description = GetProcessDescription();
+	m_info->Company = GetProcessCompany();
+
+    UpdateProcessCPUUsage();
+
+	m_info->CpuUsage = m_cpuUsage;
 
     m_cs->Unlock();
 
-    return info;
+    return m_info;
 }
 
 System::String^ Native::Process::GetProcessName()
@@ -125,51 +134,78 @@ System::String^ Native::Process::GetProcessCompany()
     }
 }
 
-double Native::Process::GetProcessCPUUsage()
+void Native::Process::UpdateProcessCPUUsage()
 {
-    if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
+    if (!m_handle->IsValid())
+        return;
 
-    FILETIME ftSysIdleStart, ftSysKernelStart, ftSysUserStart;
-    FILETIME ftProcCreationStart, ftProcExitStart, ftProcKernelStart, ftProcUserStart;
+    FILETIME ftSysIdle, ftSysKernel, ftSysUser;
+    FILETIME ftProcCreation, ftProcExit, ftProcKernel, ftProcUser;
 
-    if (!GetSystemTimes(&ftSysIdleStart, &ftSysKernelStart, &ftSysUserStart))
-        throw gcnew System::Exception("Failed to get system times.");
+    if (!GetSystemTimes(&ftSysIdle, &ftSysKernel, &ftSysUser))
+        return;
 
-    if (!GetProcessTimes(m_handle, &ftProcCreationStart, &ftProcExitStart, &ftProcKernelStart, &ftProcUserStart))
-        throw gcnew System::Exception("Failed to get process times.");
+    if (!GetProcessTimes(m_handle, &ftProcCreation, &ftProcExit, &ftProcKernel, &ftProcUser))
+        return;
 
-    Sleep(1000);
+    if (!m_firstTimeMeasured)
+    {
+        *m_prevSysKernelTime = ftSysKernel;
+        *m_prevSysUserTime = ftSysUser;
+        *m_prevProcKernelTime = ftProcKernel;
+        *m_prevProcUserTime = ftProcUser;
+        m_firstTimeMeasured = true;
+        m_cpuUsage = 0.0;
+        return;
+    }
 
-    FILETIME ftSysIdleEnd, ftSysKernelEnd, ftSysUserEnd;
-    FILETIME ftProcCreationEnd, ftProcExitEnd, ftProcKernelEnd, ftProcUserEnd;
+    ULONGLONG sysKernelDiff = FileTimeToULL(&ftSysKernel) - FileTimeToULL(m_prevSysKernelTime);
+    ULONGLONG sysUserDiff = FileTimeToULL(&ftSysUser) - FileTimeToULL(m_prevSysUserTime);
+    ULONGLONG procKernelDiff = FileTimeToULL(&ftProcKernel) - FileTimeToULL(m_prevProcKernelTime);
+    ULONGLONG procUserDiff = FileTimeToULL(&ftProcUser) - FileTimeToULL(m_prevProcUserTime);
 
-    if (!GetSystemTimes(&ftSysIdleEnd, &ftSysKernelEnd, &ftSysUserEnd))
-        throw gcnew System::Exception("Failed to get system times.");
+    ULONGLONG sysTimeDelta = sysKernelDiff + sysUserDiff;
+    ULONGLONG procTimeDelta = procKernelDiff + procUserDiff;
 
-    if (!GetProcessTimes(m_handle, &ftProcCreationEnd, &ftProcExitEnd, &ftProcKernelEnd, &ftProcUserEnd))
-        throw gcnew System::Exception("Failed to get process times.");
+    if (sysTimeDelta == 0)
+    {
+        m_cpuUsage = 0.0;
+    }
+    else
+    {
+        SYSTEM_INFO sysInfo;
+        GetSystemInfo(&sysInfo);
+        int numProcessors = sysInfo.dwNumberOfProcessors;
 
-    ULONGLONG sysKernelStart = FileTimeToULL(ftSysKernelStart);
-    ULONGLONG sysUserStart = FileTimeToULL(ftSysUserStart);
-    ULONGLONG sysKernelEnd = FileTimeToULL(ftSysKernelEnd);
-    ULONGLONG sysUserEnd = FileTimeToULL(ftSysUserEnd);
+        m_cpuUsage = (double)(procTimeDelta) / (double)(sysTimeDelta)*numProcessors * 100.0;
+    }
 
-    ULONGLONG procKernelStart = FileTimeToULL(ftProcKernelStart);
-    ULONGLONG procUserStart = FileTimeToULL(ftProcUserStart);
-    ULONGLONG procKernelEnd = FileTimeToULL(ftProcKernelEnd);
-    ULONGLONG procUserEnd = FileTimeToULL(ftProcUserEnd);
+    *m_prevSysKernelTime = ftSysKernel;
+    *m_prevSysUserTime = ftSysUser;
+    *m_prevProcKernelTime = ftProcKernel;
+    *m_prevProcUserTime = ftProcUser;
 
-    ULONGLONG sysTotal = (sysKernelEnd - sysKernelStart) + (sysUserEnd - sysUserStart);
-    ULONGLONG procTotal = (procKernelEnd - procKernelStart) + (procUserEnd - procUserStart);
+}
 
-    if (sysTotal == 0) return 0.0;
+void Native::Process::InitializeProcessTimes()
+{
+	m_prevProcKernelTime = new FILETIME();
+	m_prevProcUserTime = new FILETIME();
+	m_prevSysKernelTime = new FILETIME();
+	m_prevSysUserTime = new FILETIME();
+}
 
-    return (double)(100.0 * procTotal) / sysTotal;
+void Native::Process::DeinitializeProcessTimes()
+{
+    if (m_prevSysKernelTime) delete m_prevSysKernelTime;
+    if (m_prevSysUserTime) delete m_prevSysUserTime;
+    if (m_prevProcKernelTime) delete m_prevProcKernelTime;
+    if (m_prevProcUserTime) delete m_prevProcUserTime;
 }
 
 Native::Handle^ Native::Process::GetHandle()
 {
-	if (m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
+	if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
 	return m_handle;
 }
@@ -185,10 +221,21 @@ PROCESS_MEMORY_COUNTERS_EX Native::Process::GetProcessMemoryCounters()
     }
 }
 
+void Native::Process::Terminate()
+{
+	if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
+
+	if (!TerminateProcess(m_handle, 0))
+	{
+		throw gcnew System::Exception("Failed to terminate process.");
+	}
+}
+
 Native::Process::~Process()
 {
 	if (m_handle->IsValid())
 	{
 		m_handle->Close();
+		DeinitializeProcessTimes();
 	}
 }

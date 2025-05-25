@@ -14,6 +14,10 @@ namespace Native
 		static CriticalSection^ m_cs{ nullptr };
 
 		static ProcessManager();
+
+		static void InitializeProcessesList();
+
+		static System::Collections::Generic::Dictionary<DWORD, Process^>^ m_processes;
 	public:
 
 		static IEnumerable<Process^>^ GetActiveProcesses();

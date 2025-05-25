@@ -8,5 +8,6 @@
         public string Description { get; set; } = string.Empty;
         public uint WorkingSet { get; set; }
         public uint PrivateBytes { get; set; }
+        public double CpuUsage { get; set; }
     }
 }

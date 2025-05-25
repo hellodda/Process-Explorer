@@ -54,7 +54,7 @@ namespace Native
 		}
 		property System::String^ Company;
 		property System::String^ Description;
-		property double CPUUsage;
+		property double CpuUsage;
 	};
 }
 

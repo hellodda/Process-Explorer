@@ -18,6 +18,7 @@ namespace Process_Explorer.GUI.ViewModels
         private readonly Timer _timer;
         private readonly ObservableCollection<double> _privateValues = new();
         private readonly ObservableCollection<double> _workingValues = new();
+        private readonly ObservableCollection<double> _cpuUsageValues = new();
 
         public static ObservableCollection<MemorySize> MemorySizes { get; } = MemoryUsageChart.InitializeSizes();
 
@@ -29,6 +30,7 @@ namespace Process_Explorer.GUI.ViewModels
 
         private MemoryUsageChart _privateChart;
         private MemoryUsageChart _workingChart;
+        private MemoryUsageChart _cpuChart;
 
         public ObservableCollection<ISeries> PrivateBytesChartSeries => _privateChart.ChartSeries;
         public ObservableCollection<ICartesianAxis> PrivateBytesXAxes => _privateChart.XAxes;
@@ -37,6 +39,10 @@ namespace Process_Explorer.GUI.ViewModels
         public ObservableCollection<ISeries> WorkingSetChartSeries => _workingChart.ChartSeries;
         public ObservableCollection<ICartesianAxis> WorkingSetXAxes => _workingChart.XAxes;
         public ObservableCollection<ICartesianAxis> WorkingSetYAxes => _workingChart.YAxes;
+
+        public ObservableCollection<ISeries> CpuChartSeries => _cpuChart.ChartSeries;
+        public ObservableCollection<ICartesianAxis> CpuXAxes => _cpuChart.XAxes;
+        public ObservableCollection<ICartesianAxis> CpuYAxes => _cpuChart.YAxes;
 
         public MetricsViewModel(ProcessMetricsHostedService service)
         {
@@ -56,22 +62,31 @@ namespace Process_Explorer.GUI.ViewModels
                 SKColors.Yellow,
                 40);
 
+            _cpuChart = new MemoryUsageChart(
+                _cpuUsageValues,
+                new MemorySize("CPU", 1),
+                SKColors.MistyRose,
+                40);
+
             _timer = new Timer(UpdateMetrics, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
         private void UpdateMetrics(object? state)
         {
-            var procs = _service.processes;
-            if (!procs.Any()) return;
+            var processes = _service.Processes;
+            if (!processes.Any()) return;
 
-            var sumP = procs.Sum(p => p.PrivateBytes) / SelectedMemVarPrivateBytes.Value;
-            var sumW = procs.Sum(p => p.WorkingSet) / SelectedMemVarWorkingSet.Value;
+            var sumP = processes.Sum(p => p.PrivateBytes) / SelectedMemVarPrivateBytes.Value;
+            var sumW = processes.Sum(p => p.WorkingSet) / SelectedMemVarWorkingSet.Value;
+            var sumC = processes.Sum(p => p.CpuUsage);
 
             _privateValues.Add(sumP);
             _workingValues.Add(sumW);
+            _cpuUsageValues.Add(sumC / processes.Count);
 
             if (_privateValues.Count > 100) _privateValues.RemoveAt(0);
             if (_workingValues.Count > 100) _workingValues.RemoveAt(0);
+            if (_cpuUsageValues.Count > 100) _cpuUsageValues.RemoveAt(0);
         }
 
         partial void OnSelectedMemVarPrivateBytesChanged(MemorySize oldVal, MemorySize newVal)

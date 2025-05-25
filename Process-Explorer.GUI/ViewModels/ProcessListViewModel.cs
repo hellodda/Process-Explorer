@@ -30,7 +30,7 @@ namespace Process_Explorer.GUI.ViewModels
 
         public void LoadProcesses()
         {
-            var processes = _service.processes;
+            var processes = _service.Processes;
             _dispatcherQueue.TryEnqueue(() =>
             {
                 ProcessList.Clear();
@@ -44,7 +44,7 @@ namespace Process_Explorer.GUI.ViewModels
 
         public async Task UpdateProcessesAsync()
         {
-            var newProcesses = _service.processes;
+            var newProcesses = _service.Processes;
             await _dispatcherQueue.EnqueueAsync(() =>
             {
                 var existingByPid = ProcessList.ToDictionary(vm => vm.PID);

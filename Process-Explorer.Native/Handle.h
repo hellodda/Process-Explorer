@@ -28,6 +28,7 @@ namespace Native
 		HANDLE Duplicate();
 
 		void Close();
+		System::String^ Address();
 
 		explicit operator bool();
 		operator HANDLE();

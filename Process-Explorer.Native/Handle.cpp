@@ -73,6 +73,13 @@ void Native::Handle::Close()
 	}
 }
 
+System::String^ Native::Handle::Address()
+{
+	if (!IsValid()) throw gcnew System::NullReferenceException("Handle is not valid.");
+
+	return System::String::Format("0x{0:X}", reinterpret_cast<size_t>(m_handle));
+}
+
 Native::Handle::operator bool()
 {
 	return m_handle;

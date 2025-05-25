@@ -22,12 +22,12 @@
 
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical" >
-                            <TextBox PlaceholderText="enter process id..."/>
-                            <muxc:ProgressBar IsIndeterminate="True" Margin="0,12"/>
+                            <TextBox Text="{Binding TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
+                            <muxc:ProgressBar IsIndeterminate="{Binding IsLoading}" Margin="0,12"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
                             <TextBlock Text="Process Descriptor Value -"/>
-                            <TextBlock Foreground="LightGray" Text="08x0003902482348230840"/>
+                            <TextBlock Foreground="LightGray" Text="{Binding ProcessAddress}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -47,7 +47,7 @@
                         Margin="12,0"/>
                     </Grid>
                 </Button>
-                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch">
+                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Command="{Binding KillCommand}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
