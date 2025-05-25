@@ -137,16 +137,16 @@ System::String^ Native::Process::GetProcessCompany()
 void Native::Process::UpdateProcessCPUUsage()
 {
     if (!m_handle->IsValid())
-        return;
+        throw gcnew System::NullReferenceException("Process handle is null.");
 
     FILETIME ftSysIdle, ftSysKernel, ftSysUser;
     FILETIME ftProcCreation, ftProcExit, ftProcKernel, ftProcUser;
 
     if (!GetSystemTimes(&ftSysIdle, &ftSysKernel, &ftSysUser))
-        return;
+        throw gcnew System::Exception("Canot get system times.");
 
     if (!GetProcessTimes(m_handle, &ftProcCreation, &ftProcExit, &ftProcKernel, &ftProcUser))
-        return;
+        throw gcnew System::Exception("Canot get process times.");
 
     if (!m_firstTimeMeasured)
     {
@@ -184,7 +184,6 @@ void Native::Process::UpdateProcessCPUUsage()
     *m_prevSysUserTime = ftSysUser;
     *m_prevProcKernelTime = ftProcKernel;
     *m_prevProcUserTime = ftProcUser;
-
 }
 
 void Native::Process::InitializeProcessTimes()
