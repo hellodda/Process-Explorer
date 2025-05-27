@@ -3,6 +3,7 @@
 # Alpha Version :)
 
 ![Screenshot 2025-05-25 145932](https://github.com/user-attachments/assets/c3cfbb20-c2c4-4232-bc70-db341476d6a2)
+![Screenshot 2025-05-26 011936](https://github.com/user-attachments/assets/472b9a1d-3cb6-4618-a628-094b23c8545f)
 
 
 # Soon if i'm not lazy
