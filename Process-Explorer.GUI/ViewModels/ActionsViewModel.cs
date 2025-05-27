@@ -10,6 +10,9 @@ using System;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.UI.Dispatching;
 using CommunityToolkit.Mvvm.Input;
+using System.Linq;
+using Process_Explorer.BLL.Models;
+using Microsoft.UI.Xaml;
 
 namespace Process_Explorer.GUI.ViewModels
 {
@@ -18,42 +21,29 @@ namespace Process_Explorer.GUI.ViewModels
     /// Skoro...
     /// 
     ///------------------------------------------------
-    public class ActionsViewModel : ObservableObject
+    public partial class ActionsViewModel : ObservableObject
     {
-        private readonly ProcessMetricsHostedService _service;
-        private readonly Timer _timer;
-        private readonly ObservableCollection<double> _privateValues = new();
-        private readonly DispatcherQueue _dispatcher;
+        private readonly ProcessMetricsHostedService _service = default!;
+        private readonly Timer _timer = default!;
+
+        private readonly ObservableCollection<double> _cpuUsageValues = new();
+        private readonly ObservableCollection<double> _privateBytesValues = new();
+        private readonly ObservableCollection<double> _workingSetValues = new();
+
+        private readonly DispatcherQueue _dispatcher = default!;
 
         private MemoryUsageChart _cpuChart;
+        private MemoryUsageChart _privateBytesChart;
+        private MemoryUsageChart _workingSetChart;
 
+        [ObservableProperty]
+        private Visibility _progressBarVisiblity;
+
+        [ObservableProperty]
         private string _processAddress;
-        public string ProcessAddress
-        {
-            get => _processAddress;
-            set
-            {
-                if (_processAddress != value)
-                {
-                    _processAddress = value;
-                    OnPropertyChanged(nameof(ProcessAddress));
-                }
-            }
-        }
 
+        [ObservableProperty]
         private bool _isLoading = true;
-        public bool IsLoading
-        {
-            get => _isLoading;
-            set
-            {
-                if (_isLoading != value)
-                {
-                    _isLoading = value;
-                    OnPropertyChanged(nameof(IsLoading));
-                }
-            }
-        }
 
         private int _targetProcessId;
         public int TargetProcessId
@@ -61,48 +51,58 @@ namespace Process_Explorer.GUI.ViewModels
             get => _targetProcessId;
             set
             {
-                if (_targetProcessId != value)
+                if (SetProperty(ref _targetProcessId, value))
                 {
-                    _targetProcessId = value;
+                    IsLoading = true;
+                    ProcessAddress = "Loading...";
+
                     _cpuChart.Reinitialize();
-                    ProcessAddress = "Processing...";
-                    OnPropertyChanged(nameof(TargetProcessId));
-                    OnPropertyChanged(nameof(CpuChartSeries));
+                    _privateBytesChart.Reinitialize();
+                    _workingSetChart.Reinitialize();
                 }
             }
         }
 
-        private double _targetProcessCPUUsage;
-        public double TargetProcessCPUUsage
-        {
-            get => _targetProcessCPUUsage;
-            set
-            {
-                if (_targetProcessCPUUsage != value)
-                {
-                    _targetProcessCPUUsage = value;
-                    OnPropertyChanged(nameof(TargetProcessCPUUsage));
-                }
-            }
-        }
-
-        public IRelayCommand KillCommand { get; }
+        public IRelayCommand KillCommand { get; } 
 
         public ObservableCollection<ISeries> CpuChartSeries => _cpuChart.ChartSeries;
         public ObservableCollection<ICartesianAxis> CpuXAxes => _cpuChart.XAxes;
         public ObservableCollection<ICartesianAxis> CpuYAxes => _cpuChart.YAxes;
 
+        public ObservableCollection<ISeries> PrivateBytesChartSeries => _privateBytesChart.ChartSeries;
+        public ObservableCollection<ICartesianAxis> PrivateBytesXAxes => _privateBytesChart.XAxes;
+        public ObservableCollection<ICartesianAxis> PrivateBytesYAxes => _privateBytesChart.YAxes;
+
+        public ObservableCollection<ISeries> WorkingSetChartSeries => _workingSetChart.ChartSeries;
+        public ObservableCollection<ICartesianAxis> WorkingSetXAxes => _workingSetChart.XAxes;
+        public ObservableCollection<ICartesianAxis> WorkingSetYAxes => _workingSetChart.YAxes;
+
+        private ProcessInformationDTO _model = default!;
+
         public ActionsViewModel(ProcessMetricsHostedService service)
         {
             _cpuChart = new MemoryUsageChart(
-               _privateValues,
+               _cpuUsageValues,
                new MemorySize("Cpu", 1),
                SKColors.MistyRose,
+               40);
+
+            _privateBytesChart = new MemoryUsageChart(
+                _privateBytesValues,
+                new MemorySize("Private Bytes (MB)", 1048576),
+                SKColors.Red,
+                40);
+
+            _workingSetChart = new MemoryUsageChart(
+                _workingSetValues,
+                new MemorySize("WorkingSet (MB)", 1048576),
+                SKColors.Yellow,
                40);
 
             _service = service;
             _dispatcher = DispatcherQueue.GetForCurrentThread();
             _timer = new Timer(UpdateMetrics, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+           
 
             KillCommand = new RelayCommand(OnKillButtonClicked);
         }
@@ -113,11 +113,28 @@ namespace Process_Explorer.GUI.ViewModels
             {
                 _dispatcher.TryEnqueue(() =>
                 { 
-                    if (TargetProcessCPUUsage > 0) IsLoading = false;
-                    if (TargetProcessCPUUsage <= 0) IsLoading = true;
 
-                    _privateValues.Add(TargetProcessCPUUsage);
-                    if (_privateValues.Count > 100) _privateValues.RemoveAt(0);
+                    if (_service.Processes.FirstOrDefault(p => p.PID == TargetProcessId) is not null)
+                    {
+                        _model = _service.Processes.FirstOrDefault(p => p.PID == TargetProcessId)!;
+
+                        _cpuUsageValues.Add(_model.CpuUsage);
+                        _privateBytesValues.Add(_model.PrivateBytes / 1048576);
+                        _workingSetValues.Add(_model.WorkingSet / 1048576);
+
+                        ProcessAddress = _model.Name;
+                        IsLoading = false;
+                    }
+                    else
+                    {
+                        _cpuUsageValues.Add(0);
+                        _privateBytesValues.Add(0);
+                        _workingSetValues.Add(0);
+
+                        IsLoading = true;
+                        ProcessAddress = "NULL";
+                    }
+                    if (_cpuUsageValues.Count > 100) _cpuUsageValues.RemoveAt(0);
                 });
             }
         }

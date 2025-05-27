@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="Process_Explorer.GUI.Views.ActionsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -23,10 +22,10 @@
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical" >
                             <TextBox Text="{Binding TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
-                            <muxc:ProgressBar IsIndeterminate="{Binding IsLoading}" Margin="0,12"/>
+                            <muxc:ProgressBar IsIndeterminate="{Binding IsLoading}" Margin="0,12" Visibility="{Binding ProgressBarVisiblity}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
-                            <TextBlock Text="Process Descriptor Value -"/>
+                            <TextBlock Text="Process Name -"/>
                             <TextBlock Foreground="LightGray" Text="{Binding ProcessAddress}"/>
                         </StackPanel>
                     </StackPanel>
@@ -81,21 +80,55 @@
                     </Grid>
                 </Button>
             </StackPanel>
-            <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
-                <Border.Background>
-                    <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                </Border.Background>
 
-                <StackPanel>
-                    <charts:CartesianChart 
-                      x:Name="Chart"
-                      Width="550"
-                      Series="{Binding CpuChartSeries, Mode=OneWay}"
-                      XAxes="{Binding CpuXAxes, Mode=OneWay}"
-                      YAxes="{Binding CpuYAxes, Mode=OneWay}"
-                      Height="280"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel Spacing="20">
+                    <Border Height="10"/>
+                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
+                        <Border.Background>
+                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                        </Border.Background>
+
+                        <StackPanel>
+                            <charts:CartesianChart 
+                                Width="550"
+                                Series="{Binding CpuChartSeries, Mode=OneWay}"
+                                XAxes="{Binding CpuXAxes, Mode=OneWay}"
+                                YAxes="{Binding CpuYAxes, Mode=OneWay}"
+                                Height="280"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
+                        <Border.Background>
+                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                        </Border.Background>
+
+                        <StackPanel>
+                            <charts:CartesianChart 
+                                Width="550"
+                                Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
+                                XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
+                                YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
+                                Height="280"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
+                        <Border.Background>
+                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
+                        </Border.Background>
+
+                        <StackPanel>
+                            <charts:CartesianChart 
+                                Width="550"
+                                Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
+                                XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
+                                YAxes="{Binding WorkingSetYAxes, Mode=OneWay}"
+                                Height="280"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="8"/>
                 </StackPanel>
-            </Border>
+            </ScrollViewer>
         </StackPanel>
     </Grid>
 </Page>

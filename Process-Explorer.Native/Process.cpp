@@ -4,10 +4,10 @@
 #include "ProcessInformation.h"
 #include "CriticalSection.h"
 
-struct LANGANDCODEPAGE {
+typedef struct LANGANDCODEPAGE {
     WORD wLanguage;
     WORD wCodePage;
-};
+} *PLANGANDCODEPAGE, *LPLANGANDCODEPAGE;
 
 ULONGLONG FileTimeToULL (FILETIME* ft){
     if (!ft) throw gcnew System::NullReferenceException("FILETIME is null!");

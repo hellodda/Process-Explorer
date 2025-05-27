@@ -31,16 +31,7 @@ namespace Process_Explorer.GUI.Helpers
             {
                 if (SetProperty(ref _selectedMemorySize, value))
                 {
-                    for (int i = 0; i < _values.Count; ++i)
-                    {
-                        _values[i] = 0;
-                    }
-
-                    if (_selectedMemorySize.Value > _oldSelectedSize.Value)
-                    {
-                        InitializeAxes();
-                        InitializeSeries();
-                    }
+                    Reinitialize();
                 
                     _oldSelectedSize = _selectedMemorySize;
                     OnPropertyChanged(nameof(ChartSeries));
