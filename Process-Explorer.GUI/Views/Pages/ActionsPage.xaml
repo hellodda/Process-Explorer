@@ -22,11 +22,11 @@
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical" >
                             <TextBox Text="{x:Bind viewModel.TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
-                            <muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity}"/>
+                            <!--<muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity}"/>-->
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
-                            <TextBlock Text="Process Name -"/>
-                            <TextBlock Foreground="LightGray" Text="{x:Bind viewModel.ProcessAddress}"/>
+                            <TextBlock Text="Enter Process Id (PID)"/>
+                            <!--<TextBlock Foreground="LightGray" Text="{x:Bind viewModel.ProcessAddress}"/>-->
                         </StackPanel>
                     </StackPanel>
                 </Border>
