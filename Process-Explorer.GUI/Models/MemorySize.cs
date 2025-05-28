@@ -4,7 +4,7 @@ namespace Process_Explorer.GUI.Models
 {
     public class MemorySize
     {
-        public MemorySize(string name, int memorySizeValue, Func<int, double, double> calculator)
+        public MemorySize(string name, int memorySizeValue, Func<double, double, double> calculator)
         {
             Name = name;
             MemorySizeValue = memorySizeValue;
@@ -14,7 +14,7 @@ namespace Process_Explorer.GUI.Models
         public string Name { get; set; }
         public int MemorySizeValue { get; set; }
 
-        public Func<int, double, double> Calculator { get; set; }
+        public Func<double, double, double> Calculator { get; set; }
 
         public double Calculate(double value)
         {
