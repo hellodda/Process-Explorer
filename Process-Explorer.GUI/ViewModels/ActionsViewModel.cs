@@ -58,7 +58,7 @@ namespace Process_Explorer.GUI.ViewModels
         public ActionsViewModel(ProcessMetricsHostedService service)
         {
             CpuChart = new MemoryUsageChart(
-               MemorySize.Cpu,
+               MemorySize.CpuForOne,
                SKColors.MistyRose,
                40);
 

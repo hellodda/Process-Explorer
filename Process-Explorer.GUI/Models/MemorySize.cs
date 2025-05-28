@@ -33,6 +33,7 @@ namespace Process_Explorer.GUI.Models
             return Math.Round(totalCpuPercentage);
         });
 
+        public static MemorySize CpuForOne => new MemorySize("Cpu %", 1, (size, value) => value / size);
         public static MemorySize Byte => new MemorySize("B", 1, (size, value) => value / size);
         public static MemorySize KiloByte => new MemorySize("KB", 1024, (size, value) => value / size);
         public static MemorySize MegaByte => new MemorySize("MB", 1048576, (size, value) => value / size);
