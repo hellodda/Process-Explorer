@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace Process_Explorer.GUI.ViewModels
 {
-    public partial class ActionsViewModel : ObservableObject
+    public partial class ActionsViewModel : ObservableObject, IDisposable
     {
         private readonly ProcessMetricsHostedService _service = default!;
         private readonly Timer _timer = default!;
@@ -119,6 +119,11 @@ namespace Process_Explorer.GUI.ViewModels
             {
                 TargetProcessId = -1; 
             }
+        }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
         }
     }
 }
