@@ -7,9 +7,9 @@
 typedef struct LANGANDCODEPAGE {
     WORD wLanguage;
     WORD wCodePage;
-} *PLANGANDCODEPAGE, *LPLANGANDCODEPAGE;
+} *PLANGANDCODEPAGE, FAR *LPLANGANDCODEPAGE;
 
-ULONGLONG FileTimeToULL (FILETIME* ft){
+ULONGLONG FileTimeToULL (PFILETIME ft){
     if (!ft) throw gcnew System::NullReferenceException("FILETIME is null!");
 
     return (((ULONGLONG)ft->dwHighDateTime) << 32) | ft->dwLowDateTime;
@@ -73,7 +73,7 @@ System::String^ Native::Process::GetProcessDescription()
         DWORD size = GetFileVersionInfoSize(fullPath, &dummy);
         if (size)
         {
-            LANGANDCODEPAGE* lpTranslate;
+            PLANGANDCODEPAGE lpTranslate;
             BYTE* versionData = new BYTE[size];
             if (GetFileVersionInfo(fullPath, 0, size, versionData))
             {

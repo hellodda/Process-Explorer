@@ -15,10 +15,10 @@ namespace Native
 
 		double m_cpuUsage{ 0.0 };
 
-		FILETIME* m_prevSysKernelTime;
-		FILETIME* m_prevSysUserTime;
-		FILETIME* m_prevProcKernelTime;
-		FILETIME* m_prevProcUserTime;
+		PFILETIME m_prevSysKernelTime;
+		PFILETIME m_prevSysUserTime;
+		PFILETIME m_prevProcKernelTime;
+		PFILETIME m_prevProcUserTime;
 
 		bool m_firstTimeMeasured;
 	private:
