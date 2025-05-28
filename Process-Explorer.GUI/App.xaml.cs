@@ -14,12 +14,22 @@ namespace Process_Explorer.GUI
 
         public App()
         {
+          
             InitializeComponent();
             Setup();
         }
 
         private void Setup()
-        { 
+        {
+            try
+            {
+                Native.Application.SetPrivileges();
+            }
+            catch (Exception ex)
+            {
+                Native.MessageBox.Show(ex.Message);
+            }
+
             var services = new ServiceCollection();
 
             services.AddLogging(logging =>

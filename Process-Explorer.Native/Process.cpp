@@ -15,7 +15,7 @@ ULONGLONG FileTimeToULL (PFILETIME ft){
     return (((ULONGLONG)ft->dwHighDateTime) << 32) | ft->dwLowDateTime;
 };
 
-Native::Process::Process(DWORD pid) : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, pid))), m_cs(gcnew Native::CriticalSection()), m_info(gcnew Native::ProcessInformation()), m_firstTimeMeasured(false)
+Native::Process::Process(DWORD pid) : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS , FALSE, pid))), m_cs(gcnew Native::CriticalSection()), m_info(gcnew Native::ProcessInformation()), m_firstTimeMeasured(false)
 {
     if (GetProcessId(m_handle) != 0)
         InitializeProcessTimes();
@@ -168,17 +168,9 @@ void Native::Process::UpdateProcessCPUUsage()
     ULONGLONG procTimeDelta = procKernelDiff + procUserDiff;
 
     if (sysTimeDelta == 0)
-    {
         m_cpuUsage = 0.0;
-    }
     else
-    {
-        SYSTEM_INFO sysInfo;
-        GetSystemInfo(&sysInfo);
-        int numProcessors = sysInfo.dwNumberOfProcessors;
-
-        m_cpuUsage = (double)(procTimeDelta) / (double)(sysTimeDelta)*numProcessors * 100.0;
-    }
+        m_cpuUsage = (double)(procTimeDelta) / (double)(sysTimeDelta) * 100.0;
 
     *m_prevSysKernelTime = ftSysKernel;
     *m_prevSysUserTime = ftSysUser;

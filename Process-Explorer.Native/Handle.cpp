@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Handle.h"
 
+
 Native::Handle::Handle() : m_handle(INVALID_HANDLE_VALUE) {}
 Native::Handle::Handle(HANDLE handle) : m_handle(handle) {}
 Native::Handle::Handle(Handle^ other) : m_handle(other->Duplicate()) {}
@@ -41,10 +42,16 @@ bool Native::Handle::IsValid()
 	return m_handle != INVALID_HANDLE_VALUE || m_handle;
 }
 
-HANDLE Native::Handle::Get()
+HANDLE% Native::Handle::Get()
 {
 	return m_handle;
 }
+
+interior_ptr<HANDLE> Native::Handle::GetPtr()
+{
+	return &m_handle;
+}
+
 
 HANDLE Native::Handle::Detach()
 {

@@ -7,7 +7,7 @@ namespace Native
 	public ref class Handle
 	{
 	private:
-		HANDLE m_handle = INVALID_HANDLE_VALUE;
+		HANDLE m_handle{ INVALID_HANDLE_VALUE };
 
 	public:
 		Handle();
@@ -23,7 +23,9 @@ namespace Native
 
 		bool IsValid();
 
-		HANDLE Get();
+		HANDLE% Get();
+		interior_ptr<HANDLE> GetPtr();
+
 		HANDLE Detach();
 		HANDLE Duplicate();
 
@@ -32,6 +34,7 @@ namespace Native
 
 		explicit operator bool();
 		operator HANDLE();
+		
 	};
 }
 
