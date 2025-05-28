@@ -6,6 +6,8 @@ namespace Process_Explorer.GUI.Views
 {
     public sealed partial class ActionsPage : Page
     {
+        private ActionsViewModel viewModel = default!;
+
         public ActionsPage()
         {
             this.InitializeComponent();
@@ -15,7 +17,7 @@ namespace Process_Explorer.GUI.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            DataContext = e.Parameter as ActionsViewModel;
+            viewModel = e.Parameter as ActionsViewModel;
         }
     }
 }

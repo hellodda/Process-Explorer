@@ -21,12 +21,12 @@
 
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical" >
-                            <TextBox Text="{Binding TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
-                            <muxc:ProgressBar IsIndeterminate="{Binding IsLoading}" Margin="0,12" Visibility="{Binding ProgressBarVisiblity}"/>
+                            <TextBox Text="{x:Bind viewModel.TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
+                            <muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
                             <TextBlock Text="Process Name -"/>
-                            <TextBlock Foreground="LightGray" Text="{Binding ProcessAddress}"/>
+                            <TextBlock Foreground="LightGray" Text="{x:Bind viewModel.ProcessAddress}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -46,7 +46,7 @@
                         Margin="12,0"/>
                     </Grid>
                 </Button>
-                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Command="{Binding KillCommand}">
+                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Command="{x:Bind viewModel.KillCommand}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -92,9 +92,9 @@
                         <StackPanel>
                             <charts:CartesianChart 
                                 Width="550"
-                                Series="{Binding CpuChartSeries, Mode=OneWay}"
-                                XAxes="{Binding CpuXAxes, Mode=OneWay}"
-                                YAxes="{Binding CpuYAxes, Mode=OneWay}"
+                                Series="{x:Bind viewModel.CpuChart.ChartSeries, Mode=OneWay}"
+                                XAxes="{x:Bind viewModel.CpuChart.XAxes, Mode=OneWay}"
+                                YAxes="{x:Bind viewModel.CpuChart.YAxes, Mode=OneWay}"
                                 Height="280"/>
                         </StackPanel>
                     </Border>
@@ -106,9 +106,9 @@
                         <StackPanel>
                             <charts:CartesianChart 
                                 Width="550"
-                                Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
-                                XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
-                                YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
+                                Series="{x:Bind viewModel.PrivateChart.ChartSeries, Mode=OneWay}"
+                                XAxes="{x:Bind viewModel.PrivateChart.XAxes, Mode=OneWay}"
+                                YAxes="{x:Bind viewModel.PrivateChart.YAxes, Mode=OneWay}"
                                 Height="280"/>
                         </StackPanel>
                     </Border>
@@ -120,9 +120,9 @@
                         <StackPanel>
                             <charts:CartesianChart 
                                 Width="550"
-                                Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
-                                XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
-                                YAxes="{Binding WorkingSetYAxes, Mode=OneWay}"
+                                Series="{x:Bind viewModel.WorkingChart.ChartSeries, Mode=OneWay}"
+                                XAxes="{x:Bind viewModel.WorkingChart.XAxes, Mode=OneWay}"
+                                YAxes="{x:Bind viewModel.WorkingChart.YAxes, Mode=OneWay}"
                                 Height="280"/>
                         </StackPanel>
                     </Border>

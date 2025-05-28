@@ -5,6 +5,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using Process_Explorer.GUI.Models;
 using SkiaSharp;
+using System;
 using System.Collections.ObjectModel;
 
 namespace Process_Explorer.GUI.Helpers
@@ -14,14 +15,16 @@ namespace Process_Explorer.GUI.Helpers
         private readonly SKColor _strokeColor;
         private readonly byte _fillAlpha;
 
-        private MemorySize _oldSelectedSize;
+        private MemorySize _oldSelectedSize = default!;
 
-        public ObservableCollection<ISeries> ChartSeries { get; private set; }
-        public ObservableCollection<ICartesianAxis> XAxes { get; private set; }
-        public ObservableCollection<ICartesianAxis> YAxes { get; private set; }
+        public ObservableCollection<ISeries> ChartSeries { get; private set; } = default!;
+        public ObservableCollection<ICartesianAxis> XAxes { get; private set; } = default!;
+        public ObservableCollection<ICartesianAxis> YAxes { get; private set; } = default!;
+
         public ObservableCollection<MemorySize> MemorySizes { get; } = InitializeSizes();
 
-        private ObservableCollection<double> _values;
+        private ObservableCollection<double> _values { get; set; } = new();
+        public int Limit { get; set; } = 100;
 
         private MemorySize _selectedMemorySize;
         public MemorySize SelectedMemorySize
@@ -42,12 +45,10 @@ namespace Process_Explorer.GUI.Helpers
         }
 
         public MemoryUsageChart(
-            ObservableCollection<double> values,
             MemorySize initialSize,
             SKColor strokeColor,
             byte fillAlpha)
         {
-            _values = values;
             _strokeColor = strokeColor;
             _fillAlpha = fillAlpha;
 
@@ -56,6 +57,8 @@ namespace Process_Explorer.GUI.Helpers
 
             InitializeAxes();
             InitializeSeries();
+
+            _values.Add(0); //initial value ;)
         }
 
         public void Reinitialize()
@@ -67,6 +70,15 @@ namespace Process_Explorer.GUI.Helpers
 
             InitializeAxes();
             InitializeSeries();
+        }
+
+        public void AddValue(double value, bool round = true)
+        {
+            var newValue = round ? Math.Round(value / SelectedMemorySize.Value) : value / SelectedMemorySize.Value;
+
+            _values.Add(newValue);
+
+            if (_values.Count > Limit) _values.RemoveAt(0);
         }
 
         private void InitializeAxes()

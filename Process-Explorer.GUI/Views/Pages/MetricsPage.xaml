@@ -29,17 +29,17 @@
                             <StackPanel Spacing="2">
                                 <TextBlock Margin="10 10 0 0" Text="Private Bytes"/>
                                 <charts:CartesianChart 
-                                    Series="{Binding PrivateBytesChartSeries, Mode=OneWay}"
-                                    XAxes="{Binding PrivateBytesXAxes, Mode=OneWay}"
-                                    YAxes="{Binding PrivateBytesYAxes, Mode=OneWay}"
+                                    Series="{x:Bind viewModel.PrivateChart.ChartSeries, Mode=OneWay}"
+                                    XAxes="{x:Bind viewModel.PrivateChart.XAxes, Mode=OneWay}"
+                                    YAxes="{x:Bind viewModel.PrivateChart.YAxes, Mode=OneWay}"
                                     Width="600"
                                     Height="300"/>
                             </StackPanel>
                         </Border>
                         <ComboBox
                             Width="600"
-                            ItemsSource="{Binding MemorySizes}"
-                            SelectedItem="{Binding SelectedMemVarPrivateBytes, Mode=TwoWay}"
+                            ItemsSource="{x:Bind viewModel.MemorySizes}"
+                            SelectedItem="{x:Bind viewModel.SelectedMemVarPrivateBytes, Mode=TwoWay}"
                             SelectedValuePath="Value"
                             DisplayMemberPath="Name" 
                             CornerRadius="0 0 10 10"/>
@@ -53,17 +53,17 @@
                             <StackPanel Spacing="2">
                                 <TextBlock Margin="10 10 0 0" Text="Working Set"/>
                                 <charts:CartesianChart 
-                                    Series="{Binding WorkingSetChartSeries, Mode=OneWay}"
-                                    XAxes="{Binding WorkingSetXAxes, Mode=OneWay}"
-                                    YAxes="{Binding WorkingSetYAxes, Mode=OneWay}"
+                                    Series="{x:Bind viewModel.WorkingChart.ChartSeries, Mode=OneWay}"
+                                    XAxes="{x:Bind viewModel.WorkingChart.XAxes, Mode=OneWay}"
+                                    YAxes="{x:Bind viewModel.WorkingChart.YAxes, Mode=OneWay}"
                                     Width="600"
                                     Height="300"/>
                             </StackPanel>
                         </Border>
                         <ComboBox
                             Width="600"
-                            ItemsSource="{Binding MemorySizes}"
-                            SelectedItem="{Binding SelectedMemVarWorkingSet, Mode=TwoWay}"
+                            ItemsSource="{x:Bind viewModel.MemorySizes}"
+                            SelectedItem="{x:Bind viewModel.SelectedMemVarWorkingSet, Mode=TwoWay}"
                             SelectedValuePath="Value"
                             DisplayMemberPath="Name" 
                             CornerRadius="0 0 10 10"/>
@@ -77,9 +77,9 @@
                             <StackPanel Spacing="2">
                                 <TextBlock Margin="10 10 0 0" Text="Cpu Usage"/>
                                 <charts:CartesianChart 
-                                    Series="{Binding CpuChartSeries, Mode=OneWay}"
-                                    XAxes="{Binding CpuXAxes, Mode=OneWay}"
-                                    YAxes="{Binding CpuYAxes, Mode=OneWay}"
+                                    Series="{x:Bind viewModel.CpuChart.ChartSeries, Mode=OneWay}"
+                                    XAxes="{x:Bind viewModel.CpuChart.XAxes, Mode=OneWay}"
+                                    YAxes="{x:Bind viewModel.CpuChart.YAxes, Mode=OneWay}"
                                     Width="600"
                                     Height="300"/>
                             </StackPanel>

@@ -6,6 +6,8 @@ namespace Process_Explorer.GUI.Views
 {
     public sealed partial class MetricsPage : Page
     {
+        private MetricsViewModel viewModel = default!;
+
         public MetricsPage()
         {
             this.InitializeComponent();
@@ -15,7 +17,7 @@ namespace Process_Explorer.GUI.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            DataContext = e.Parameter as MetricsViewModel;
+            viewModel = e.Parameter as MetricsViewModel;
         }
     }
 }
