@@ -48,7 +48,7 @@ namespace Process_Explorer.GUI.ViewModels
             WorkingChart.Limit = 100;
 
             CpuChart = new MemoryUsageChart(
-                new MemorySize("CPU", 1),
+                MemorySize.Cpu,
                 SKColors.MistyRose,
                 40);
 

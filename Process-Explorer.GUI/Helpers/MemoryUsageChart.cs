@@ -74,7 +74,7 @@ namespace Process_Explorer.GUI.Helpers
 
         public void AddValue(double value, bool round = true)
         {
-            var newValue = round ? Math.Round(value / SelectedMemorySize.Value) : value / SelectedMemorySize.Value;
+            var newValue = round ? Math.Round(_selectedMemorySize.Calculate(value)) : _selectedMemorySize.Calculate(value);
 
             _values.Add(newValue);
 
@@ -105,10 +105,10 @@ namespace Process_Explorer.GUI.Helpers
         public static ObservableCollection<MemorySize> InitializeSizes()
             => new ObservableCollection<MemorySize>
             {
-                new MemorySize("B", 1),
-                new MemorySize("KB", 1024),
-                new MemorySize("MB", 1048576),
-                new MemorySize("GB", 1073741824)
+                MemorySize.Byte,
+                MemorySize.KiloByte,
+                MemorySize.MegaByte,
+                MemorySize.GigaByte,
             };
     }
 }

@@ -13,11 +13,6 @@ using System.Threading;
 
 namespace Process_Explorer.GUI.ViewModels
 {
-    ///------------------------------------------------
-    /// 
-    /// Skoro...
-    /// 
-    ///------------------------------------------------
     public partial class ActionsViewModel : ObservableObject
     {
         private readonly ProcessMetricsHostedService _service = default!;
@@ -63,21 +58,21 @@ namespace Process_Explorer.GUI.ViewModels
         public ActionsViewModel(ProcessMetricsHostedService service)
         {
             CpuChart = new MemoryUsageChart(
-               new MemorySize("Cpu", 1),
+               MemorySize.Cpu,
                SKColors.MistyRose,
                40);
 
             CpuChart.Limit = 100;
 
             PrivateChart = new MemoryUsageChart(
-                new MemorySize("Private Bytes (MB)", 1048576),
+                MemorySize.MegaByte,
                 SKColors.Red,
                 40);
 
             PrivateChart.Limit = 100;
 
             WorkingChart = new MemoryUsageChart(
-                new MemorySize("WorkingSet (MB)", 1048576),
+                MemorySize.MegaByte,
                 SKColors.Yellow,
                40);
 
