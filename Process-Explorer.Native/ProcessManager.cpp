@@ -18,11 +18,11 @@ System::Threading::Tasks::Task^ Native::ProcessManager::InitializeProcessesListA
         size_t count = needed / sizeof(DWORD);
         for (size_t i = 0; i < count; ++i) {
             
+            if (PIDs[i] == 0) continue;
             auto newPIDs = gcnew HashSet<DWORD>();
             for (size_t i = 0; i < count; ++i)
             {
-                if (PIDs[i] != 0)
-                    newPIDs->Add(PIDs[i]);
+                newPIDs->Add(PIDs[i]);
             }
 
 			auto oldPIDs = gcnew HashSet<DWORD>(m_processes->Keys);
@@ -34,9 +34,7 @@ System::Threading::Tasks::Task^ Native::ProcessManager::InitializeProcessesListA
                 }
 			}
 
-            if (PIDs[i] == 0) continue;
-
-            else if (!m_processes->ContainsKey(PIDs[i]))
+            if (!m_processes->ContainsKey(PIDs[i]))
             {
                 m_processes->Add(PIDs[i], gcnew Native::Process(PIDs[i]));
             }
