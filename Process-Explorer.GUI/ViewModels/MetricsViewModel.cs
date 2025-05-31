@@ -82,6 +82,6 @@ namespace Process_Explorer.GUI.ViewModels
             WorkingChart.SelectedMemorySize = newVal;
         }
 
-        public void Dispose() => _timer.Dispose();
+        public void Dispose() => _timer?.Dispose();
     }
 }

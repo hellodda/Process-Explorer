@@ -121,9 +121,6 @@ namespace Process_Explorer.GUI.ViewModels
             }
         }
 
-        public void Dispose()
-        {
-            _timer?.Dispose();
-        }
+        public void Dispose() => _timer?.Dispose();
     }
 }
