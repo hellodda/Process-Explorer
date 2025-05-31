@@ -7,7 +7,7 @@
 
 # new
 
-![Screenshot 2025-05-26 011936](https://github.com/user-attachments/assets/472b9a1d-3cb6-4618-a628-094b23c8545f)
+![Screenshot 2025-06-01 032041](https://github.com/user-attachments/assets/51dcfd6a-64a4-4e6a-94d1-6cf1e33afa91)
 
 # old
 
