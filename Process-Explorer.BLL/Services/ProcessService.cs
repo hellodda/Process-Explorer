@@ -16,14 +16,14 @@ namespace Process_Explorer.BLL.Services
             _logger = logger;
         }
 
-        public Task<IEnumerable<Process?>> GetActiveProcessesAsync()
+        public async Task<IEnumerable<Process?>> GetActiveProcessesAsync()
         {
             _logger.LogDebug("GetActiveProcessesAsync called");
             try
             {
-                var processes = ProcessManager.GetActiveProcesses().ToList();
+                var processes = (await ProcessManager.GetActiveProcessesAsync()).ToList();
 
-                return Task.FromResult<IEnumerable<Process>>(processes)!;
+                return processes!;
             }
             catch (Exception ex)
             {
@@ -32,18 +32,18 @@ namespace Process_Explorer.BLL.Services
             }
         }
 
-        public Task<Process?> GetProcessByIdAsync(int pid)
+        public async Task<Process?> GetProcessByIdAsync(int pid)
         {
             _logger.LogDebug($"GetProcessByIdAsync called for PID: {pid}");
             try
             {
-                var processes = ProcessManager.GetActiveProcesses().ToList();
+                var processes = (await ProcessManager.GetActiveProcessesAsync()).ToList();
                 var process = processes.FirstOrDefault(p => p?.GetProcessInformation().PID == pid);
                 if (process is null)
                 {
                     _logger.LogError($"not found process for PID: {pid}");
                 }
-                return Task.FromResult<Process>(process!)!;
+                return process!;
             }
             catch (Exception ex)
             {
@@ -52,14 +52,14 @@ namespace Process_Explorer.BLL.Services
             }
         }
 
-        public async Task<IEnumerable<ProcessInformationDTO?>?> GetProcessesInformation()
+        public async Task<IEnumerable<ProcessInformationDTO?>?> GetProcessesInformationAsync()
         {
             _logger.LogDebug("GetProcessesInformation called");
 
-            return await GetProcessesInformation(ProcessManager.GetActiveProcesses());
+            return await GetProcessesInformationAsync(await ProcessManager.GetActiveProcessesAsync());
         }
 
-        public Task<IEnumerable<ProcessInformationDTO?>?> GetProcessesInformation(IEnumerable<Process> processes)
+        public Task<IEnumerable<ProcessInformationDTO?>?> GetProcessesInformationAsync(IEnumerable<Process> processes)
         {
             _logger.LogDebug("GetProcessesInformation(procesess) called");
             try
@@ -86,18 +86,18 @@ namespace Process_Explorer.BLL.Services
             }
         }
 
-        public Task<ProcessInformationDTO?> GetProcessInformationByIdAsync(int pid)
+        public async Task<ProcessInformationDTO?> GetProcessInformationByIdAsync(int pid)
         {
             _logger.LogDebug($"GetProcessInformationByIdAsync called for PID: {pid}");
             try
             {
-                var processes = ProcessManager.GetActiveProcesses().ToList();
+                var processes = (await ProcessManager.GetActiveProcessesAsync()).ToList();
                 var process = processes.FirstOrDefault(p => p?.GetProcessInformation().PID == pid);
                 if (process is null)
                 {
                     _logger.LogError($"not found process for PID: {pid}");
                 }
-                return Task.FromResult<ProcessInformationDTO?>(_mapper.Map<ProcessInformationDTO>(process!.GetProcessInformation()))!;
+                return _mapper.Map<ProcessInformationDTO>(process!.GetProcessInformation())!;
             }
             catch (Exception ex)
             {

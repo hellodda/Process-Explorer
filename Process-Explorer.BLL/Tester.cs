@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Process_Explorer.BLL.Models;
+using System.Threading.Tasks;
 
 namespace Process_Explorer.BLL
 {
@@ -12,9 +13,9 @@ namespace Process_Explorer.BLL
             _mapper = mapper;
         }
 
-        public IEnumerable<ProcessInformationDTO> GetInfo()
+        public async Task<IEnumerable<ProcessInformationDTO>> GetInfo()
         {
-            var list = Native.ProcessManager.GetActiveProcesses().ToList();
+            var list = (await Native.ProcessManager.GetActiveProcessesAsync()).ToList();
             var pilist = new List<ProcessInformationDTO>();
 
             foreach (var process in list) {

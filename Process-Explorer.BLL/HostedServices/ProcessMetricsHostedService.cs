@@ -23,7 +23,7 @@ namespace Process_Explorer.BLL.HostedServices
         {
             try
             {
-                Processes = (await _service.GetProcessesInformation()).ToList();
+                Processes = (await _service.GetProcessesInformationAsync()).ToList();
 
                 _logger.LogInformation("Process list updated successfully.");
             }

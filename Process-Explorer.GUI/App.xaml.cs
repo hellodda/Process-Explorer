@@ -28,7 +28,7 @@ namespace Process_Explorer.GUI
             }
             catch (Exception ex)
             {
-                Native.MessageBox.Show(ex.Message);
+                Native.MessageBox.ShowWarning(ex.Message);
             }
 
             var services = new ServiceCollection();

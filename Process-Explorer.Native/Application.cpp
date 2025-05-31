@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Application.h"
 #include "Handle.h"
+#include "MessageBox.h"
 
 void Native::Application::SetPrivileges()
 {

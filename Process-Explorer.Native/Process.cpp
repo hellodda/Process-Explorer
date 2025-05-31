@@ -3,6 +3,7 @@
 #include "Handle.h"
 #include "ProcessInformation.h"
 #include "CriticalSection.h"
+#include "MessageBox.h"
 
 typedef struct LANGANDCODEPAGE {
     WORD wLanguage;
@@ -109,7 +110,7 @@ System::String^ Native::Process::GetProcessCompany()
         DWORD size = GetFileVersionInfoSize(fullPath, &dummy);
         if (size)
         {
-            LANGANDCODEPAGE* lpTranslate;
+            PLANGANDCODEPAGE lpTranslate;
             BYTE* versionData = new BYTE[size];
             if (GetFileVersionInfo(fullPath, 0, size, versionData))
             {
