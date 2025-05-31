@@ -10,23 +10,9 @@ namespace Native
 
 	public:
 
-		ProcessInformation()
-		{
-			m_memoryCounters = new PROCESS_MEMORY_COUNTERS_EX();
-			memset(m_memoryCounters, 0, sizeof(PROCESS_MEMORY_COUNTERS_EX));
-		}
-		~ProcessInformation()
-		{
-			if (m_memoryCounters)
-			{
-				delete m_memoryCounters;
-				m_memoryCounters = nullptr;
-			}
-		}
-		!ProcessInformation()
-		{
-			this->~ProcessInformation();
-		}
+		ProcessInformation();
+		~ProcessInformation();
+		!ProcessInformation();
 
 		property DWORD PID;
 		property System::String^ Name;
