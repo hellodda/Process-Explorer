@@ -24,6 +24,7 @@ namespace Process_Explorer.GUI
             try
             {
                 Native.Application.SetPrivileges();
+                Native.Application.SetPriority();
             }
             catch (Exception ex)
             {

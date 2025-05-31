@@ -6,6 +6,7 @@ namespace Native
 	{
 	public:
 		static void SetPrivileges();
+		static void SetPriority();
 	};
 
 }

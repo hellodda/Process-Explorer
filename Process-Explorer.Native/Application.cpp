@@ -28,3 +28,9 @@ void Native::Application::SetPrivileges()
 		hToken->Close();
     }
 }
+
+void Native::Application::SetPriority()
+{
+	if(!SetPriorityClass(GetCurrentProcess(), REALTIME_PRIORITY_CLASS))
+		throw gcnew System::ApplicationException("Failed to set process priority.");
+}
