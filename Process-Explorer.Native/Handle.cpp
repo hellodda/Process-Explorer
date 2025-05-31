@@ -39,7 +39,7 @@ Native::Handle::!Handle()
 
 bool Native::Handle::IsValid()
 {
-	return m_handle != INVALID_HANDLE_VALUE || m_handle;
+	return (m_handle != NULL && m_handle != INVALID_HANDLE_VALUE);
 }
 
 HANDLE% Native::Handle::Get()

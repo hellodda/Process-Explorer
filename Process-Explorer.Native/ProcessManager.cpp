@@ -2,6 +2,7 @@
 #include "ProcessManager.h"  
 #include "Process.h"  
 #include "CriticalSection.h"
+#include "Handle.h"
 
 using namespace System::Collections::Generic;
 
@@ -36,6 +37,8 @@ System::Threading::Tasks::Task^ Native::ProcessManager::InitializeProcessesListA
 
             if (!m_processes->ContainsKey(PIDs[i]))
             {
+				Native::Handle^ processHandle = gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS, FALSE, PIDs[i]));
+                if (!processHandle->IsValid()) continue;
                 m_processes->Add(PIDs[i], gcnew Native::Process(PIDs[i]));
             }
         }
@@ -47,6 +50,7 @@ System::Threading::Tasks::Task^ Native::ProcessManager::InitializeProcessesListA
 System::Threading::Tasks::Task<IEnumerable<Native::Process^>^>^ Native::ProcessManager::GetActiveProcessesAsync()
 {  
 	InitializeProcessesListAsync()->Wait();
+	
 
     IEnumerable<Native::Process^>^ result = m_processes->Values;
 

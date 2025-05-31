@@ -37,7 +37,7 @@ namespace Process_Explorer.BLL.Services
             _logger.LogDebug($"GetProcessByIdAsync called for PID: {pid}");
             try
             {
-                var processes = (await ProcessManager.GetActiveProcessesAsync()).ToList();
+                var processes = (await ProcessManager.GetActiveProcessesAsync()).ToList();;
                 var process = processes.FirstOrDefault(p => p?.GetProcessInformation().PID == pid);
                 if (process is null)
                 {

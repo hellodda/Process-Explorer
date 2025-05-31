@@ -40,6 +40,7 @@ namespace Native
 		}
 		property System::String^ Company;
 		property System::String^ Description;
+		property System::String^ FilePath;
 		property double CpuUsage;
 	};
 }

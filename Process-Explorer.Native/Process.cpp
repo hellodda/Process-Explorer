@@ -30,7 +30,8 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
 {
     m_cs->Lock();
 
-    if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
+    if (!m_handle->IsValid())
+        throw gcnew System::NullReferenceException("Process handle is null.");
 
     m_info->PID = GetProcessId(m_handle);
 	m_info->Name = GetProcessName();
@@ -42,6 +43,7 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
 
 	m_info->Description = GetProcessDescription();
 	m_info->Company = GetProcessCompany();
+	m_info->FilePath = GetProcessFilePath();
 
     UpdateProcessCPUUsage();
 
@@ -58,9 +60,7 @@ System::String^ Native::Process::GetProcessName()
 
     WCHAR exeName[MAX_PATH]{ 0 };
     if (GetProcessImageFileName(m_handle, exeName, MAX_PATH))
-    {
         return gcnew System::String(PathFindFileNameW(exeName));
-    }
 }
 
 System::String^ Native::Process::GetProcessDescription()
@@ -76,12 +76,12 @@ System::String^ Native::Process::GetProcessDescription()
         {
             PLANGANDCODEPAGE lpTranslate;
             BYTE* versionData = new BYTE[size];
-            if (GetFileVersionInfo(fullPath, 0, size, versionData))
+            if (GetFileVersionInfo(fullPath, NULL, size, versionData))
             {
-                UINT cbTranslate = 0;
+                UINT cbTranslate{ 0 };
                 if (VerQueryValue(versionData, L"\\VarFileInfo\\Translation", (LPVOID*)&lpTranslate, &cbTranslate))
                 {
-                    WCHAR subBlock[64];
+                    WCHAR subBlock[64]{};
 
                     swprintf_s(subBlock, L"\\StringFileInfo\\%04x%04x\\FileDescription", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
                     LPVOID lpBuffer;
@@ -112,12 +112,12 @@ System::String^ Native::Process::GetProcessCompany()
         {
             PLANGANDCODEPAGE lpTranslate;
             BYTE* versionData = new BYTE[size];
-            if (GetFileVersionInfo(fullPath, 0, size, versionData))
+            if (GetFileVersionInfo(fullPath, NULL, size, versionData))
             {
-                UINT cbTranslate = 0;
+                UINT cbTranslate{ 0 };
                 if (VerQueryValue(versionData, L"\\VarFileInfo\\Translation", (LPVOID*)&lpTranslate, &cbTranslate))
                 {
-                    WCHAR subBlock[64];
+                    WCHAR subBlock[64]{};
 
                     swprintf_s(subBlock, L"StringFileInfo\\%04x%04x\\CompanyName", lpTranslate[0].wLanguage, lpTranslate[0].wCodePage);
                     LPVOID lpBuffer;
@@ -133,6 +133,19 @@ System::String^ Native::Process::GetProcessCompany()
             delete[] versionData; 
         }
     }
+}
+
+System::String^ Native::Process::GetProcessFilePath()
+{
+    if (!m_handle->IsValid())
+        throw gcnew System::NullReferenceException("Handle is invalid.");
+
+    TCHAR path[MAX_PATH]{ 0 };
+    DWORD size{ MAX_PATH };
+    if (!QueryFullProcessImageName(m_handle, 0, path, &size))
+        throw gcnew System::Exception(">:{ failed.");
+ 
+    return gcnew System::String(path);
 }
 
 void Native::Process::UpdateProcessCPUUsage()
@@ -206,7 +219,7 @@ PROCESS_MEMORY_COUNTERS_EX Native::Process::GetProcessMemoryCounters()
 {
     if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");
 
-    PROCESS_MEMORY_COUNTERS_EX memCounters = {};
+    PROCESS_MEMORY_COUNTERS_EX memCounters{};
     if (GetProcessMemoryInfo(m_handle, (PROCESS_MEMORY_COUNTERS*)&memCounters, sizeof(memCounters)))
     {
 		return memCounters;

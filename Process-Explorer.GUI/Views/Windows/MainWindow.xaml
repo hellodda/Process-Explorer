@@ -50,6 +50,13 @@
             </tv:TableView.AlternateRowBackground>
             
             <tv:TableView.Columns>
+                <tv:TableViewTemplateColumn MaxWidth="40">
+                    <tv:TableViewTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding IconSource}"/>
+                        </DataTemplate>
+                    </tv:TableViewTemplateColumn.CellTemplate>
+                </tv:TableViewTemplateColumn>
                 <tv:TableViewTextColumn IsReadOnly="True" Header="PID" Binding="{Binding PID}" />
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}" />
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="PrivateBytes" Binding="{Binding PrivateBytes}" />

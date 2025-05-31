@@ -2,6 +2,7 @@
 #define PCH_H
 
 #define WIN32_LEAN_AND_MEAN
+#define _WIN32_WINNT 0x0601
 
 #include <Windows.h>
 #include <psapi.h>

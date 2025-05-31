@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using Process_Explorer.BLL.Models;
+using Process_Explorer.GUI.Helpers;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Process_Explorer.BLL.Models;
+using System.Threading.Tasks;
 
 namespace Process_Explorer.GUI.ViewModels
 {
@@ -11,12 +13,25 @@ namespace Process_Explorer.GUI.ViewModels
         public ProcessInformationViewModel(ProcessInformationDTO dto)
         {
             _dto = dto;
+            _ = LoadIconAsync();
         }
 
         public uint PID => _dto.PID;
         public string Name => _dto.Name;
         public string Company => _dto.Company;
         public string Description => _dto.Description;
+        public string FilePath => _dto.FilePath;
+
+        private Microsoft.UI.Xaml.Media.Imaging.BitmapImage _iconSource = default!;
+        public Microsoft.UI.Xaml.Media.Imaging.BitmapImage IconSource
+        {
+            get => _iconSource;
+            private set
+            {
+                _iconSource = value;
+                OnPropertyChanged();
+            }
+        }
 
         public uint WorkingSet
         {
@@ -42,6 +57,13 @@ namespace Process_Explorer.GUI.ViewModels
                     OnPropertyChanged();
                 }
             }
+        }
+
+        private async Task LoadIconAsync()
+        {
+            var icon = await IconHelper.GetIconAsync(_dto.FilePath);
+            if (icon is not null)
+                IconSource = icon;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

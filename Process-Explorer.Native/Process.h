@@ -30,7 +30,6 @@ namespace Native
 		void UpdateProcessCPUUsage();
 
 	public:
-
 		Process(DWORD pid);
 		Process(Handle^ handle);
 
@@ -39,6 +38,7 @@ namespace Native
 		System::String^ GetProcessName();
 		System::String^ GetProcessDescription();
 		System::String^ GetProcessCompany();
+		System::String^ GetProcessFilePath();
 
 		Handle^ GetHandle();
 
