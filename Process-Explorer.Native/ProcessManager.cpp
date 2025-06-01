@@ -37,9 +37,9 @@ System::Threading::Tasks::Task^ Native::ProcessManager::InitializeProcessesListA
 
             if (!m_processes->ContainsKey(PIDs[i]))
             {
-				Native::Handle^ processHandle = gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS, FALSE, PIDs[i]));
-                if (!processHandle->IsValid()) continue;
-                m_processes->Add(PIDs[i], gcnew Native::Process(processHandle));
+				Native::Handle^ hProcess = gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS, FALSE, PIDs[i]));
+                if (!hProcess->IsValid()) continue;
+                m_processes->Add(PIDs[i], gcnew Native::Process(hProcess));
             }
         }
     }
