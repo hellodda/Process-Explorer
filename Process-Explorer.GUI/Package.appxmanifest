@@ -12,7 +12,7 @@
   <Identity
     Name="b300651a-eadd-45f7-b752-42c42e5ee504"
     Publisher="CN=user"
-    Version="1.0.0.0" />
+    Version="1.0.5.0" />
 
   <mp:PhoneIdentity PhoneProductId="b300651a-eadd-45f7-b752-42c42e5ee504" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

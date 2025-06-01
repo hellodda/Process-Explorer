@@ -14,11 +14,7 @@
         <TextBlock Text="Actions" FontSize="25"/>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="10" Height="360">
             <StackPanel Orientation="Vertical" Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Border Width="600" Height="150" CornerRadius="10 10 0 0">
-                    <Border.Background>
-                        <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                    </Border.Background>
-
+                <Border Width="600" Height="150" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical" >
                             <TextBox Text="{x:Bind viewModel.TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
@@ -84,10 +80,7 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel Spacing="20">
                     <Border Height="10"/>
-                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
-                        <Border.Background>
-                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                        </Border.Background>
+                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10" Background="{ThemeResource ControlFillColorDefaultBrush}">
 
                         <StackPanel>
                             <charts:CartesianChart 
@@ -98,11 +91,8 @@
                                 Height="280"/>
                         </StackPanel>
                     </Border>
-                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
-                        <Border.Background>
-                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                        </Border.Background>
-
+                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10" Background="{ThemeResource ControlFillColorDefaultBrush}">
+               
                         <StackPanel>
                             <charts:CartesianChart 
                                 Width="550"
@@ -112,10 +102,7 @@
                                 Height="280"/>
                         </StackPanel>
                     </Border>
-                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10">
-                        <Border.Background>
-                            <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                        </Border.Background>
+                    <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10" Background="{ThemeResource ControlFillColorDefaultBrush}">
 
                         <StackPanel>
                             <charts:CartesianChart 

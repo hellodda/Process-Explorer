@@ -20,7 +20,8 @@ namespace Native
 		PFILETIME m_prevProcKernelTime;
 		PFILETIME m_prevProcUserTime;
 
-		bool m_firstTimeMeasured;
+		bool m_dataReceived{ false };
+		bool m_firstTimeMeasured{ false };
 	private:
 
 		void InitializeProcessTimes();

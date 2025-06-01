@@ -23,10 +23,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="20" Padding="25">
                   <!--1-->
                     <StackPanel Orientation="Vertical" Spacing="2">
-                        <Border Height="320" CornerRadius="10 10 0 0">
-                            <Border.Background>
-                                <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                            </Border.Background>
+                        <Border Height="320" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                             <StackPanel Spacing="2">
                                 <TextBlock Margin="10 10 0 0" Text="Private Bytes"/>
                                 <charts:CartesianChart 
@@ -47,10 +44,7 @@
                     </StackPanel>
                     <!--2-->
                     <StackPanel Orientation="Vertical" Spacing="2">
-                        <Border Height="320" CornerRadius="10 10 0 0">
-                            <Border.Background>
-                                <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                            </Border.Background>
+                        <Border Height="320" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                             <StackPanel Spacing="2">
                                 <TextBlock Margin="10 10 0 0" Text="Working Set"/>
                                 <charts:CartesianChart 
@@ -71,10 +65,7 @@
                     </StackPanel>
                     <!--3-->
                     <StackPanel Orientation="Vertical" Spacing="2">
-                        <Border Height="353" CornerRadius="10 10 10 10">
-                            <Border.Background>
-                                <AcrylicBrush TintOpacity="0.2" Opacity="0.2"/>
-                            </Border.Background>
+                        <Border Height="353" CornerRadius="10 10 10 10" Background="{ThemeResource ControlFillColorDefaultBrush}">
                             <StackPanel Spacing="2">
                                 <TextBlock Margin="10 10 0 0" Text="Cpu Usage"/>
                                 <charts:CartesianChart 

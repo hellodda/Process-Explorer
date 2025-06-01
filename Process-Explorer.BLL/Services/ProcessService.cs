@@ -69,6 +69,11 @@ namespace Process_Explorer.BLL.Services
                 foreach (var process in processes)
                 {
                     var info = process?.GetProcessInformation()!;
+                    if (info is null)
+                    {
+                        _logger.LogWarning($"Process has no information");
+                        continue;
+                    }
                     if (info.PID is 0)
                     {
                         _logger.LogWarning($"Process with pid {info.PID} has no information");

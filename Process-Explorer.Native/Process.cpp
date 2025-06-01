@@ -4,24 +4,14 @@
 #include "ProcessInformation.h"
 #include "CriticalSection.h"
 #include "MessageBox.h"
+#include "ProcessExplorer-Definitions.h"
 
-typedef struct LANGANDCODEPAGE {
-    WORD wLanguage;
-    WORD wCodePage;
-} *PLANGANDCODEPAGE, FAR *LPLANGANDCODEPAGE;
-
-ULONGLONG FileTimeToULL (PFILETIME ft){
-    if (!ft) throw gcnew System::NullReferenceException("FILETIME is null!");
-
-    return (((ULONGLONG)ft->dwHighDateTime) << 32) | ft->dwLowDateTime;
-};
-
-Native::Process::Process(DWORD pid) : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS , FALSE, pid))), m_cs(gcnew Native::CriticalSection()), m_info(gcnew Native::ProcessInformation()), m_firstTimeMeasured(false)
+Native::Process::Process(DWORD pid) : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS , FALSE, pid))), m_cs(gcnew Native::CriticalSection()), m_info(gcnew Native::ProcessInformation())
 {
     if (GetProcessId(m_handle) != 0)
         InitializeProcessTimes();
 }
-Native::Process::Process(Handle^ handle) : m_handle(handle), m_info(gcnew Native::ProcessInformation), m_cs(gcnew Native::CriticalSection()), m_firstTimeMeasured(false)
+Native::Process::Process(Handle^ handle) : m_handle(handle), m_info(gcnew Native::ProcessInformation), m_cs(gcnew Native::CriticalSection())
 {
     if (GetProcessId(m_handle) != 0)
         InitializeProcessTimes();
@@ -33,17 +23,20 @@ Native::ProcessInformation^ Native::Process::GetProcessInformation()
     if (!m_handle->IsValid())
         throw gcnew System::NullReferenceException("Process handle is null.");
 
-    m_info->PID = GetProcessId(m_handle);
-	m_info->Name = GetProcessName();
-    
+    if (!m_dataReceived)
+    {
+        m_info->PID = GetProcessId(m_handle);
+        m_info->Name = GetProcessName();
+        m_info->Description = GetProcessDescription();
+        m_info->Company = GetProcessCompany();
+        m_info->FilePath = GetProcessFilePath();
+		m_dataReceived = true;
+    }
+
 	auto memCounters = GetProcessMemoryCounters();
 
 	m_info->WorkingSet = memCounters.WorkingSetSize;
 	m_info->PrivateBytes = memCounters.PrivateUsage;
-
-	m_info->Description = GetProcessDescription();
-	m_info->Company = GetProcessCompany();
-	m_info->FilePath = GetProcessFilePath();
 
     UpdateProcessCPUUsage();
 
