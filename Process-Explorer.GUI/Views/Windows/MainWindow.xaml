@@ -15,6 +15,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+        
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
@@ -28,15 +30,17 @@
             IsSettingsVisible="False"
             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
             ItemInvoked="NavigationView_ItemInvoked"
-            BackRequested="NavigationView_BackRequested">
-
-            <NavigationView.MenuItems>
-                <NavigationViewItem Content="Metrics" Tag="metrics"/>
-                <NavigationViewItem Content="Actions" Tag="actions"/>
-            </NavigationView.MenuItems>
+            BackRequested="NavigationView_BackRequested"
+            >
 
             <Frame x:Name="ContentFrame"/>
         </NavigationView>
+
+        <Canvas ZIndex="1000" IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Border Padding="10">
+                <TextBlock Text="Experimental Version 0.1 :))))))"/>
+            </Border>
+        </Canvas>
 
 
         <!--SPISOK-->
@@ -48,7 +52,7 @@
             <tv:TableView.AlternateRowBackground>
                 <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.2" TintOpacity="0.2"/>
             </tv:TableView.AlternateRowBackground>
-            
+
             <tv:TableView.Columns>
                 <tv:TableViewTemplateColumn MaxWidth="40">
                     <tv:TableViewTemplateColumn.CellTemplate>
@@ -66,5 +70,6 @@
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="Description" Binding="{Binding Description}" />
             </tv:TableView.Columns>
         </tv:TableView>
+
     </Grid>
 </Window>
