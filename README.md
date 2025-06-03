@@ -1,6 +1,8 @@
 ``status - in development``
 ``version - alpha``
 
+# branches
+
 - **Main (master)** — The **secure** and **stable** version for general use.
 - **Experimental (experimental)** — A cutting-edge build utilizing **NTAPI**, offering more direct system access, but considered **unstable** and intended for testing and research.
 
