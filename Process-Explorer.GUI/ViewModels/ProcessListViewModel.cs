@@ -56,6 +56,7 @@ namespace Process_Explorer.GUI.ViewModels
                     {
                         vm.WorkingSet = dto.WorkingSet;
                         vm.PrivateBytes = dto.PrivateBytes;
+                        vm.CpuUsage = Math.Truncate(dto.CpuUsage * 10) / 10;
                     }
                     else
                     {

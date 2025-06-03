@@ -59,6 +59,19 @@ namespace Process_Explorer.GUI.ViewModels
             }
         }
 
+        public double CpuUsage
+        {
+            get => _dto.CpuUsage;
+            set
+            {
+                if (_dto.CpuUsage != value)
+                {
+                    _dto.CpuUsage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private async Task LoadIconAsync()
         {
             var icon = await IconHelper.GetIconAsync(_dto.FilePath);

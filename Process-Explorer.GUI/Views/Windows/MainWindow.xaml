@@ -61,8 +61,9 @@
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}" />
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="PrivateBytes" Binding="{Binding PrivateBytes}" />
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="WorkingSet" Binding="{Binding WorkingSet}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Cpu" Binding="{Binding CpuUsage}" />
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="Company" Binding="{Binding Company}" />
-                <tv:TableViewNumberColumn IsReadOnly="True" Header="Description" Binding="{Binding Description}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Description" Binding="{Binding Description}" MaxWidth="450"/>
             </tv:TableView.Columns>
         </tv:TableView>
     </Grid>
