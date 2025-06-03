@@ -18,10 +18,10 @@
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical" >
                             <TextBox Text="{x:Bind viewModel.TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
-                            <!--<muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity}"/>-->
+                            <muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
-                            <TextBlock Text="Enter Process Id (PID)"/>
+                            <TextBlock Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <!--<TextBlock Foreground="LightGray" Text="{x:Bind viewModel.ProcessAddress}"/>-->
                         </StackPanel>
                     </StackPanel>

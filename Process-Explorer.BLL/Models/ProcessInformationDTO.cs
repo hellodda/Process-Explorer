@@ -3,6 +3,9 @@
     public class ProcessInformationDTO
     {
         public uint PID { get; set; }
+        public uint PPID { get; set; }
+        public uint HandlesCount { get; set; }
+        public uint ThreadsCount { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Company { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

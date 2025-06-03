@@ -31,5 +31,19 @@ namespace Process_Explorer.GUI.Helpers
                 return null!;
             }
         }
+        public static async Task<BitmapImage> GetDefaultIcon()
+        {
+            using (var bitmap = SystemIcons.Application.ToBitmap())
+            {
+                var bitmapImage = new Microsoft.UI.Xaml.Media.Imaging.BitmapImage();
+                using (var memoryStream = new System.IO.MemoryStream())
+                {
+                    bitmap.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
+                    memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
+                    await bitmapImage.SetSourceAsync(memoryStream.AsRandomAccessStream());
+                }
+                return bitmapImage;
+            }
+        }
     }
 }

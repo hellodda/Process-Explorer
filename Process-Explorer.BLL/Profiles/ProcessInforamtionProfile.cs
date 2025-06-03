@@ -10,6 +10,9 @@ namespace Process_Explorer.BLL.Profiles
         {
             CreateMap<ProcessInformation, ProcessInformationDTO>();
             CreateMap<ProcessInformationDTO, ProcessInformation>();
+
+            CreateMap<ProcessInformationEx, ProcessInformationDTO>();
+            CreateMap<ProcessInformationDTO, ProcessInformationEx>();
         }
     }
 }

@@ -55,11 +55,14 @@ namespace Process_Explorer.BLL.Services
         public async Task<IEnumerable<ProcessInformationDTO?>?> GetProcessesInformationAsync()
         {
             _logger.LogDebug("GetProcessesInformation called");
-
-            return await GetProcessesInformationAsync(await ProcessManager.GetActiveProcessesAsync());
+            if (false)
+            {
+                //return await GetProcessesInformationAsync(await Native.ProcessManager.GetActiveProcessesAsync());
+            }
+            return await GetProcessesInformationAsync(await Native.ProcessManager.NtGetActiveProcessesAsync());
         }
 
-        public Task<IEnumerable<ProcessInformationDTO?>?> GetProcessesInformationAsync(IEnumerable<Process> processes)
+        public Task<IEnumerable<ProcessInformationDTO?>?> GetProcessesInformationAsync(IEnumerable<ProcessEx> processes)
         {
             _logger.LogDebug("GetProcessesInformation(procesess) called");
             try

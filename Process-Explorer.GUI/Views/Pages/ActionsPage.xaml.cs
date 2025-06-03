@@ -1,7 +1,11 @@
 ﻿using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 using Process_Explorer.GUI.ViewModels;
 using System;
+using System.Drawing;
 
 namespace Process_Explorer.GUI.Views
 {
@@ -38,7 +42,13 @@ namespace Process_Explorer.GUI.Views
         //so don't pay attention
         private void Button_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            _____();
+            var notification = new AppNotificationBuilder()
+            .AddText("ops...")
+            .AddText("soon bro soon")
+            .BuildNotification();
+
+            AppNotificationManager.Default.Show(notification);
+
         }
 
         private void Button_Click_1(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)

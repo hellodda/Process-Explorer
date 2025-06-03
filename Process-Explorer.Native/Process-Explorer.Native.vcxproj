@@ -123,18 +123,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Allocator.h" />
     <ClInclude Include="CriticalSection.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Handle.h" />
     <ClInclude Include="MessageBox.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Process.h" />
+    <ClInclude Include="ProcessEx.h" />
     <ClInclude Include="ProcessExplorer-Definitions.h" />
     <ClInclude Include="ProcessInformation.h" />
+    <ClInclude Include="ProcessInformationEx.h" />
     <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Allocator.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CriticalSection.cpp" />
     <ClCompile Include="Application.cpp" />
@@ -147,8 +151,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Process.cpp" />
+    <ClCompile Include="ProcessEx.cpp" />
     <ClCompile Include="ProcessExplorer-Definitions.cpp" />
     <ClCompile Include="ProcessInformation.cpp" />
+    <ClCompile Include="ProcessInformationEx.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
   </ItemGroup>
   <ItemGroup>

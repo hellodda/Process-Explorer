@@ -8,6 +8,7 @@ using Process_Explorer.GUI.Helpers;
 using Process_Explorer.GUI.Models;
 using SkiaSharp;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading;
 
@@ -33,7 +34,10 @@ namespace Process_Explorer.GUI.ViewModels
         [ObservableProperty]
         private bool _isLoading = true;
 
-        private int _targetProcessId;
+        [ObservableProperty]
+        private string _text = "Enter Process Id [PID]";
+
+        private int _targetProcessId = -1;
         public int TargetProcessId
         {
             get => _targetProcessId;
@@ -41,6 +45,8 @@ namespace Process_Explorer.GUI.ViewModels
             {
                 if (SetProperty(ref _targetProcessId, value))
                 {
+                    Text = (value == 0) ? "Idle Process [Information Cannot Be Obtained]" : "Enter Process Id [PID]";
+
                     IsLoading = true;
                     ProcessAddress = "Loading...";
 

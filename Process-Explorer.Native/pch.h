@@ -16,6 +16,8 @@
 #pragma comment(lib, "Shlwapi.lib") 
 #pragma comment(lib, "Advapi32.lib")
 #pragma comment(lib, "User32.lib")
+#pragma comment(lib, "ntdll.lib")
+
 
 
 #endif //PCH_H

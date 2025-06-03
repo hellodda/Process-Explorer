@@ -1,6 +1,9 @@
 ﻿using Process_Explorer.BLL.Models;
 using Process_Explorer.GUI.Helpers;
+using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -59,11 +62,30 @@ namespace Process_Explorer.GUI.ViewModels
             }
         }
 
+        public double CpuUsage
+        {
+            get => _dto.CpuUsage;
+            set
+            {
+                if (_dto.CpuUsage != value)
+                {
+                    _dto.CpuUsage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private async Task LoadIconAsync()
         {
             var icon = await IconHelper.GetIconAsync(_dto.FilePath);
             if (icon is not null)
+            {
                 IconSource = icon;
+            }
+            else
+            {
+                IconSource = await IconHelper.GetDefaultIcon();
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
