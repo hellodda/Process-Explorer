@@ -1,3 +1,3 @@
 ``status - in development``
-``version - experemental``
+``version - experimental``
 
