@@ -12,7 +12,6 @@
     Background="{ThemeResource SystemChromeMediumColor}">
 
     <Grid Padding="15">
-        <TextBlock Text="not all processes are available, so the numbers may seem so small" Foreground="LightGray" HorizontalAlignment="Center"/>
         <TextBlock Text="Metrics" FontSize="25"/>
         <ScrollViewer x:Name="MetricsScrollViewer"
             HorizontalScrollMode="Enabled"

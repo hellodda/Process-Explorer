@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
 using Process_Explorer.BLL.HostedServices;
 using Process_Explorer.GUI.Extensions;
+using Process_Explorer.GUI.Helpers;
 
 namespace Process_Explorer.GUI
 {
@@ -28,7 +29,7 @@ namespace Process_Explorer.GUI
             }
             catch (Exception ex)
             {
-                Native.MessageBox.ShowWarning(ex.Message);
+                ToastNotificationHelper.ShowMessage("Process Explorer", ex.Message);
             }
 
             var services = new ServiceCollection();
