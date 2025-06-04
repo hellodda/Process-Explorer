@@ -76,7 +76,14 @@ namespace Process_Explorer.GUI.ViewModels
         {
             var icon = await IconHelper.GetIconAsync(_dto.FilePath);
             if (icon is not null)
+            {
                 IconSource = icon;
+            }
+            else
+            {
+                IconSource = await IconHelper.GetDefaultIcon();
+            }
+                
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

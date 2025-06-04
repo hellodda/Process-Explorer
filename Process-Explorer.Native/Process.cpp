@@ -130,13 +130,12 @@ System::String^ Native::Process::GetProcessCompany()
 
 System::String^ Native::Process::GetProcessFilePath()
 {
-    if (!m_handle->IsValid())
-        throw gcnew System::NullReferenceException("Handle is invalid.");
+    if (!m_handle->IsValid()) return "";
 
     TCHAR path[MAX_PATH]{ 0 };
     DWORD size{ MAX_PATH };
     if (!QueryFullProcessImageName(m_handle, 0, path, &size))
-        throw gcnew System::Exception(">:{ failed.");
+        return "";
  
     return gcnew System::String(path);
 }
