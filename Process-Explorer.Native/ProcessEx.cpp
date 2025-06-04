@@ -7,7 +7,7 @@
 
 Native::ProcessEx::ProcessEx(PSYSTEM_PROCESS_INFORMATION_EX pInfo) : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS, FALSE, (ULONG_PTR)pInfo->UniqueProcessId))), m_cs(gcnew Native::CriticalSection()), m_info(gcnew Native::ProcessInformationEx())
 {
-    SaveProcessInformation(pInfo);
+    SaveOrUpdateProcessInformation(pInfo);
 }
 
 Native::ProcessEx::~ProcessEx()
@@ -137,13 +137,8 @@ void Native::ProcessEx::UpdateProcessCpuUsage(PSYSTEM_PROCESS_INFORMATION_EX psp
     m_info->CpuUsage = System::Math::Min(System::Math::Max(cpuUsage, 0.0), 100.0);
 }
 
-void Native::ProcessEx::UpdateProcessMainMetrics(PSYSTEM_PROCESS_INFORMATION_EX pspi)
-{
-    m_info->WorkingSet = pspi->WorkingSetSize;
-    m_info->PrivateBytes = pspi->PrivatePageCount;
-}
 
-void Native::ProcessEx::SaveProcessInformation(PSYSTEM_PROCESS_INFORMATION_EX pspi)
+void Native::ProcessEx::SaveOrUpdateProcessInformation(PSYSTEM_PROCESS_INFORMATION_EX pspi)
 {
     m_cs->Lock();
 
@@ -168,7 +163,7 @@ void Native::ProcessEx::SaveProcessInformation(PSYSTEM_PROCESS_INFORMATION_EX ps
     m_info->HandlesCount = pspi->HandleCount;
     m_info->ThreadsCount = pspi->NumberOfThreads;
 
-    //UpdateProcessCpuUsage();
+    UpdateProcessCpuUsage(pspi);
 
     m_cs->Unlock();
 }

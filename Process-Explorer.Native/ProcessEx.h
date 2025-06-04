@@ -21,7 +21,8 @@ namespace Native
 
 	private:
 
-		void SaveProcessInformation(PSYSTEM_PROCESS_INFORMATION_EX pspi);
+
+		void UpdateProcessCpuUsage(PSYSTEM_PROCESS_INFORMATION_EX pspi);
 
 	public:
 
@@ -31,8 +32,7 @@ namespace Native
 
 		ProcessInformationEx^ GetProcessInformation();
 
-		void UpdateProcessCpuUsage(PSYSTEM_PROCESS_INFORMATION_EX pspi);
-		void UpdateProcessMainMetrics(PSYSTEM_PROCESS_INFORMATION_EX pspi);
+		void SaveOrUpdateProcessInformation(PSYSTEM_PROCESS_INFORMATION_EX pspi);
 
 		System::String^ GetProcessDescription();
 		System::String^ GetProcessCompany();

@@ -19,37 +19,45 @@ Native::ProcessManager::ProcessManager()
 
 System::Threading::Tasks::Task^ Native::ProcessManager::InitializeProcessesListAsync()
 {
-    DWORD PIDs[1024], needed;
-    if (EnumProcesses(PIDs, sizeof(PIDs), &needed)) {
-        size_t count = needed / sizeof(DWORD);
-        for (size_t i = 0; i < count; ++i) {
-            
-            if (PIDs[i] == 0) continue;
-            auto newPIDs = gcnew HashSet<DWORD>();
-            for (size_t i = 0; i < count; ++i)
-            {
-                newPIDs->Add(PIDs[i]);
-            }
+    DWORD PIDs[1024]{};
+    DWORD needed{ 0 };
 
-			auto oldPIDs = gcnew HashSet<DWORD>(m_processes->Keys);
-            for each(auto pid in oldPIDs)
-            {
-                if (!newPIDs->Contains(pid))
-                {
-					m_processes->Remove(pid);
-                }
-			}
+    if (!EnumProcesses(PIDs, sizeof(PIDs), &needed))
+        throw gcnew System::Exception("Failed to get process pids.");
 
-            if (!m_processes->ContainsKey(PIDs[i]))
+    const size_t count = needed / sizeof(DWORD);
+
+    auto newPIDs = gcnew HashSet<DWORD>(count);
+    for (size_t i = 0; i < count; ++i)
+    {
+        if (PIDs[i] != 0)
+            newPIDs->Add(PIDs[i]);
+    }
+
+    auto oldPIDs = gcnew List<DWORD>(m_processes->Keys);
+    for each (auto oldPid in oldPIDs)
+    {
+        if (!newPIDs->Contains(oldPid))
+        {
+            m_processes->Remove(oldPid);
+        }
+    }
+
+    for each (auto pid in newPIDs)
+    {
+        if (!m_processes->ContainsKey(pid))
+        {
+            Native::Handle^ hProcess = gcnew Native::Handle(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid));
+            if (hProcess->IsValid())
             {
-				Native::Handle^ hProcess = gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS, FALSE, PIDs[i]));
-                if (!hProcess->IsValid()) continue;
-                m_processes->Add(PIDs[i], gcnew Native::Process(hProcess));
+                m_processes->Add(pid, gcnew Native::Process(hProcess));
             }
         }
     }
-	return System::Threading::Tasks::Task::CompletedTask;
+
+    return System::Threading::Tasks::Task::CompletedTask;
 }
+
 
 System::Threading::Tasks::Task^ Native::ProcessManager::NtInitializeProcessesListAsync()
 {
@@ -87,8 +95,7 @@ System::Threading::Tasks::Task^ Native::ProcessManager::NtInitializeProcessesLis
             }
             else
             {
-                m_processesEx[pid]->UpdateProcessCpuUsage(pspi_ex);
-                m_processesEx[pid]->UpdateProcessMainMetrics(pspi_ex);
+                m_processesEx[pid]->SaveOrUpdateProcessInformation(pspi_ex);
             }
 
             if (pspi_ex->NextEntryOffset == 0)
@@ -98,7 +105,7 @@ System::Threading::Tasks::Task^ Native::ProcessManager::NtInitializeProcessesLis
                 reinterpret_cast<PBYTE>(pspi_ex) + pspi_ex->NextEntryOffset);
         }
 
-        for each (DWORD oldPid in oldPids)
+        for each (auto oldPid in oldPids)
         {
             if (!newPids->Contains(oldPid))
             {
