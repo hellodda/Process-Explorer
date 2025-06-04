@@ -1,10 +1,14 @@
-﻿using System;
-using System.Threading;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 using Process_Explorer.BLL.HostedServices;
 using Process_Explorer.GUI.Extensions;
+using Process_Explorer.GUI.Helpers;
+using System;
+using System.Threading;
+using Windows.UI.Notifications;
 
 namespace Process_Explorer.GUI
 {
@@ -27,8 +31,8 @@ namespace Process_Explorer.GUI
                 Native.Application.SetPriority();
             }
             catch (Exception ex)
-            {
-                Native.MessageBox.ShowWarning(ex.Message);
+            { 
+                ToastNotificationHelper.ShowMessage("Process Explorer Message", ex.Message);
             }
 
             var services = new ServiceCollection();
