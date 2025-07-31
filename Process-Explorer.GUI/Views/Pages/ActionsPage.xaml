@@ -8,20 +8,20 @@
     xmlns:charts="using:LiveChartsCore.SkiaSharpView.WinUI"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    >
 
     <Grid Padding="15">
         <TextBlock Text="Actions" FontSize="25"/>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="10" Height="360">
+        <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="10" Height="360">
             <StackPanel Orientation="Vertical" Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Border Width="600" Height="150" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
                         <StackPanel Orientation="Vertical" >
                             <TextBox Text="{x:Bind viewModel.TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
-                            <!--<muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity}"/>-->
+                            <muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
-                            <TextBlock Text="Enter Process Id (PID)"/>
+                            <TextBlock Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             <!--<TextBlock Foreground="LightGray" Text="{x:Bind viewModel.ProcessAddress}"/>-->
                         </StackPanel>
                     </StackPanel>
@@ -92,7 +92,7 @@
                         </StackPanel>
                     </Border>
                     <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10" Background="{ThemeResource ControlFillColorDefaultBrush}">
-               
+
                         <StackPanel>
                             <charts:CartesianChart 
                                 Width="550"

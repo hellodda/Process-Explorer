@@ -1,26 +1,39 @@
-﻿using System;
-using System.Threading;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
-using Process_Explorer.BLL.HostedServices;
 using Process_Explorer.GUI.Extensions;
 using Process_Explorer.GUI.Helpers;
+using System;
 
 namespace Process_Explorer.GUI
 {
     public partial class App : Application
     {
-        private IServiceProvider _services = default!;
+        private IHost _host = default!;
+        private Window _window = default!;
 
         public App()
         {
-          
             InitializeComponent();
-            Setup();
+            SetupApplication();
+            SetupHost();
         }
 
-        private void Setup()
+        private void SetupHost()
+        {
+            _host = Host.CreateDefaultBuilder()
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                    logging.SetMinimumLevel(LogLevel.Debug);
+                })
+                .ConfigureServices((ctx, services) => services.ConfigureServices())
+                .Build();
+        }
+
+        private void SetupApplication()
         {
             try
             {
@@ -29,32 +42,24 @@ namespace Process_Explorer.GUI
             }
             catch (Exception ex)
             {
-                ToastNotificationHelper.ShowMessage("Process Explorer", ex.Message);
+                ToastNotificationHelper.ShowMessage("Process Explorer Message", ex.Message);
             }
-
-            var services = new ServiceCollection();
-
-            services.AddLogging(logging =>
-            {
-                logging.ClearProviders();
-                logging.AddConsole();   
-                logging.SetMinimumLevel(LogLevel.Debug); 
-            });
-
-            services.ConfigureServices();
-
-            _services = services.BuildServiceProvider();
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs args)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
-            m_window = _services.GetRequiredService<MainWindow>();
-            m_window.Activate();
+            await _host.StartAsync();
 
-            var hostedService = _services.GetRequiredService<ProcessMetricsHostedService>();
-            hostedService.StartAsync(CancellationToken.None);
+            _window = _host.Services.GetRequiredService<MainWindow>();
+            _window.Activate();
+
+            _window.Closed += OnMainWindowClosed;
         }
 
-        private Window? m_window;
+        private async void OnMainWindowClosed(object? sender, WindowEventArgs e)
+        {
+            await _host.StopAsync(TimeSpan.FromSeconds(5));
+            _host.Dispose();
+        }
     }
 }

@@ -12,8 +12,14 @@
     mc:Ignorable="d"
     Title="Process Explorer 1.0.0">
 
+    <Window.SystemBackdrop>
+        <MicaBackdrop/>
+    </Window.SystemBackdrop>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+
+
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -28,7 +34,8 @@
             IsSettingsVisible="False"
             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
             ItemInvoked="NavigationView_ItemInvoked"
-            BackRequested="NavigationView_BackRequested">
+            BackRequested="NavigationView_BackRequested"
+            >
 
             <NavigationView.MenuItems>
                 <NavigationViewItem Content="Metrics" Tag="metrics"/>
@@ -38,7 +45,6 @@
             <Frame x:Name="ContentFrame"/>
         </NavigationView>
 
-
         <!--SPISOK-->
 
         <tv:TableView x:Name="MyTableView"
@@ -46,9 +52,9 @@
               AutoGenerateColumns="False" Grid.Row="1">
 
             <tv:TableView.AlternateRowBackground>
-                <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.2" TintOpacity="0.2"/>
+                <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.1" TintOpacity="0.1"/>
             </tv:TableView.AlternateRowBackground>
-            
+
             <tv:TableView.Columns>
                 <tv:TableViewTemplateColumn MaxWidth="40">
                     <tv:TableViewTemplateColumn.CellTemplate>
@@ -66,5 +72,6 @@
                 <tv:TableViewNumberColumn IsReadOnly="True" Header="Description" Binding="{Binding Description}" MaxWidth="450"/>
             </tv:TableView.Columns>
         </tv:TableView>
+
     </Grid>
 </Window>

@@ -9,7 +9,7 @@
     xmlns:charts="using:LiveChartsCore.SkiaSharpView.WinUI"
     xmlns:vm="using:Process_Explorer.GUI.ViewModels"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemChromeMediumColor}">
+    >
 
     <Grid Padding="15">
         <TextBlock Text="Metrics" FontSize="25"/>
@@ -20,7 +20,7 @@
             VerticalScrollBarVisibility="Disabled">
             <Border Padding="10">
                 <StackPanel Orientation="Horizontal" Spacing="20" Padding="25">
-                  <!--1-->
+                    <!--1-->
                     <StackPanel Orientation="Vertical" Spacing="2">
                         <Border Height="320" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                             <StackPanel Spacing="2">
