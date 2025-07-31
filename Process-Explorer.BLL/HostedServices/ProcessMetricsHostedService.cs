@@ -5,13 +5,13 @@ using Process_Explorer.BLL.Services;
 
 namespace Process_Explorer.BLL.HostedServices
 {
-    public class ProcessMetricsHostedService : IHostedService
+    public class ProcessMetricsHostedService : BackgroundService
     {
-        private readonly ILogger<ProcessMetricsHostedService> _logger = default!;
-        private readonly IProcessService _service = default!;
+        private readonly ILogger<ProcessMetricsHostedService> _logger;
+        private readonly IProcessService _service;
         private Timer _timer = default!;
 
-        public List<ProcessInformationDTO> Processes { get; private set; } = new();
+        public event Action<IReadOnlyList<ProcessInformationDTO>>? ProcessesUpdated;
 
         public ProcessMetricsHostedService(IProcessService service, ILogger<ProcessMetricsHostedService> logger)
         {
@@ -23,7 +23,9 @@ namespace Process_Explorer.BLL.HostedServices
         {
             try
             {
-                Processes = (await _service.GetProcessesInformationAsync()).ToList();
+                var processes = (await _service.GetProcessesInformationAsync())!.ToList()!;
+
+                ProcessesUpdated?.Invoke(processes!);
 
                 _logger.LogInformation("Process list updated successfully.");
             }
@@ -33,16 +35,17 @@ namespace Process_Explorer.BLL.HostedServices
             }
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _timer = new Timer(UpdateProcesses, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
             return Task.CompletedTask;
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        public override Task StopAsync(CancellationToken cancellationToken)
         {
-            _timer?.DisposeAsync();
+            _timer?.Dispose();
             return Task.CompletedTask;
         }
     }
+
 }

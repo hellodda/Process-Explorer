@@ -12,8 +12,12 @@
     mc:Ignorable="d"
     Title="Process Explorer 1.0.0">
 
+    <Window.SystemBackdrop>
+        <MicaBackdrop/>
+    </Window.SystemBackdrop>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
 
         
         
@@ -48,7 +52,7 @@
               AutoGenerateColumns="False" Grid.Row="1">
 
             <tv:TableView.AlternateRowBackground>
-                <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.2" TintOpacity="0.2"/>
+                <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.1" TintOpacity="0.1"/>
             </tv:TableView.AlternateRowBackground>
 
             <tv:TableView.Columns>

@@ -125,8 +125,7 @@ System::Threading::Tasks::Task^ Native::ProcessManager::NtInitializeProcessesLis
 
 System::Threading::Tasks::Task<IEnumerable<Native::Process^>^>^ Native::ProcessManager::GetActiveProcessesAsync()
 {  
-	InitializeProcessesListAsync()->Wait();
-	
+    InitializeProcessesListAsync();
 
     IEnumerable<Native::Process^>^ result = m_processes->Values;
 
@@ -135,7 +134,7 @@ System::Threading::Tasks::Task<IEnumerable<Native::Process^>^>^ Native::ProcessM
 
 System::Threading::Tasks::Task<IEnumerable<Native::ProcessEx^>^>^ Native::ProcessManager::NtGetActiveProcessesAsync()
 {
-	NtInitializeProcessesListAsync()->Wait();
+	NtInitializeProcessesListAsync();
 
     IEnumerable<Native::ProcessEx^>^ result = m_processesEx->Values;
 

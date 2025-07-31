@@ -7,23 +7,19 @@ using Process_Explorer.BLL.Models;
 using Process_Explorer.GUI.Helpers;
 using Process_Explorer.GUI.Models;
 using SkiaSharp;
-using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace Process_Explorer.GUI.ViewModels
 {
-    public partial class ActionsViewModel : ObservableObject, IDisposable
+    public partial class ActionsViewModel : ObservableObject
     {
         private readonly ProcessMetricsHostedService _service = default!;
-        private readonly Timer _timer = default!;
-
         private readonly DispatcherQueue _dispatcher = default!;
 
-        public MemoryUsageChart CpuChart;
-        public MemoryUsageChart PrivateChart;
-        public MemoryUsageChart WorkingChart;
+        public MemoryUsageChart CpuChart = default!;
+        public MemoryUsageChart PrivateChart = default!;
+        public MemoryUsageChart WorkingChart = default!;
 
         [ObservableProperty]
         private Visibility _progressBarVisiblity;
@@ -86,37 +82,35 @@ namespace Process_Explorer.GUI.ViewModels
 
             _service = service;
             _dispatcher = DispatcherQueue.GetForCurrentThread();
-            _timer = new Timer(UpdateMetrics, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
-           
-
+            
+   
             KillCommand = new RelayCommand(OnKillButtonClicked);
+
+            _service.ProcessesUpdated += OnProcessesUpdated;
         }
 
-        private void UpdateMetrics(object? state)
+        private void OnProcessesUpdated(IReadOnlyList<ProcessInformationDTO> processes)
         {
-            if (_dispatcher is not null)
+            _dispatcher.TryEnqueue(() =>
             {
-                _dispatcher.TryEnqueue(() =>
-                { 
+                var process = processes.FirstOrDefault(p => p.PID == TargetProcessId);
 
-                    if (_service.Processes.FirstOrDefault(p => p.PID == TargetProcessId) is not null)
-                    {
-                        _model = _service.Processes.FirstOrDefault(p => p.PID == TargetProcessId)!;
+                if (process is not null)
+                {
+                    _model = process;
+                    CpuChart.AddValue(_model.CpuUsage);
+                    PrivateChart.AddValue(_model.PrivateBytes);
+                    WorkingChart.AddValue(_model.WorkingSet);
 
-                        CpuChart.AddValue(_model.CpuUsage);
-                        PrivateChart.AddValue(_model.PrivateBytes);
-                        WorkingChart.AddValue(_model.WorkingSet);
-
-                        ProcessAddress = _model.Name;
-                        IsLoading = false;
-                    }
-                    else
-                    {
-                        IsLoading = true;
-                        ProcessAddress = "NULL";
-                    }
-                });
-            }
+                    ProcessAddress = _model.Name;
+                    IsLoading = false;
+                }
+                else
+                {
+                    IsLoading = true;
+                    ProcessAddress = "NULL";
+                }
+            });
         }
 
         public void OnKillButtonClicked()
@@ -127,6 +121,9 @@ namespace Process_Explorer.GUI.ViewModels
             }
         }
 
-        public void Dispose() => _timer?.Dispose();
+        public void Dispose()
+        {
+            _service.ProcessesUpdated -= OnProcessesUpdated;
+        }
     }
 }

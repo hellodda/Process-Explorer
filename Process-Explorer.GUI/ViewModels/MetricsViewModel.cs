@@ -1,19 +1,22 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.WinUI;
+using Microsoft.UI.Dispatching;
 using Process_Explorer.BLL.HostedServices;
+using Process_Explorer.BLL.Models;
 using Process_Explorer.GUI.Helpers;
 using Process_Explorer.GUI.Models;
 using SkiaSharp;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 
 namespace Process_Explorer.GUI.ViewModels
 {
     public partial class MetricsViewModel : ObservableObject, IDisposable
     {
         private readonly ProcessMetricsHostedService _service;
-        private readonly Timer _timer;
+        private readonly DispatcherQueue _dispatcher;
 
         public ObservableCollection<MemorySize> MemorySizes { get; } = MemoryUsageChart.InitializeSizes();
 
@@ -30,6 +33,7 @@ namespace Process_Explorer.GUI.ViewModels
         public MetricsViewModel(ProcessMetricsHostedService service)
         {
             _service = service;
+            _dispatcher = DispatcherQueue.GetForCurrentThread();
             _selectedMemVarPrivateBytes = MemorySizes.Last();
             _selectedMemVarWorkingSet = MemorySizes.Last();
 
@@ -54,23 +58,25 @@ namespace Process_Explorer.GUI.ViewModels
 
             CpuChart.Limit = 100;
 
-            _timer = new Timer(UpdateMetrics, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+            _service.ProcessesUpdated += OnProcessesUpdated;
         }
 
-        private void UpdateMetrics(object? state)
+        private void OnProcessesUpdated(IReadOnlyList<ProcessInformationDTO> processes)
         {
-            var processes = _service.Processes;
-
             if (!processes.Any()) return;
 
             var sumP = processes.Sum(p => p.PrivateBytes);
             var sumW = processes.Sum(p => p.WorkingSet);
             var sumC = processes.Sum(p => p.CpuUsage);
 
-            PrivateChart.AddValue(sumP);
-            WorkingChart.AddValue(sumW);
-            CpuChart.AddValue(sumC);
+            _dispatcher.EnqueueAsync(() =>
+            {
+                PrivateChart.AddValue(sumP);
+                WorkingChart.AddValue(sumW);
+                CpuChart.AddValue(sumC);
+            });
         }
+
 
         partial void OnSelectedMemVarPrivateBytesChanged(MemorySize oldVal, MemorySize newVal)
         {
@@ -82,6 +88,9 @@ namespace Process_Explorer.GUI.ViewModels
             WorkingChart.SelectedMemorySize = newVal;
         }
 
-        public void Dispose() => _timer?.Dispose();
+        public void Dispose()
+        {
+            _service.ProcessesUpdated -= OnProcessesUpdated;
+        }
     }
 }
