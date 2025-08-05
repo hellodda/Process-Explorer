@@ -1,10 +1,8 @@
 #pragma once
 
-typedef void* HANDLE;
-
 namespace Native
 {
-	public ref class Handle
+	public ref class Handle : System::IDisposable 
 	{
 	private:
 		HANDLE m_handle{ INVALID_HANDLE_VALUE };

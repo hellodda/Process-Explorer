@@ -9,7 +9,7 @@
     xmlns:charts="using:LiveChartsCore.SkiaSharpView.WinUI"
     xmlns:vm="using:Process_Explorer.GUI.ViewModels"
     mc:Ignorable="d"
-    >
+    Height="460">
 
     <Grid Padding="15">
         <TextBlock Text="Metrics" FontSize="25"/>

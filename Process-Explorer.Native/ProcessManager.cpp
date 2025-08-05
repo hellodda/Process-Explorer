@@ -56,8 +56,7 @@ System::Threading::Tasks::Task^ Native::ProcessManager::InitializeProcessesListA
 
 System::Threading::Tasks::Task<IEnumerable<Native::Process^>^>^ Native::ProcessManager::GetActiveProcessesAsync()
 {  
-	InitializeProcessesListAsync()->Wait();
-	
+	InitializeProcessesListAsync();
 
     IEnumerable<Native::Process^>^ result = m_processes->Values;
 

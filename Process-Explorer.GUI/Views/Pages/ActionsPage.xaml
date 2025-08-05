@@ -8,7 +8,7 @@
     xmlns:charts="using:LiveChartsCore.SkiaSharpView.WinUI"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    >
+    Height="460">
 
     <Grid Padding="15">
         <TextBlock Text="Actions" FontSize="25"/>
