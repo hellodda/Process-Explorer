@@ -15,6 +15,7 @@
         <TextBlock Text="Metrics" FontSize="25"/>
         <ScrollViewer x:Name="MetricsScrollViewer"
             HorizontalScrollMode="Enabled"
+            HorizontalAlignment="Center"
             VerticalScrollMode="Disabled"
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Disabled">
