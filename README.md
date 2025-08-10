@@ -4,7 +4,8 @@
 [![WinUI 3](https://img.shields.io/badge/Framework-WinUI%203-blueviolet.svg)](https://docs.microsoft.com/windows/apps/winui/)
 
 <p align="center">
- <img width="2236" height="483" alt="Снимок экрана 2025-08-06 193018" src="https://github.com/user-attachments/assets/b58bca4d-1d47-4eee-9369-2072ed3b65f8" />
+<img width="2338" height="897" alt="Снимок экрана 2025-08-11 003554" src="https://github.com/user-attachments/assets/efd99090-de9d-43cb-860d-0399e285c90f" />
+
 </p>
 
 
