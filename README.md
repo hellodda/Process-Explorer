@@ -1,16 +1,97 @@
-``status - in development``
-``version - alpha``
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Language: C++](https://img.shields.io/badge/Lang-C%2B%2B-lightgrey.svg)](https://isocpp.org)
+[![Language: C%23](https://img.shields.io/badge/Lang-C%23-blue.svg)](https://docs.microsoft.com/dotnet/csharp/)
+[![WinUI 3](https://img.shields.io/badge/Framework-WinUI%203-blueviolet.svg)](https://docs.microsoft.com/windows/apps/winui/)
 
-# branches
+<p align="center">
+ <img width="2236" height="483" alt="Снимок экрана 2025-08-06 193018" src="https://github.com/user-attachments/assets/b58bca4d-1d47-4eee-9369-2072ed3b65f8" />
+</p>
 
-- **Main (master)** — The **secure** and **stable** version for general use.
-- **Experimental (experimental)** — A cutting-edge build utilizing **NTAPI**, offering more direct system access, but considered **unstable** and intended for testing and research.
+
+# WinUI3 Process Explorer 🚀
+
+*A vibrant process management tool leveraging **WinUI 3**, **C#**, and **C++**.*
+
+---
+
+## 📖 Table of Contents
+
+1. [Status & Version](#status--version)
+2. [Branches](#branches)
+3. [Features](#features)
+4. [Screenshots](#screenshots)
+5. [Overview](#overview)
+6. [Pages](#pages)
+8. [Getting Started](#getting-started)
+
+---
+
+## 📋 Status & Version
+
+* **Status:** In Development 🚧
+* **Version:** Alpha 🅰️
+
+---
+
+## 🌿 Branches
+
+| Branch            | Description                                                       |
+| ----------------- | ----------------------------------------------------------------- |
+| **main (master)** | Secure and stable for general use                                 |
+| **experimental**  | NTAPI-based build for deep system access (unstable, research use) |
+
+---
+
+## ✨ Features
+
+<ul>
+  <li>⚙️ <strong>Process Metrics</strong>: Live CPU, memory </li>
+  <li>🔨 <strong>Process Actions</strong>: Start, suspend, resume & kill processes.</li>
+  <li>🛠️ <strong>Extensible C++ Backend</strong>: Low-level Win32 & NTAPI hooks.</li>
+  <li>🤖 <strong>Experimental Mode</strong>: Deep-dive NTAPI support.</li>
+</ul>
+
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img width="2879" height="1521" alt="Снимок экрана 2025-08-05 131532" src="https://github.com/user-attachments/assets/9f43a0fd-3422-4e97-8845-0fda091ada4f" />
+  <img width="2879" height="1517" alt="Снимок экрана 2025-08-05 131521" src="https://github.com/user-attachments/assets/fa341e48-fa33-44ef-9cfc-5a3c5fad8223" />
+</p>
+
+---
+
+## 📝 Overview
+
+Dive into Windows process internals with a two-tab interface. **Metrics** gives you a quick glance at resource usage, while **Actions** empowers you to manage processes in real-time. The experimental branch uses NTAPI for even deeper control.
+
+> ⚠️ **Early Alpha:** Expect rapid changes! Many components will evolve as development progresses.
+
+---
+
+## 📑 Pages
+
+| Page        | Icon | Description                                           |
+| ----------- | ---- | ----------------------------------------------------- |
+| **Metrics** | 📊   | Aggregate CPU, memory, GPU stats across all processes |
+| **Actions** | 🎛️  | Launch, suspend, resume, terminate processes          |
 
 
-# Metrics
+## 🏁 Getting Started
 
-<img width="2879" height="1521" alt="Снимок экрана 2025-08-05 131532" src="https://github.com/user-attachments/assets/91abc588-b108-4dc6-b282-86d6474dd2ba" />
+### Prerequisites
 
-# Actions 
+* Windows 10 (1903+) / Windows 11
+* Visual Studio 2022 (WinUI 3 & C++ workloads)
 
-<img width="2879" height="1521" alt="Снимок экрана 2025-08-05 131521" src="https://github.com/user-attachments/assets/8fe3fc91-e8ef-412c-a22f-af6cd7e36477" />
+### Quick Install
+
+```bash
+git clone https://github.com/your-user/WinUI-ProcessExplorer.git
+cd WinUI-ProcessExplorer
+nuget restore
+start WinUIProcessExplorer.sln
+# Build & Run
+```
+
