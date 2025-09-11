@@ -1,10 +1,10 @@
 ﻿using Moq;
 using Native;
 
-namespace Process_Explorer.Test
+namespace Process_Explorer.Test.Tests.UnitTests
 {
     [TestClass]
-    public class UnitTests
+    public class ProcessManagerUnitTests
     {
         [TestMethod]
         public async Task When_GetActiveProcesses_Then_ProviderIsInvokedForEachProcess()
