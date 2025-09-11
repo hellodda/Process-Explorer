@@ -2,64 +2,81 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.UI.Xaml;
+using Process_Explorer.GUI.Contracts.Services;
 using Process_Explorer.GUI.Extensions;
 using Process_Explorer.GUI.Helpers;
 using System;
 
-namespace Process_Explorer.GUI
+namespace Process_Explorer.GUI;
+
+public partial class App : Application
 {
-    public partial class App : Application
+    public IHost Host { get; private set; } = default!;
+    public static Window Window { get; set; } = new();
+
+    public App()
     {
-        private IHost _host = default!;
-        private Window _window = default!;
+        InitializeComponent();
+        SetupApplication();
+        SetupHost();
+    }
 
-        public App()
+    public static T GetService<T>() where T : class
+    {
+        if ((Current as App)!.Host.Services.GetRequiredService(typeof(T)) is not T service)
         {
-            InitializeComponent();
-            SetupApplication();
-            SetupHost();
+            throw new ArgumentException($"{typeof(T)} needs to be registered in ConfigureServices within App.xaml.cs.");
+        }
+        return service;
+    }
+
+    private void SetupHost()
+    {
+        Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
+        .ConfigureLogging(logging =>
+        {
+            logging.ClearProviders();
+            logging.AddConsole();
+            logging.SetMinimumLevel(LogLevel.Debug);
+        })
+        .ConfigureServices((ctx, services) => services.ConfigureServices())
+        .Build();
+    }
+
+    private void SetupApplication()
+    {
+        try
+        {
+            Native.Application.SetPrivileges();
+            Native.Application.SetPriority();
+        }
+        catch (Exception ex)
+        {
+            ToastNotificationHelper.ShowMessage("Process Explorer Message", ex.Message);
         }
 
-        private void SetupHost()
-        {
-            _host = Host.CreateDefaultBuilder()
-                .ConfigureLogging(logging =>
-                {
-                    logging.ClearProviders();
-                    logging.AddConsole();
-                    logging.SetMinimumLevel(LogLevel.Debug);
-                })
-                .ConfigureServices((ctx, services) => services.ConfigureServices())
-                .Build();
-        }
+        UnhandledException += App_UnhandledException;
+    }
 
-        private void SetupApplication()
-        {
-            try
-            {
-                Native.Application.SetPrivileges();
-                Native.Application.SetPriority();
-            }
-            catch (Exception ex)
-            {
-                ToastNotificationHelper.ShowMessage("Process Explorer Message", ex.Message);
-            }
-        }
+    protected async override void OnLaunched(LaunchActivatedEventArgs args)
+    {
+        base.OnLaunched(args);
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs args)
-        {
-            await _host.StartAsync();
+        await Host.StartAsync();
 
-            _window = _host.Services.GetRequiredService<MainWindow>();
-            _window.Activate();
+        await App.GetService<IActivationService>().ActivateAsync(args);
 
-            _window.Closed += OnMainWindowClosed;
-        }
+        Window.Closed += OnMainWindowClosed;
+    }
 
-        private async void OnMainWindowClosed(object? sender, WindowEventArgs e)
-        {
-            await _host.StopAsync(TimeSpan.FromSeconds(5));
-            _host.Dispose();
-        }
+    private async void OnMainWindowClosed(object? sender, WindowEventArgs e)
+    {
+        await Host.StopAsync(TimeSpan.FromSeconds(5));
+        Host.Dispose();
+    }
+
+    private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+    {
+        ToastNotificationHelper.ShowMessage("Unhandled Exception", e.Message);
     }
 }

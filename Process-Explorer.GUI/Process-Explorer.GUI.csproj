@@ -24,7 +24,8 @@
     <None Remove="Assets\Square71x71Logo.scale-200.png" />
     <None Remove="Views\ActionsPage.xaml" />
     <None Remove="Views\MetricsPage.xaml" />
-    <None Remove="Views\Windows\ProcessDetailsWindow.xaml" />
+    <None Remove="Views\Pages\TablePage.xaml" />
+    <None Remove="Views\ShellPage.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -77,10 +78,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Pages\" />
+    <Page Update="Views\Pages\TablePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Views\Windows\ProcessDetailsWindow.xaml">
+    <Page Update="Views\ShellPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

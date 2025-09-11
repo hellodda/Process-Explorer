@@ -2,22 +2,21 @@
 using Microsoft.UI.Xaml.Navigation;
 using Process_Explorer.GUI.ViewModels;
 
-namespace Process_Explorer.GUI.Views
+namespace Process_Explorer.GUI.Views;
+
+public sealed partial class MetricsPage : Page
 {
-    public sealed partial class MetricsPage : Page
+    private MetricsViewModel viewModel = default!;
+
+    public MetricsPage()
     {
-        private MetricsViewModel viewModel = default!;
+        this.InitializeComponent();
+        this.NavigationCacheMode = NavigationCacheMode.Enabled;
+    }
 
-        public MetricsPage()
-        {
-            this.InitializeComponent();
-            this.NavigationCacheMode = NavigationCacheMode.Enabled;
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            viewModel = e.Parameter as MetricsViewModel;
-        }
+    protected override void OnNavigatedTo(NavigationEventArgs e)
+    {
+        base.OnNavigatedTo(e);
+        viewModel = e.Parameter as MetricsViewModel;
     }
 }

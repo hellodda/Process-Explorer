@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="Process_Explorer.GUI.Views.Pages.TablePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Process_Explorer.GUI.Views.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tv="using:WinUI.TableView"
+    mc:Ignorable="d">
+
+    <Grid>
+        <tv:TableView x:Name="TableView"
+            ItemsSource="{x:Bind _viewModel.ProcessList}"
+            AutoGenerateColumns="False">
+
+            <tv:TableView.AlternateRowBackground>
+                <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.1" TintOpacity="0.1"/>
+            </tv:TableView.AlternateRowBackground>
+
+            <tv:TableView.Columns>
+                <tv:TableViewTemplateColumn MaxWidth="40">
+                    <tv:TableViewTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding IconSource}"/>
+                        </DataTemplate>
+                    </tv:TableViewTemplateColumn.CellTemplate>
+                </tv:TableViewTemplateColumn>
+                <tv:TableViewTextColumn IsReadOnly="True" Header="PID" Binding="{Binding PID}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="PrivateBytes" Binding="{Binding PrivateBytes}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="WorkingSet" Binding="{Binding WorkingSet}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Cpu" Binding="{Binding CpuUsage}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Company" Binding="{Binding Company}" />
+                <tv:TableViewNumberColumn IsReadOnly="True" Header="Description" Binding="{Binding Description}" MaxWidth="450"/>
+            </tv:TableView.Columns>
+        </tv:TableView>
+    </Grid>
+</Page>
