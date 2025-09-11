@@ -6,19 +6,23 @@ using namespace System::Collections::Generic;
 namespace Native
 {
 	ref class Process;
+
+	public interface class IProcessManager
+	{
+		System::Threading::Tasks::Task<IEnumerable<Process^>^>^ GetActiveProcessesAsync();
+	};
 	
-	public ref class ProcessManager abstract sealed
+	public ref class ProcessManager : IProcessManager
 	{
 	private:
-		static ProcessManager();
+		System::Threading::Tasks::Task^ InitializeProcessesListAsync();
 
-		static System::Threading::Tasks::Task^ InitializeProcessesListAsync();
-
-		static System::Collections::Generic::Dictionary<DWORD, Process^>^ m_processes;
+		System::Collections::Generic::Dictionary<DWORD, Process^>^ m_processes;
 	public:
 
-		static System::Threading::Tasks::Task<IEnumerable<Process^>^>^ GetActiveProcessesAsync();
+		ProcessManager();
 
+		System::Threading::Tasks::Task<IEnumerable<Process^>^>^ GetActiveProcessesAsync() override;
 	};
 }
 

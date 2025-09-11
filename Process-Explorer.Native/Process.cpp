@@ -2,43 +2,13 @@
 #include "Process.h"
 #include "Handle.h"
 #include "ProcessInformation.h"
-#include "CriticalSection.h"
 #include "ProcessExplorer-Definitions.h"
 #include "CpuUsageCalculator.h"
 
 Native::Process::Process(DWORD pid)
-    : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS , FALSE, pid))), m_cs(gcnew Native::CriticalSection()), m_info(gcnew Native::ProcessInformation()), m_usageCalculator(gcnew Native::CpuUsageCalculator) {}
+    : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS , FALSE, pid))), m_usageCalculator(gcnew Native::CpuUsageCalculator) {}
 Native::Process::Process(Handle^ handle)
-    : m_handle(handle), m_info(gcnew Native::ProcessInformation), m_cs(gcnew Native::CriticalSection()), m_usageCalculator(gcnew Native::CpuUsageCalculator) {}
-
-Native::ProcessInformation^ Native::Process::GetProcessInformation()
-{
-    m_cs->Lock();
-
-    if (!m_handle->IsValid())
-        throw gcnew System::NullReferenceException("Process handle is null.");
-
-    if (!m_dataReceived)
-    {
-        m_info->PID = GetProcessId(m_handle);
-        m_info->Name = GetProcessName();
-        m_info->Description = GetProcessDescription();
-        m_info->Company = GetProcessCompany();
-        m_info->FilePath = GetProcessFilePath();
-		m_dataReceived = true;
-    }
-
-	auto memCounters = GetProcessMemoryCounters();
-
-	m_info->WorkingSet = memCounters.WorkingSetSize;
-	m_info->PrivateBytes = memCounters.PrivateUsage;
-
-	m_info->CpuUsage = m_usageCalculator->GetCpuUsage(m_handle);
-
-    m_cs->Unlock();
-
-    return m_info;
-}
+    : m_handle(handle), m_usageCalculator(gcnew Native::CpuUsageCalculator) {}
 
 System::String^ Native::Process::GetProcessName()
 {
@@ -69,6 +39,11 @@ System::String^ Native::Process::GetProcessFilePath()
         return "";
  
     return gcnew System::String(path);
+}
+
+double Native::Process::GetCpuUsage()
+{
+    return m_usageCalculator->GetCpuUsage(m_handle);
 }
 
 

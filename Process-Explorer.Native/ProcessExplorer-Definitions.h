@@ -9,6 +9,8 @@ ULONGLONG FileTimeToULL(PFILETIME ft);
 
 PWCHAR GetFileVersionString(HANDLE handle, LPCWSTR key);
 
+
+
 //-----------
 // NtQueryInformationProcess 0_0
 //-----------

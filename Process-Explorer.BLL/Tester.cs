@@ -13,18 +13,18 @@ namespace Process_Explorer.BLL
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ProcessInformationDTO>> GetInfo()
-        {
-            var list = (await Native.ProcessManager.GetActiveProcessesAsync()).ToList();
-            var pilist = new List<ProcessInformationDTO>();
+        //public async Task<IEnumerable<ProcessInformationDTO>> GetInfo()
+        //{
+        //    var list = (await Native.ProcessManager.GetActiveProcessesAsync()).ToList();
+        //    var pilist = new List<ProcessInformationDTO>();
 
-            foreach (var process in list) {
+        //    foreach (var process in list) {
 
-                var info = process?.GetProcessInformation()!;
+        //        var info = process?.GetProcessInformation()!;
            
-                pilist.Add(_mapper.Map<ProcessInformationDTO>(info));
-            }
-            return pilist;
-        }
+        //        pilist.Add(_mapper.Map<ProcessInformationDTO>(info));
+        //    }
+        //    return pilist;
+        //}
     }
 }

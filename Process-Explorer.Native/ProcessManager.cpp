@@ -1,7 +1,7 @@
 #include "pch.h"  
 #include "ProcessManager.h"  
 #include "Process.h"  
-#include "CriticalSection.h"
+#include "ProcessInformation.h"
 #include "Handle.h"
 
 using namespace System::Collections::Generic;
@@ -62,4 +62,3 @@ System::Threading::Tasks::Task<IEnumerable<Native::Process^>^>^ Native::ProcessM
 
     return System::Threading::Tasks::Task::FromResult(result);
 }
-

@@ -5,6 +5,7 @@ using Process_Explorer.BLL.Services;
 using Process_Explorer.BLL.Profiles;
 using Process_Explorer.GUI.Views;
 using Process_Explorer.BLL.HostedServices;
+using Native;
 
 namespace Process_Explorer.GUI.Extensions
 {
@@ -13,6 +14,9 @@ namespace Process_Explorer.GUI.Extensions
         public static void ConfigureServices(this IServiceCollection? services)
         {
             services!.AddTransient<IProcessService, ProcessService>();
+            services!.AddTransient<IProcessManager, ProcessManager>();
+            services!.AddTransient<IProcessInformationProvider, ProcessInformationProvider>();
+            services!.AddTransient<ICpuUsageCalculator, CpuUsageCalculator>();
             services!.AddTransient<ProcessListViewModel>();
             services!.AddTransient<MetricsViewModel>();
             services!.AddTransient<ActionsViewModel>();

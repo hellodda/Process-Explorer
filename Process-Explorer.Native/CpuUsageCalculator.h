@@ -4,7 +4,12 @@ namespace Native
 {
     ref class Handle;
 
-    public ref class CpuUsageCalculator : System::IDisposable
+    public interface class ICpuUsageCalculator
+    {
+        double GetCpuUsage(Handle^ handle);
+    };
+
+    public ref class CpuUsageCalculator : ICpuUsageCalculator, System::IDisposable
 	{
     private:
         PFILETIME m_prevSysKernel, m_prevSysUser;
@@ -21,7 +26,7 @@ namespace Native
         ~CpuUsageCalculator();
         !CpuUsageCalculator();
         
-        double GetCpuUsage(Handle^ handle);
+        double GetCpuUsage(Handle^ handle) override;
     };
 }
 
