@@ -8,6 +8,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Process-Explorer.Native", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Process-Explorer.BLL", "Process-Explorer.BLL\Process-Explorer.BLL.csproj", "{EE46E863-FC6A-46A6-AB5C-B4FA81C84A9F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Process-Explorer.Test", "Process-Explorer.Test\Process-Explorer.Test.csproj", "{59259189-F593-4C34-B0EB-85CDFC299AD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM64 = Debug|ARM64
@@ -60,6 +62,18 @@ Global
 		{EE46E863-FC6A-46A6-AB5C-B4FA81C84A9F}.Release|x64.Build.0 = Release|Any CPU
 		{EE46E863-FC6A-46A6-AB5C-B4FA81C84A9F}.Release|x86.ActiveCfg = Release|Any CPU
 		{EE46E863-FC6A-46A6-AB5C-B4FA81C84A9F}.Release|x86.Build.0 = Release|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Debug|x64.Build.0 = Debug|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Debug|x86.Build.0 = Debug|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Release|ARM64.Build.0 = Release|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Release|x64.ActiveCfg = Release|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Release|x64.Build.0 = Release|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Release|x86.ActiveCfg = Release|Any CPU
+		{59259189-F593-4C34-B0EB-85CDFC299AD4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

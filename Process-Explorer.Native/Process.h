@@ -11,6 +11,7 @@ namespace Native
 		Handle^ m_handle{ nullptr };
 		ICpuUsageCalculator^ m_usageCalculator;
 	public:
+		Process();
 		Process(DWORD pid);
 		Process(Handle^ handle);
 

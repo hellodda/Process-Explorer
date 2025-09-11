@@ -5,6 +5,9 @@
 #include "ProcessExplorer-Definitions.h"
 #include "CpuUsageCalculator.h"
 
+Native::Process::Process()
+    : m_handle(nullptr), m_usageCalculator(nullptr) {}
+
 Native::Process::Process(DWORD pid)
     : m_handle(gcnew Native::Handle(OpenProcess(PROCESS_ALL_ACCESS , FALSE, pid))), m_usageCalculator(gcnew Native::CpuUsageCalculator) {}
 Native::Process::Process(Handle^ handle)
