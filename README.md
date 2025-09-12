@@ -13,19 +13,6 @@
 
 *A vibrant process management tool leveraging **WinUI 3**, **C#**, and **C++**.*
 
----
-
-## 📖 Table of Contents
-
-1. [Status & Version](#status--version)
-2. [Branches](#branches)
-3. [Features](#features)
-4. [Screenshots](#screenshots)
-5. [Overview](#overview)
-6. [Pages](#pages)
-8. [Getting Started](#getting-started)
-
----
 
 ## 📋 Status & Version
 
@@ -89,10 +76,10 @@ Dive into Windows process internals with a two-tab interface. **Metrics** gives 
 ### Quick Install
 
 ```bash
-git clone https://github.com/your-user/WinUI-ProcessExplorer.git
-cd WinUI-ProcessExplorer
+git clone https://github.com/hellodda/Process-Explorer.git
+cd Process-Explorer
 nuget restore
-start WinUIProcessExplorer.sln
+startProcess-Explorer.sln
 # Build & Run
 ```
 
