@@ -5,11 +5,11 @@ namespace Process_Explorer.GUI.Views.Pages;
 
 public sealed partial class TablePage : Page
 {
-    private TableViewModel _viewModel = default!;
+    private readonly TableViewModel _viewModel = default!;
 
-    public TablePage(TableViewModel viewModel)
+    public TablePage()
     {
-        _viewModel = viewModel;
+        _viewModel = App.GetService<TableViewModel>();
 
         InitializeComponent();
     }

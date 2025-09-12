@@ -20,7 +20,7 @@ public class NavigationService : INavigationService
     {
         get
         {
-            if (_frame == null)
+            if (_frame is null)
             {
                 _frame = App.Window.Content as Frame;
                 RegisterFrameEvents();

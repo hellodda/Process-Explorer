@@ -8,14 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:helpers="using:Process_Explorer.GUI.Helpers"
     mc:Ignorable="d">
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!--VPANEL-->
 
         <NavigationView
             x:Name="NavigationViewControl"
@@ -26,14 +24,14 @@
             >
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Metrics" Tag="metrics" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.MetricsViewModel"/>
-                <NavigationViewItem Content="Actions" Tag="actions" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.ActionsViewModel"/>
+                <NavigationViewItem Content="Metrics" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.MetricsViewModel"/>
+                <NavigationViewItem Content="Actions" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.ActionsViewModel"/>
             </NavigationView.MenuItems>
 
             <Frame x:Name="ContentFrame"/>
         </NavigationView>
         
-        <Frame x:Name="TableFrame" Grid.Row="1"/>
+        <Frame x:Name="TableFrame" Grid.Row="1" Margin="0 -1 0 0"/>
         
     </Grid>
 </Page>

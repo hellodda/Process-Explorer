@@ -10,13 +10,8 @@ public sealed partial class MetricsPage : Page
 
     public MetricsPage()
     {
+        viewModel = App.GetService<MetricsViewModel>();
         this.InitializeComponent();
         this.NavigationCacheMode = NavigationCacheMode.Enabled;
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        viewModel = e.Parameter as MetricsViewModel;
     }
 }

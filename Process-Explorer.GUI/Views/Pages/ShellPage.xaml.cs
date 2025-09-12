@@ -1,12 +1,12 @@
+using CommunityToolkit.WinUI;
+using CSharpMarkup.WinUI;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
-using Process_Explorer.GUI.Contracts.Services;
 using Process_Explorer.GUI.ViewModels;
-using Windows.System;
+using Process_Explorer.GUI.Views.Pages;
 
 namespace Process_Explorer.GUI.Views;
 
-public sealed partial class ShellPage : Page
+public sealed partial class ShellPage : Microsoft.UI.Xaml.Controls.Page
 {
     public ShellViewModel ViewModel{ get; }
 
@@ -19,28 +19,9 @@ public sealed partial class ShellPage : Page
         ViewModel.NavigationViewService.Initialize(NavigationViewControl);
 
         App.Window.ExtendsContentIntoTitleBar = true;
-    }
+        App.Window.Title = "AppDisplayName".GetLocalized();
+        App.Window.SystemBackdrop = new Microsoft.UI.Xaml.Media.MicaBackdrop();
 
-    private static KeyboardAccelerator BuildKeyboardAccelerator(VirtualKey key, VirtualKeyModifiers? modifiers = null)
-    {
-        var keyboardAccelerator = new KeyboardAccelerator() { Key = key };
-
-        if (modifiers.HasValue)
-        {
-            keyboardAccelerator.Modifiers = modifiers.Value;
-        }
-
-        keyboardAccelerator.Invoked += OnKeyboardAcceleratorInvoked;
-
-        return keyboardAccelerator;
-    }
-
-    private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-    {
-        var navigationService = App.GetService<INavigationService>();
-
-        var result = navigationService.GoBack();
-
-        args.Handled = result;
+        TableFrame.Navigate(typeof(TablePage));
     }
 }

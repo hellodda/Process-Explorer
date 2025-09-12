@@ -11,6 +11,7 @@ public sealed partial class ActionsPage : Page
 
     public ActionsPage()
     {
+        viewModel = App.GetService<ActionsViewModel>();
         this.InitializeComponent();
         this.NavigationCacheMode = NavigationCacheMode.Enabled;
     }
@@ -26,12 +27,6 @@ public sealed partial class ActionsPage : Page
         };
 
         await dialog.ShowAsync();
-    }
-
-    protected override void OnNavigatedTo(NavigationEventArgs e)
-    {
-        base.OnNavigatedTo(e);
-        viewModel = e.Parameter as ActionsViewModel;
     }
 
     //This will be fixed in the future :)
