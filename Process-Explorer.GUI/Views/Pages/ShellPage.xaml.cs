@@ -1,6 +1,4 @@
 using CommunityToolkit.WinUI;
-using CSharpMarkup.WinUI;
-using Microsoft.UI.Xaml.Controls;
 using Process_Explorer.GUI.ViewModels;
 using Process_Explorer.GUI.Views.Pages;
 

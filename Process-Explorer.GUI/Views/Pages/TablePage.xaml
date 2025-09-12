@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="Process_Explorer.GUI.Views.Pages.TablePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -11,8 +10,9 @@
 
     <Grid>
         <tv:TableView x:Name="TableView"
-            ItemsSource="{x:Bind _viewModel.ProcessList}"
-            AutoGenerateColumns="False">
+                      x:Uid="TableView"
+                      ItemsSource="{x:Bind _viewModel.ProcessList}"
+                      AutoGenerateColumns="False">
 
             <tv:TableView.AlternateRowBackground>
                 <AcrylicBrush FallbackColor="{ThemeResource SystemAccentColor}" TintColor="{ThemeResource SystemAccentColor}" Opacity="0.1" TintOpacity="0.1"/>
@@ -26,13 +26,14 @@
                         </DataTemplate>
                     </tv:TableViewTemplateColumn.CellTemplate>
                 </tv:TableViewTemplateColumn>
-                <tv:TableViewTextColumn IsReadOnly="True" Header="PID" Binding="{Binding PID}" />
-                <tv:TableViewNumberColumn IsReadOnly="True" Header="Name" Binding="{Binding Name}" />
-                <tv:TableViewNumberColumn IsReadOnly="True" Header="PrivateBytes" Binding="{Binding PrivateBytes}" />
-                <tv:TableViewNumberColumn IsReadOnly="True" Header="WorkingSet" Binding="{Binding WorkingSet}" />
-                <tv:TableViewNumberColumn IsReadOnly="True" Header="Cpu" Binding="{Binding CpuUsage}" />
-                <tv:TableViewNumberColumn IsReadOnly="True" Header="Company" Binding="{Binding Company}" />
-                <tv:TableViewNumberColumn IsReadOnly="True" Header="Description" Binding="{Binding Description}" MaxWidth="450"/>
+
+                <tv:TableViewTextColumn IsReadOnly="True" Header="PID" x:Uid="PIDColumn" Binding="{Binding PID}" />
+                <tv:TableViewTextColumn IsReadOnly="True" Header="Name" x:Uid="NameColumn" Binding="{Binding Name}" />
+                <tv:TableViewTextColumn IsReadOnly="True" Header="PrivateBytes" x:Uid="PrivateBytesColumn" Binding="{Binding PrivateBytes}" />
+                <tv:TableViewTextColumn IsReadOnly="True" Header="WorkingSet" x:Uid="WorkingSetColumn" Binding="{Binding WorkingSet}" />
+                <tv:TableViewTextColumn IsReadOnly="True" Header="Cpu" x:Uid="CpuColumn" Binding="{Binding CpuUsage}" />
+                <tv:TableViewTextColumn IsReadOnly="True" Header="Company" x:Uid="CompanyColumn" Binding="{Binding Company}" />
+                <tv:TableViewTextColumn IsReadOnly="True" Header="Description" x:Uid="DescriptionColumn" Binding="{Binding Description}" MaxWidth="450"/>
             </tv:TableView.Columns>
         </tv:TableView>
     </Grid>

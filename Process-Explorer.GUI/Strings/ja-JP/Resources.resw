@@ -118,72 +118,72 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>Process Explorer</value>
+    <value>プロセスエクスプローラー</value>
   </data>
   <data name="AppDescription" xml:space="preserve">
-    <value>Modern TaskMgr</value>
+    <value>モダンなタスクマネージャー</value>
   </data>
   <data name="Actions.Content" xml:space="preserve">
-    <value>Actions</value>
+    <value>アクション</value>
   </data>
   <data name="UnhandledException" xml:space="preserve">
-    <value>Unhandled Exception</value>
+    <value>未処理の例外</value>
   </data>
   <data name="ActionsTitle.Text" xml:space="preserve">
-    <value>Actions</value>
+    <value>アクション</value>
   </data>
   <data name="RunNewProcessButton.Content" xml:space="preserve">
-    <value>Run New Process</value>
+    <value>プロセスを起動</value>
   </data>
   <data name="KillProcessButton.Content" xml:space="preserve">
-    <value>Kill Process</value>
+    <value>プロセスを終了</value>
   </data>
   <data name="MoreInfoButton.Content" xml:space="preserve">
-    <value>More Info</value>
+    <value>詳細</value>
   </data>
   <data name="TargetProcessIdTextBox.PlaceholderText" xml:space="preserve">
-    <value>enter process id...</value>
+    <value>プロセスIDを入力してください</value>
   </data>
   <data name="TableView.Header" xml:space="preserve">
-    <value>Processes</value>
+    <value>プロセス</value>
   </data>
   <data name="IconColumn.Header" xml:space="preserve">
-    <value>Icon</value>
+    <value>アイコン</value>
   </data>
   <data name="PIDColumn.Header" xml:space="preserve">
     <value>PID</value>
   </data>
   <data name="NameColumn.Header" xml:space="preserve">
-    <value>Name</value>
+    <value>名前</value>
   </data>
   <data name="PrivateBytesColumn.Header" xml:space="preserve">
-    <value>Private Bytes</value>
+    <value>プライベートメモリ</value>
   </data>
   <data name="WorkingSetColumn.Header" xml:space="preserve">
-    <value>Working Set</value>
+    <value>ワーキングセット</value>
   </data>
   <data name="CpuColumn.Header" xml:space="preserve">
-    <value>CPU</value>
+    <value>CPU使用率</value>
   </data>
   <data name="CompanyColumn.Header" xml:space="preserve">
-    <value>Company</value>
+    <value>会社</value>
   </data>
   <data name="DescriptionColumn.Header" xml:space="preserve">
-    <value>Description</value>
+    <value>説明</value>
   </data>
   <data name="Metrics.Content" xml:space="preserve">
-    <value>Metrics</value>
+    <value>メトリクス</value>
   </data>
   <data name="MetricsTitle.Text" xml:space="preserve">
-    <value>Metrics</value>
+    <value>メトリクス</value>
   </data>
   <data name="PrivateBytesTitle.Text" xml:space="preserve">
-    <value>Private Bytes</value>
+    <value>プライベートメモリ</value>
   </data>
   <data name="WorkingSetTitle.Text" xml:space="preserve">
-    <value>Working Set</value>
+    <value>ワーキングセット</value>
   </data>
   <data name="CpuChartTitle.Text" xml:space="preserve">
-    <value>CPU Usage</value>
+    <value>CPU使用率</value>
   </data>
 </root>

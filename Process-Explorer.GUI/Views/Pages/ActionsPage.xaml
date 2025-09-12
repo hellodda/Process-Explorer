@@ -11,68 +11,57 @@
     Height="460">
 
     <Grid Padding="15">
-        <TextBlock Text="Actions" FontSize="25"/>
+        <TextBlock x:Uid="ActionsTitle" FontSize="25"/>
+
         <StackPanel Margin="0 10 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Spacing="10" Height="360">
             <StackPanel Orientation="Vertical" Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Border Width="600" Height="150" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                     <StackPanel Padding="10" Spacing="5" Orientation="Vertical">
-                        <StackPanel Orientation="Vertical" >
-                            <TextBox Text="{x:Bind viewModel.TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" PlaceholderText="enter process id..."/>
-                            <muxc:ProgressBar IsIndeterminate="{x:Bind viewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,12" Visibility="{x:Bind viewModel.ProgressBarVisiblity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <StackPanel Orientation="Vertical">
+                            <TextBox x:Uid="TargetProcessIdTextBox" 
+                                     Text="{x:Bind viewModel.TargetProcessId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     PlaceholderText="enter process id..."/>
+                            <muxc:ProgressBar x:Uid="ProgressBar" 
+                                              IsIndeterminate="{x:Bind viewModel.IsLoading, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                              Margin="0,12" 
+                                              Visibility="{x:Bind viewModel.ProgressBarVisiblity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="2" HorizontalAlignment="Center">
-                            <TextBlock Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <!--<TextBlock Foreground="LightGray" Text="{x:Bind viewModel.ProcessAddress}"/>-->
+                            <TextBlock x:Uid="StatusText" Text="{x:Bind viewModel.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
-                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click">
+
+                <Button x:Uid="RunNewProcessButton" Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
-                        <FontIcon  Glyph="&#xECC8;"  Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
-
-                        <TextBlock Grid.Column="1" Text="Run New Process"
-                        VerticalAlignment="Center"
-                        Foreground="White"
-                        FontSize="16"
-                        Margin="12,0"/>
+                        <FontIcon Glyph="&#xECC8;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
                     </Grid>
                 </Button>
-                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click_1">
+
+                <Button x:Uid="KillProcessButton" Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click_1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
                         <FontIcon Glyph="&#xE74D;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
-
-                        <TextBlock Grid.Column="1" Text="Kill Process"
-                       VerticalAlignment="Center"
-                       Foreground="White"
-                       FontSize="16"
-                       Margin="12,0"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
                     </Grid>
                 </Button>
 
-                <Button Width="600" Height="50" CornerRadius="0,0,10,10" HorizontalContentAlignment="Stretch" Click="Button_Click_2">
+                <Button x:Uid="MoreInfoButton" Width="600" Height="50" CornerRadius="0,0,10,10" HorizontalContentAlignment="Stretch" Click="Button_Click_2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-
                         <FontIcon Glyph="&#xE946;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
-
-                        <TextBlock Grid.Column="1" Text="Show Detail Information Of Process"
-                       VerticalAlignment="Center"
-                       Foreground="White"
-                       FontSize="16"
-                       Margin="12,0"/>
+                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
                     </Grid>
                 </Button>
             </StackPanel>
@@ -81,36 +70,18 @@
                 <StackPanel Spacing="20">
                     <Border Height="10"/>
                     <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10" Background="{ThemeResource ControlFillColorDefaultBrush}">
-
                         <StackPanel>
-                            <charts:CartesianChart 
-                                Width="550"
-                                Series="{x:Bind viewModel.CpuChart.ChartSeries, Mode=OneWay}"
-                                XAxes="{x:Bind viewModel.CpuChart.XAxes, Mode=OneWay}"
-                                YAxes="{x:Bind viewModel.CpuChart.YAxes, Mode=OneWay}"
-                                Height="280"/>
+                            <charts:CartesianChart Width="550" Series="{x:Bind viewModel.CpuChart.ChartSeries, Mode=OneWay}" XAxes="{x:Bind viewModel.CpuChart.XAxes, Mode=OneWay}" YAxes="{x:Bind viewModel.CpuChart.YAxes, Mode=OneWay}" Height="280"/>
                         </StackPanel>
                     </Border>
                     <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10" Background="{ThemeResource ControlFillColorDefaultBrush}">
-
                         <StackPanel>
-                            <charts:CartesianChart 
-                                Width="550"
-                                Series="{x:Bind viewModel.PrivateChart.ChartSeries, Mode=OneWay}"
-                                XAxes="{x:Bind viewModel.PrivateChart.XAxes, Mode=OneWay}"
-                                YAxes="{x:Bind viewModel.PrivateChart.YAxes, Mode=OneWay}"
-                                Height="280"/>
+                            <charts:CartesianChart Width="550" Series="{x:Bind viewModel.PrivateChart.ChartSeries, Mode=OneWay}" XAxes="{x:Bind viewModel.PrivateChart.XAxes, Mode=OneWay}" YAxes="{x:Bind viewModel.PrivateChart.YAxes, Mode=OneWay}" Height="280"/>
                         </StackPanel>
                     </Border>
                     <Border Width="600" Height="304" CornerRadius="10 10 10 10" Padding="10" Background="{ThemeResource ControlFillColorDefaultBrush}">
-
                         <StackPanel>
-                            <charts:CartesianChart 
-                                Width="550"
-                                Series="{x:Bind viewModel.WorkingChart.ChartSeries, Mode=OneWay}"
-                                XAxes="{x:Bind viewModel.WorkingChart.XAxes, Mode=OneWay}"
-                                YAxes="{x:Bind viewModel.WorkingChart.YAxes, Mode=OneWay}"
-                                Height="280"/>
+                            <charts:CartesianChart Width="550" Series="{x:Bind viewModel.WorkingChart.ChartSeries, Mode=OneWay}" XAxes="{x:Bind viewModel.WorkingChart.XAxes, Mode=OneWay}" YAxes="{x:Bind viewModel.WorkingChart.YAxes, Mode=OneWay}" Height="280"/>
                         </StackPanel>
                     </Border>
                     <Border Height="8"/>

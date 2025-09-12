@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Page
     x:Class="Process_Explorer.GUI.Views.MetricsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -12,20 +11,22 @@
     Height="460">
 
     <Grid Padding="15">
-        <TextBlock Text="Metrics" FontSize="25"/>
+        <TextBlock x:Uid="MetricsTitle" FontSize="25"/>
+
         <ScrollViewer x:Name="MetricsScrollViewer"
-            HorizontalScrollMode="Enabled"
-            HorizontalAlignment="Center"
-            VerticalScrollMode="Disabled"
-            HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Disabled">
+                      HorizontalScrollMode="Enabled"
+                      HorizontalAlignment="Center"
+                      VerticalScrollMode="Disabled"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Disabled">
             <Border Padding="10">
                 <StackPanel Orientation="Horizontal" Spacing="20" Padding="25">
-                    <!--1-->
+
+                    <!-- 1: Private Bytes -->
                     <StackPanel Orientation="Vertical" Spacing="2">
                         <Border Height="320" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                             <StackPanel Spacing="2">
-                                <TextBlock Margin="10 10 0 0" Text="Private Bytes"/>
+                                <TextBlock x:Uid="PrivateBytesTitle" Margin="10 10 0 0"/>
                                 <charts:CartesianChart 
                                     Series="{x:Bind viewModel.PrivateChart.ChartSeries, Mode=OneWay}"
                                     XAxes="{x:Bind viewModel.PrivateChart.XAxes, Mode=OneWay}"
@@ -42,11 +43,12 @@
                             DisplayMemberPath="Name" 
                             CornerRadius="0 0 10 10"/>
                     </StackPanel>
-                    <!--2-->
+
+                    <!-- 2: Working Set -->
                     <StackPanel Orientation="Vertical" Spacing="2">
                         <Border Height="320" CornerRadius="10 10 0 0" Background="{ThemeResource ControlFillColorDefaultBrush}">
                             <StackPanel Spacing="2">
-                                <TextBlock Margin="10 10 0 0" Text="Working Set"/>
+                                <TextBlock x:Uid="WorkingSetTitle" Margin="10 10 0 0"/>
                                 <charts:CartesianChart 
                                     Series="{x:Bind viewModel.WorkingChart.ChartSeries, Mode=OneWay}"
                                     XAxes="{x:Bind viewModel.WorkingChart.XAxes, Mode=OneWay}"
@@ -63,11 +65,12 @@
                             DisplayMemberPath="Name" 
                             CornerRadius="0 0 10 10"/>
                     </StackPanel>
-                    <!--3-->
+
+                    <!-- 3: CPU Usage -->
                     <StackPanel Orientation="Vertical" Spacing="2">
                         <Border Height="353" CornerRadius="10 10 10 10" Background="{ThemeResource ControlFillColorDefaultBrush}">
                             <StackPanel Spacing="2">
-                                <TextBlock Margin="10 10 0 0" Text="Cpu Usage"/>
+                                <TextBlock x:Uid="CpuChartTitle" Margin="10 10 0 0"/>
                                 <charts:CartesianChart 
                                     Series="{x:Bind viewModel.CpuChart.ChartSeries, Mode=OneWay}"
                                     XAxes="{x:Bind viewModel.CpuChart.XAxes, Mode=OneWay}"
@@ -77,6 +80,7 @@
                             </StackPanel>
                         </Border>
                     </StackPanel>
+
                 </StackPanel>
             </Border>
         </ScrollViewer>

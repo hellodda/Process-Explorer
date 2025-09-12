@@ -24,8 +24,8 @@
             >
 
             <NavigationView.MenuItems>
-                <NavigationViewItem Content="Metrics" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.MetricsViewModel"/>
-                <NavigationViewItem Content="Actions" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.ActionsViewModel"/>
+                <NavigationViewItem x:Uid="Metrics" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.MetricsViewModel"/>
+                <NavigationViewItem x:Uid="Actions" helpers:NavigationHelper.NavigateTo="Process_Explorer.GUI.ViewModels.ActionsViewModel"/>
             </NavigationView.MenuItems>
 
             <Frame x:Name="ContentFrame"/>
