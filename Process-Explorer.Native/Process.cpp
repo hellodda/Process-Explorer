@@ -13,6 +13,11 @@ Native::Process::Process(DWORD pid)
 Native::Process::Process(Handle^ handle)
     : m_handle(handle), m_usageCalculator(gcnew Native::CpuUsageCalculator) {}
 
+DWORD Native::Process::GetProcessId()
+{
+    return ::GetProcessId(m_handle);
+}
+
 System::String^ Native::Process::GetProcessName()
 {
     if (!m_handle->IsValid()) throw gcnew System::NullReferenceException("Process handle is null.");

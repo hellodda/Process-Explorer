@@ -15,6 +15,7 @@ namespace Native
 		Process(DWORD pid);
 		Process(Handle^ handle);
 
+		DWORD GetProcessId();
 		System::String^ GetProcessName();
 		System::String^ GetProcessDescription();
 		System::String^ GetProcessCompany();

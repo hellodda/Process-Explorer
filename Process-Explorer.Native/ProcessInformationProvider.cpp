@@ -6,14 +6,12 @@
 
 Native::ProcessInformation^ Native::ProcessInformationProvider::GetProcessInformation(Native::Process^ process)
 {
-    auto handle = process->GetHandle();
-
-    if (!handle->IsValid())
+    if (!process->GetHandle()->IsValid())
         throw gcnew System::NullReferenceException("Process handle is null.");
 
     auto info = gcnew Native::ProcessInformation;
    
-    info->PID = GetProcessId(handle);
+    info->PID = process->GetProcessId();
     info->Name = process->GetProcessName();
     info->Description = process->GetProcessDescription();
     info->Company = process->GetProcessCompany();
