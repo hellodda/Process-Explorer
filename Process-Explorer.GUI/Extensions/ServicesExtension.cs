@@ -20,24 +20,31 @@ public static class ServicesExtension
     {
         services!.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
+        // native services
+
         services!.AddTransient<IProcessService, ProcessService>();
         services!.AddTransient<IProcessManager, ProcessManager>();
         services!.AddTransient<IProcessInformationProvider, ProcessInformationProvider>();
         services!.AddTransient<ICpuUsageCalculator, CpuUsageCalculator>();
-        services!.AddTransient<INavigationViewService, NavigationViewService>();
+        
+        // navigation helpers
 
         services!.AddSingleton<IActivationService, ActivationService>();
         services!.AddSingleton<IPageService, PageService>();
         services!.AddSingleton<INavigationService, NavigationService>();
+        services!.AddTransient<INavigationViewService, NavigationViewService>();
 
         services!.AddAutoMapper(typeof(ProcessInforamtionProfile));
-        services!.AddTransient<Tester>();
+        
+        // pages
 
         services!.AddTransient<MainWindow>();
         services!.AddTransient<MetricsPage>();
         services!.AddTransient<ActionsPage>();
         services!.AddTransient<ShellPage>();
         services!.AddTransient<TablePage>();
+
+        // view-models
 
         services!.AddTransient<TableViewModel>();
         services!.AddTransient<MetricsViewModel>();
