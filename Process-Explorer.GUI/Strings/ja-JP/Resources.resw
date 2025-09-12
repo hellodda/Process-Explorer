@@ -132,13 +132,13 @@
   <data name="ActionsTitle.Text" xml:space="preserve">
     <value>アクション</value>
   </data>
-  <data name="RunNewProcessButton.Content" xml:space="preserve">
+  <data name="RunNewProcessButton.Text" xml:space="preserve">
     <value>プロセスを起動</value>
   </data>
-  <data name="KillProcessButton.Content" xml:space="preserve">
+  <data name="KillProcessButton.Text" xml:space="preserve">
     <value>プロセスを終了</value>
   </data>
-  <data name="MoreInfoButton.Content" xml:space="preserve">
+  <data name="MoreInfoButton.Text" xml:space="preserve">
     <value>詳細</value>
   </data>
   <data name="TargetProcessIdTextBox.PlaceholderText" xml:space="preserve">

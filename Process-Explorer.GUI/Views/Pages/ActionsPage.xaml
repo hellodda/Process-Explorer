@@ -32,36 +32,36 @@
                     </StackPanel>
                 </Border>
 
-                <Button x:Uid="RunNewProcessButton" Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click">
+                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <FontIcon Glyph="&#xECC8;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
+                        <TextBlock x:Uid="RunNewProcessButton" Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
                     </Grid>
                 </Button>
 
-                <Button x:Uid="KillProcessButton" Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click_1">
+                <Button Width="600" Height="50" CornerRadius="0,0,0,0" HorizontalContentAlignment="Stretch" Click="Button_Click_1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <FontIcon Glyph="&#xE74D;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
+                        <TextBlock x:Uid="KillProcessButton" Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
                     </Grid>
                 </Button>
 
-                <Button x:Uid="MoreInfoButton" Width="600" Height="50" CornerRadius="0,0,10,10" HorizontalContentAlignment="Stretch" Click="Button_Click_2">
+                <Button Width="600" Height="50" CornerRadius="0,0,10,10" HorizontalContentAlignment="Stretch" Click="Button_Click_2">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <FontIcon Glyph="&#xE946;" Foreground="White" FontSize="16" VerticalAlignment="Center" Margin="12,0"/>
-                        <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
+                        <TextBlock x:Uid="MoreInfoButton" Grid.Column="1" VerticalAlignment="Center" Foreground="White" FontSize="16" Margin="12,0"/>
                     </Grid>
                 </Button>
             </StackPanel>
